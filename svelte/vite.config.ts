@@ -5,7 +5,10 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: ['src/App.js'],
+      input: [
+        'src/App.js',
+        'src/TypeWriter.js'
+      ],
     },
     manifest: true,
   },

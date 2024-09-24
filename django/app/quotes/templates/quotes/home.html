@@ -12,13 +12,15 @@
 
     <div class='container home'>
         {% display_svelte_css "App" %}
-
         {% display_svelte "App" %}
+
 
         {% component "card" %}
             {% fill "content" %}
                 <blockquote>
-               {% trans '“Welcome to Dichonario, the place for gathering and sharing your favorite quotes”' %}
+               {% comment %} {% trans '“Welcome to Dichonario, the place for gathering and sharing your favorite quotes”' %} {% endcomment %}
+        {% display_svelte_css "TypeWriter" %}
+        {% display_svelte "TypeWriter" %}
                   <footer>
                     <cite>- Sam</cite>
                   </footer>
