@@ -1,0 +1,22 @@
+nav {
+  width: 100%;
+  align-items: baseline;
+}
+
+.dichonario-container {
+  display: flex;
+  position: relative;
+}
+
+.dichonario-text {
+  margin-right: 12px;
+}
+
+.dichonario-logo {
+  background-color: transparent;
+  filter: invert(1);
+  height: 30px;
+  position: absolute;
+  right: -14px;
+  top: 7px;
+}

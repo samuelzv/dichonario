@@ -1,0 +1,6 @@
+name: Card 
+context: 
+  card:
+    id: card-1
+    header_text: Noteworthy technology acquisitions 2021
+    main_text: Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.

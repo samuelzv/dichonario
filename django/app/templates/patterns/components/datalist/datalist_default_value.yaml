@@ -1,0 +1,14 @@
+name: Datalist default value 
+context:
+  name: singer
+  initial_value:
+    id: 1
+    text: Phill Collins 
+  data:
+    - id: 1
+      text: Phill Collins
+    - id: 2
+      text: Barry White 
+    - id: 3
+      text: David Bowie 
+  external_class: singers

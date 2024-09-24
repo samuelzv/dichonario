@@ -1,0 +1,33 @@
+{% extends 'quotes/quotes_app.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+   {% trans 'Home' %}
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'quotes/home.css' %}">
+
+    <div class='container home'>
+        {% component "card" %}
+            {% fill "content" %}
+                <blockquote>
+               {% trans '“Welcome to Dichonario, the place for gathering and sharing your favorite quotes”' %}
+                  <footer>
+                    <cite>- Sam</cite>
+                  </footer>
+                </blockquote>
+            {% endfill %}
+            {% fill "footer" %}
+            {% endfill %}
+        {% endcomponent %}
+      {% comment %}
+      {% if user.is_authenticated %}
+         <h4>
+          {{ user.username | upper}}, {% trans 'Welcome' %}
+         </h4>  
+      {% endif %}
+      {% endcomment %}
+    </div>
+{% endblock %}

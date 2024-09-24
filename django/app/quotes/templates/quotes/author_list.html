@@ -1,0 +1,33 @@
+{% extends 'quotes/quotes_app.html' %}
+{% load static %}
+{% load util %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Authors list" %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+      {% component 'buttongroup' name='button_actions'  buttons=command_buttons selected=selected_command %}
+        {% fill "extra" %}
+        {% endfill %}
+      {% endcomponent %}
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">{% trans "Author" %}</th>
+            <th scope="col">{% trans "Quotes" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+      {% for author in  authors %}
+          <tr>
+            <th scope="row">{{author.name}}</th>
+            <td>{{author.num_quotes}}</td>
+          </tr>
+      {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock %}

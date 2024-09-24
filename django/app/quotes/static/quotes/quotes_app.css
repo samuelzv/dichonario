@@ -1,0 +1,17 @@
+/*
+body > .container {
+  padding-top: 86px;  
+}
+
+.quote-app {}
+
+.quote-app.quote-column,
+.quote-app .quote-column
+{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+*/

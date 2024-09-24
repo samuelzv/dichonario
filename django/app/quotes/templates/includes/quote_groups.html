@@ -1,0 +1,19 @@
+
+{% load i18n %}
+{% load util %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'quotes/quote_groups.css' %}">
+<div class="row quote-groups">
+  <div class="col-lg-12">
+    {% if selected != 'new' %}
+      {% get_quote_groups as quote_groups %}
+      {% component 'buttongroup' name='button_actions'  buttons=quote_groups selected=selected %}
+        {% fill "extra" %}
+        {% endfill %}
+      {% endcomponent %}
+    {% endif %}
+  </div>
+</div>
+
+
