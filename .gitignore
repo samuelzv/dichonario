@@ -123,6 +123,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+.env
 django/.env
 django/.venv
 django/env/
