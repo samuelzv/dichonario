@@ -1,13 +1,13 @@
 <script>
 	export let name;
-	let value = "Hello1"
-	let x = "World"
+	let value = "Hello2"
+	let x = "World2"
 </script>
 
 <main>
 	<h1>a:{value} {x}!</h1>
 	<input type="text" bind:value />
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<p>Viiwwwwsit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 </main>
 
 <style>

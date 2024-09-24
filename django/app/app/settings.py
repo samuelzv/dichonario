@@ -73,6 +73,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "components"),
     os.path.join(BASE_DIR, "quotes", "components"),
     BASE_DIR.parent / "svelte" / "dist" / "assets",
+    BASE_DIR / "svelte" / "dist" / "assets",
 ]
 
 DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  "svelte" / "dist" / ".vite" / "manifest.json" 

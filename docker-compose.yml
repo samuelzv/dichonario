@@ -15,6 +15,7 @@ services:
       - 3000:3000
     volumes:
       - ./django/app:/app
+      - ./svelte/dist:/svelte/dist/
       - ./django/data/web:/vol/web
     environment:
       - DEBUG=1

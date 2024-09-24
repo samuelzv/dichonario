@@ -6,7 +6,6 @@ ENV PYTHONUNBUFFERED 1
 COPY ./django/app /app
 COPY ./django/requirements /app/requirements
 COPY ./django/scripts /scripts
-#COPY ./svelte/dist /app/svelte/dist
 COPY ./svelte/dist /svelte/dist
 
 
