@@ -1,7 +1,7 @@
 <script>
-	export let name;
-	let value = "Hello2"
-	let x = "World2"
+	// export let name;
+	let value = "Hello 7"
+	let x = "World 7"
 </script>
 
 <main>
