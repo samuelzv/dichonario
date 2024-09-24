@@ -3,6 +3,9 @@ django/__pycache__/
 django/*.py[cod]
 django/*$py.class
 django/app/static/cache/
+**/__pycache__/
+
+**/.DS_Store
 
 # C extensions
 *.so
