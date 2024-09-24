@@ -1,0 +1,25 @@
+{% extends 'quotes/quotes_app.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'quotes/home.css' %}">
+
+  <div class="container home">
+      <form method="post">
+          {% csrf_token %}
+          <div class="">
+              <input type="text" name="username" id="username" placeholder="User name" required />
+          </div> 
+          <div class="">
+              <input type="password" name="password" id="password" placeholder="Password" required />
+          </div> 
+          <button type="submit">{% trans "Login" %}</button>
+      </form>
+  </div>
+
+{% endblock %}

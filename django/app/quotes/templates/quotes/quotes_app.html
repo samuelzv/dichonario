@@ -1,0 +1,49 @@
+{% load static %}
+{% load component_tags %}
+{% load django_svelte %}
+
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    {% component_css_dependencies %}
+    {% include "includes/third_dependencies_css.html" %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'app/app.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'quotes/quotes_app.css' %}" />
+    <script src="{% static 'quotes/js/utils.js' %}"></script>
+    <script src="{% static 'quotes/js/modal.js' %}"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      {% block header %}
+      {% include 'includes/navbar.html' %}
+      {% endblock %}
+    </div>
+
+    <div class="container main-container">
+      {% block content %}
+      {% endblock %}
+      {% component_js_dependencies %}
+    </div>
+
+
+  <footer>
+      <div>
+        <span>© 2024 <a href="#" class="hover:underline">Dichonario™</a> 
+      </span>
+      </div>
+  </footer>
+
+
+    {% include "includes/third_dependencies_js.html" %}
+  </body>
+</html>

@@ -1,0 +1,17 @@
+.datalist-component{
+}
+
+.datalist-component .body.align-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.datalist-component .body.align-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.datalist-component input {
+  width: 100%
+}

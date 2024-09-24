@@ -1,0 +1,26 @@
+{% extends 'quotes/quotes_app.html' %}
+{% load static %}
+{% load i18n %}
+{% load util %}
+
+{% block title %}
+    {% trans "Delete quote" %}
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_edit.css' %}">
+    <div class="quote-edit">
+        <h3>{% trans "Delete quote" %}</h3>
+        <form method="post">
+            {% csrf_token %}
+            <p class="my-4 flex flex-col items-center">{% trans "Are you sure you want to delete?" %}</p>
+            <p class="my-4">"{{object}}"</p>
+            {{ form }}
+            <div class="form-actions">
+                <input type="submit" value="{% trans "Confirm" %}">
+                <input type="reset" value="{% trans "Cancel" %}" onclick="javascript:history.back()">
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

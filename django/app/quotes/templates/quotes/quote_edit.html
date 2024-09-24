@@ -1,0 +1,50 @@
+{% extends 'quotes/quotes_app.html' %}
+{% load static %}
+{% load util %}
+{% load i18n %}
+
+{% block title %}
+    Quote Edit
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_edit.css' %}">
+    <div class="container quote-edit">
+        <h3>Edit Quote</h3>
+        <form method="post">
+           {% csrf_token %}
+           <fieldset>
+             <div class="my-4">
+                <label for="quote_id">{% trans 'Quote' %}</label>
+                <div>
+                        <textarea cols="50" rows="5" id="quote_id" name="quote" required>{{quote.quote}}</textarea>
+                  {{ form.quote.errors }}
+                </div>
+             </div>
+             <div class="my-4">
+                  <label for="id_list_author">{% trans "Author" %}</label>
+                  <div>
+                   {% component "datalist" name="author" initial_value=quote.author data=authors external_class=""  attrs:required=True %}
+                   {% endcomponent %}
+                  </div>
+                  {{ form.author.errors }}
+             </div>
+             <div class="my-4">
+                    <label for="is_private_id">{% trans "Private" %}</label>
+                    <input type="checkbox" 
+                            id="is_private_id" 
+                            name="is_private" 
+                            {% if quote.is_private == True %}checked{% endif %}>
+             </div>
+           </fieldset>
+
+            <div class="form-actions">
+                <input type="submit" value="{% trans "Save" %}">
+                <input type="reset" value="{% trans "Cancel" %}" onclick="javascript:history.back()">
+            </div>
+
+
+            <input type="hidden" name="next" value="{{success_url}}"/>
+        </form>
+    </div>
+{% endblock %}

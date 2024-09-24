@@ -1,0 +1,21 @@
+<div class="datalist-component {{external_class}}">
+  <input type="hidden" 
+         id="{{name}}" 
+         name="{{name}}" 
+         value="{% if initial_value != None %}{{initial_value.id}}{% endif %}" />
+  <div class="body">
+    {% slot "body" %}
+      <input id="{{name}}_text" 
+             type="text" 
+             onchange="setIdDataListComponent(this,'{{name}}','{{name}}_text')" 
+             value="{% if initial_value != None %}{{initial_value.text}}{% endif %}"
+             list="{{name}}_list" 
+             name="{{name}}_text" {% html_attrs attrs %}>
+      <datalist id="{{name}}_list" name="{{name}}_list">
+        {% for item in data %}
+          <option data-id="{{item.id}}">{{item.text}}</option>
+        {% endfor %}
+      </datalist>
+    {% endslot %}
+  </div>
+</div>
