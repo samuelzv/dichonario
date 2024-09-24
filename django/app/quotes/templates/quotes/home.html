@@ -11,16 +11,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/home.css' %}">
 
     <div class='container home'>
-        {% display_svelte_css "App" %}
-        {% display_svelte "App" %}
+        {% comment %} {% display_svelte_css "App" %} {% endcomment %}
+        {% comment %} {% display_svelte "App" %} {% endcomment %}
 
 
         {% component "card" %}
             {% fill "content" %}
                 <blockquote>
-               {% comment %} {% trans '“Welcome to Dichonario, the place for gathering and sharing your favorite quotes”' %} {% endcomment %}
-        {% display_svelte_css "TypeWriter" %}
-        {% display_svelte "TypeWriter" %}
+               {% trans '“Welcome to Dichonario, the place for gathering and sharing your favorite quotes”' %}
+               {% display_svelte_css "main-typeWriter" %}
+               {% display_svelte "main-typeWriter" %}
                   <footer>
                     <cite>- Sam</cite>
                   </footer>

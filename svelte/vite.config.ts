@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: [
-        'src/App.js',
-        'src/TypeWriter.js'
+        // 'src/main-app.js',
+        'src/main-typeWriter.js'
       ],
     },
     manifest: true,
