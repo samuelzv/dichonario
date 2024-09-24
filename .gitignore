@@ -1,8 +1,8 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-app/static/cache/
+django/__pycache__/
+django/*.py[cod]
+django/*$py.class
+django/app/static/cache/
 
 # C extensions
 *.so
