@@ -7,7 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: [
         // 'src/main-app.js',
-        'src/main-typeWriter.js'
+        'src/main-type-writer.js'
       ],
     },
     manifest: true,
