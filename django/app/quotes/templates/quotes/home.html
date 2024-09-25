@@ -14,13 +14,15 @@
         {% comment %} {% display_svelte_css "App" %} {% endcomment %}
         {% comment %} {% display_svelte "App" %} {% endcomment %}
 
+        {% display_svelte_css "main-neon-text" %}
+        {% display_svelte "main-neon-text" component_props %}
 
         {% component "card" %}
             {% fill "content" %}
                 <blockquote>
-               {% comment %} {% trans '“Welcome to Dichonario, the place for gathering and sharing your favorite quotes”' %} {% endcomment %}
-               {% display_svelte_css "main-type-writer" %}
-               {% display_svelte "main-type-writer" %}
+               {% trans '“Welcome to Dichonario, the place for gathering and sharing your favorite quotes”' %}
+               {% comment %} {% display_svelte_css "main-type-writer" %} {% endcomment %}
+               {% comment %} {% display_svelte "main-type-writer" %} {% endcomment %}
                   <footer>
                     <cite>- Sam</cite>
                   </footer>

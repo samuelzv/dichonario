@@ -7,7 +7,8 @@ export default defineConfig({
     rollupOptions: {
       input: [
         // 'src/main-app.js',
-        'src/main-type-writer.js'
+        'src/main-type-writer.js',
+        'src/main-neon-text.js'
       ],
     },
     manifest: true,

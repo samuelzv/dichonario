@@ -45,7 +45,7 @@ def index(request):
 
 
 def home(request):
-    return render(request, "quotes/home.html")
+    return render(request, "quotes/home.html", {"component_props": {"text": "Hello World"} })
 
 
 def set_session_action(request):
