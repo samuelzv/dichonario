@@ -10,7 +10,7 @@
 </h6>
 
 <style>
-h4, h5, h6 {
+h6 {
   /* font-family: "Montserrat Medium"; */
   max-width: 40ch;
   text-align: center;
@@ -103,6 +103,56 @@ span:nth-child(18) {
 
 span:nth-child(19) {
   animation: fade-in 0.8s 1.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(20) {
+  animation: fade-in 0.8s 2.0s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(21) {
+  animation: fade-in 0.8s 2.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(22) {
+  animation: fade-in 0.8s 2.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(23) {
+  animation: fade-in 0.8s 2.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(24) {
+  animation: fade-in 0.8s 2.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(25) {
+  animation: fade-in 0.8s 2.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(26) {
+  animation: fade-in 0.8s 2.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(27) {
+  animation: fade-in 0.8s 2.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(28) {
+  animation: fade-in 0.8s 2.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(29) {
+  animation: fade-in 0.8s 2.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(30) {
+  animation: fade-in 0.8s 3.0s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(31) {
+  animation: fade-in 0.8s 3.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(32) {
+  animation: fade-in 0.8s 3.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(33) {
+  animation: fade-in 0.8s 3.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(34) {
+  animation: fade-in 0.8s 3.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+span:nth-child(35) {
+  animation: fade-in 0.8s 3.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 @keyframes fade-in {

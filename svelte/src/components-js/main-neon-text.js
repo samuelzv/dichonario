@@ -1,4 +1,4 @@
-import App from './components/NeonText.svelte';
+import App from '../components/NeonText.svelte';
 
 const app = new App({
 	target: document.getElementById("main-neon-text-target"),

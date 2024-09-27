@@ -20,6 +20,16 @@ def create_dict(str_dict):
     return ast.literal_eval(str_dict)
 
 @register.simple_tag
+def get_type_writer_dic(text: str, index: int) -> dict:
+
+    return {
+        "text": f'"{text}"',
+        "filename": 'components-js/main-type-writer-' + str(index),
+        "index": index,
+
+    } 
+
+@register.simple_tag
 def map_quote_to_card(quote) -> CardModel:
     return {
         "id": quote.id,
