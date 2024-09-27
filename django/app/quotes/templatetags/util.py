@@ -2,6 +2,7 @@ from django import template
 from django.urls import reverse
 from django.utils.translation import gettext, gettext_lazy
 from components.button.model import ButtonModel, ButtonType
+import ast
 
 # from quotes.domain.quote_session import QuoteSession
 # from components.buttongroup.model import Button
@@ -14,6 +15,9 @@ register = template.Library()
 def get_url_from_button(button):
     return reverse(button["url"]) + "?action=" + button["id"]
 
+@register.simple_tag
+def create_dict(str_dict):
+    return ast.literal_eval(str_dict)
 
 @register.simple_tag
 def map_quote_to_card(quote) -> CardModel:

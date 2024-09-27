@@ -45,7 +45,7 @@ def index(request):
 
 
 def home(request):
-    return render(request, "quotes/home.html", {"component_props": {"text": "Hello World"} })
+    return render(request, "quotes/home.html", {"component_props": {"text": "Welcome to Dichonario, the place for gathering and sharing your favorite quotes"} })
 
 
 def set_session_action(request):

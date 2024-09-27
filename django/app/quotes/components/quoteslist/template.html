@@ -3,6 +3,7 @@
 {% load util %}
 {% load paginator %}
 {% load i18n %}
+{% load django_svelte %}
 
 
 <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_list.css' %}">
@@ -11,10 +12,14 @@
     {% slot "header" %}
     {% endslot %}
     {% for q in page %}
+        {% create_dict "{ 'text': '"|add:q.quote|add:"'}" as component_props %}
+        <div>{{component_props.text}}</div>
         {% component "card" %}
             {% fill "content" %}
                 <blockquote>
-                “{{q.quote}}”
+                <!-- “{{q.quote}}” -->
+                {% display_svelte_css "main-type-writer" %}
+                {% display_svelte "main-type-writer" component_props %}
                   <footer>
                     <cite>- {{q.author}}</cite>
                   </footer>

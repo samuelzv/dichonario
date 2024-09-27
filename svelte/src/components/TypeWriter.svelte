@@ -1,31 +1,16 @@
 <script>
-	// export let name;
-	let value = "Hello 8"
+	export let text;
+  let individual_words = text.split(" ");
 </script>
 
-<h4>
-    <span>Theres</span>
-    <span>are</span>
-    <span>no</span>
-    <span>limits</span>
-    <span>to</span>
-    <span>what</span>
-    <span>you</span>
-    <span>can</span>
-    <span>accomplish,</span>
-    <span>except</span>
-    <span>the</span>
-    <span>limits</span>
-    <span>you</span>
-    <span>place</span>
-    <span>on</span>
-    <span>your</span>
-    <span>own</span>
-    <span>thinking.</span>
-</h4>
+<h6>
+  {#each individual_words as word }
+    <span>{word}&nbsp;</span>
+  {/each}
+</h6>
 
 <style>
-h4 {
+h4, h5, h6 {
   /* font-family: "Montserrat Medium"; */
   max-width: 40ch;
   text-align: center;
@@ -114,6 +99,10 @@ span:nth-child(17) {
 
 span:nth-child(18) {
   animation: fade-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(19) {
+  animation: fade-in 0.8s 1.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 @keyframes fade-in {
