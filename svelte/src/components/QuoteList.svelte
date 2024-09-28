@@ -9,16 +9,15 @@
 
 {#each quotes as quote }
     <Card>
-        <div slot="header"></div>
-        <div slot="body">
+        <svelte:fragment slot="body">
             <BlockQuote>
                 <p>"{quote.quote}"</p>
                 <footer>
                     <cite> - {quote.author__name}</cite>
                 </footer>
             </BlockQuote>
-        </div>
-        <div slot="footer">{quote.author__name}</div>
+        </svelte:fragment>
+        <svelte:fragment slot="footer"></svelte:fragment>
     </Card>
 {/each}
 

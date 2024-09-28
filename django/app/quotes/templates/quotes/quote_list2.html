@@ -13,14 +13,16 @@
 
 
     {% block svelte_styles %}
-        {% display_svelte_css component_name %}
+
+    {% display_svelte_css component_name %}
+
     {% endblock %}
 
+
     {% block content %}
-    <div>
-        Hello world 2
-    </div>
-        {% display_svelte component_name component_props %}
+
+    {% display_svelte component_name component_props %}
+
     {% endblock %}
 
 

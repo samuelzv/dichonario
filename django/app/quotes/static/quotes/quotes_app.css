@@ -1,17 +1,13 @@
-/*
-body > .container {
-  padding-top: 86px;  
+.quotes-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
 }
 
-.quote-app {}
-
-.quote-app.quote-column,
-.quote-app .quote-column
-{
+.quotes-app .main-container {
   display: flex;
   flex-direction: column;
   flex: 1;
-  flex-grow: 1;
-  flex-basis: 0;
 }
-*/
