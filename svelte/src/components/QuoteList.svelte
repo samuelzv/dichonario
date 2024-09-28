@@ -24,10 +24,7 @@
      function go_to_url(url) {
          window.location.href = url;
      }
-
 </script>
-
-<div>Selected command:{selected_command}</div>
 
 <div class="container">
     <div role="group">
