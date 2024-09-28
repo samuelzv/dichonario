@@ -9,6 +9,9 @@ from django.views.generic import DeleteView
 from .domain.constants import command_buttons
 from django.template import RequestContext
 
+from django.core import serializers
+
+
 from .models import Quote
 from .forms import QuoteForm
 from .domain.quote_session import QuoteSession, QuoteScope
@@ -37,7 +40,26 @@ class QuotesBaseSvelteTemplateView(SvelteTemplateView):
 
 class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
-        kwargs.update({"name": "single component view", "text": "Hello world 5"})
+        quotes = []
+        set_session_action(self.request)
+
+        if self.request.session["action"] == "mine":
+            quotes = quote_list_created_by(
+            user=self.request.user, search=self.request.session["search"]
+        )
+        else:
+            quotes = quote_list_public(self.request.session["search"])
+
+        # data = quotes.values('quote', 'author__name')
+        # quote_list_result = list(data)
+        # print(quote_list_result)
+        
+        kwargs.update({
+            "name": "single component view", 
+            "text": "Hello world 2", 
+            "quotes": list(quotes.values('quote', 'author__name')),
+            })
+
         return kwargs
 
 

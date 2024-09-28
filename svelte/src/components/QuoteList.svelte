@@ -1,26 +1,23 @@
 <script>
     import BlockQuote from "./BlockQuote.svelte";
     import Card from './Card.svelte';
-    export let text = '';
+    /**
+     * @type {Array<{quote: string, author__name: string}>}
+     */
+     export let quotes = [];
 </script>
 
-<h1>{text}</h1>
-
-<Card>
-    <div slot="body">This is the body</div>
-    <div slot="footer">This is the footer</div>
-</Card>
-
-<Card>
-    <div slot="header">This is the header 2</div>
-    <div slot="body">This is the body 2</div>
-    <div slot="footer">This is the footer 2</div>
-</Card>
-
-<Card>
-    <div slot="header">This is the header 3</div>
-    <div slot="body">This is the body 3</div>
-</Card>
+{#each quotes as quote }
+    <Card>
+        <div slot="header"></div>
+        <div slot="body">
+            <BlockQuote>
+                <p>"{quote.quote}"</p>
+            </BlockQuote>
+        </div>
+        <div slot="footer">{quote.author__name}</div>
+    </Card>
+{/each}
 
 <style>
 </style>
