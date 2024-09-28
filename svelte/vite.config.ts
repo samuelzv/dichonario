@@ -13,6 +13,8 @@ export default defineConfig({
         'src/components-js/main-type-writer-4.js',
         'src/components-js/main-neon-text.js',
         'src/Card.js',
+        'src/BlockQuote.js',
+        'src/QuoteList.js',
       ],
     },
     manifest: true,

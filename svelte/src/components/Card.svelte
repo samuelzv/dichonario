@@ -1,8 +1,23 @@
 <script></script>
 
 <article>
-    <b>This a card component 2</b>
-    <footer>This is the footer</footer>
+    {#if $$slots.header}
+    <header>
+        <slot name="header"></slot>
+    </header>
+    {/if}
+
+    {#if $$slots.body}
+    <body>
+        <slot name="body"></slot>
+    </body>
+    {/if}
+
+    {#if $$slots.footer}
+    <footer>
+        <slot name="footer"></slot>
+    </footer>
+    {/if}
 </article>
 
 <style></style>

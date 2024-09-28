@@ -8,7 +8,7 @@ urlpatterns = [
     # path("list2", views.quote_list2, name="quote-list2"),
     path("list2", 
          MySvelteTemplateView.as_view(
-            page_title="Card", component_name="Card"
+            page_title="QuoteList", component_name="QuoteList"
         ), 
          name="quote-list2"),
     path("list", views.quote_list, name="quote-list"),
