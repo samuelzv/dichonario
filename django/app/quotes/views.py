@@ -28,16 +28,16 @@ from django.contrib.auth import login
 from django_svelte.views import SvelteTemplateView
 
 
-class MySvelteTemplateView(SvelteTemplateView):
-    template_name = "quotes/quote_list2.html"
+class QuotesBaseSvelteTemplateView(SvelteTemplateView):
+    template_name = "quotes/svelte_component.html"
 
     def get_svelte_props(self, **kwargs):
         return kwargs
 
 
-class MyContextSvelteTemplateView(MySvelteTemplateView):
+class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
-        kwargs.update({"name": "single component view"})
+        kwargs.update({"name": "single component view", "text": "Hello world 5"})
         return kwargs
 
 
@@ -78,15 +78,15 @@ def set_session_action(request):
     request.session["search"] = request.GET.get("search", "")
     request.session["page"] = request.GET.get("page", 1)
 
-@login_required
-def quote_list2(request):
-    return render(
-        request,
-        "quotes/quote_list2.html",
-        {
-            "quotes": [],
-        },
-    )
+# @login_required
+# def quote_list2(request):
+#     return render(
+#         request,
+#         "quotes/quote_list2.html",
+#         {
+#             "quotes": [],
+#         },
+#     )
 
 @login_required
 def quote_list(request):

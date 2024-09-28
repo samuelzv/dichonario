@@ -1,14 +1,15 @@
 from django.urls import path, include
 from . import views
-from .views import MySvelteTemplateView, MyContextSvelteTemplateView
+from .views import QuoteListSvelteTemplateView 
 
 urlpatterns = [
     path("", views.home, name="home"),
     path("index", views.index, name="index"),
     # path("list2", views.quote_list2, name="quote-list2"),
     path("list2", 
-         MySvelteTemplateView.as_view(
-            page_title="QuoteList", component_name="QuoteList"
+         QuoteListSvelteTemplateView.as_view(
+            page_title="QuoteList", 
+            component_name="QuoteList",
         ), 
          name="quote-list2"),
     path("list", views.quote_list, name="quote-list"),

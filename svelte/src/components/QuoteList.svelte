@@ -1,7 +1,10 @@
 <script>
     import BlockQuote from "./BlockQuote.svelte";
     import Card from './Card.svelte';
+    export let text = '';
 </script>
+
+<h1>{text}</h1>
 
 <Card>
     <div slot="body">This is the body</div>
