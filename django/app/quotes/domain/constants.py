@@ -31,4 +31,4 @@ command_buttons = [
 ]
 
 # for button in command_buttons:
-#    button["url"] = reverse(button["url"]) + "?action=" + button["id"]
+#    print(reverse(button["url"]) + "?action=" + button["id"])

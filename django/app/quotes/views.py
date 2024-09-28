@@ -2,10 +2,12 @@ from django.utils.translation import gettext
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import DeleteView
+
+from .domain.util import get_command_buttons
 from .domain.constants import command_buttons
 from django.template import RequestContext
 
@@ -50,14 +52,15 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         else:
             quotes = quote_list_public(self.request.session["search"])
 
-        # data = quotes.values('quote', 'author__name')
-        # quote_list_result = list(data)
-        # print(quote_list_result)
-        
+        #for button in command_buttons:
+        #    print(reverse(button["url"]) + "?action=" + button["id"])
+
         kwargs.update({
             "name": "single component view", 
             "text": "Hello world 2", 
             "quotes": list(quotes.values('quote', 'author__name')),
+            "command_buttons": get_command_buttons(),
+            "selected_command": self.request.session["action"],
             })
 
         return kwargs
@@ -99,16 +102,6 @@ def set_session_action(request):
 
     request.session["search"] = request.GET.get("search", "")
     request.session["page"] = request.GET.get("page", 1)
-
-# @login_required
-# def quote_list2(request):
-#     return render(
-#         request,
-#         "quotes/quote_list2.html",
-#         {
-#             "quotes": [],
-#         },
-#     )
 
 @login_required
 def quote_list(request):
