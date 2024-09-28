@@ -11,7 +11,8 @@ export default defineConfig({
         'src/components-js/main-type-writer-2.js',
         'src/components-js/main-type-writer-3.js',
         'src/components-js/main-type-writer-4.js',
-        'src/components-js/main-neon-text.js'
+        'src/components-js/main-neon-text.js',
+        'src/Card.js',
       ],
     },
     manifest: true,

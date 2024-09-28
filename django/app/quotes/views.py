@@ -25,6 +25,21 @@ from .services import quote_create, quote_update, author_create
 from .forms import RegistrationForm
 from django.contrib.auth import login
 
+from django_svelte.views import SvelteTemplateView
+
+
+class MySvelteTemplateView(SvelteTemplateView):
+    template_name = "quotes/quote_list2.html"
+
+    def get_svelte_props(self, **kwargs):
+        return kwargs
+
+
+class MyContextSvelteTemplateView(MySvelteTemplateView):
+    def get_svelte_props(self, **kwargs):
+        kwargs.update({"name": "single component view"})
+        return kwargs
+
 
 def signup(request):
     if request.method == "POST":
@@ -63,6 +78,15 @@ def set_session_action(request):
     request.session["search"] = request.GET.get("search", "")
     request.session["page"] = request.GET.get("page", 1)
 
+@login_required
+def quote_list2(request):
+    return render(
+        request,
+        "quotes/quote_list2.html",
+        {
+            "quotes": [],
+        },
+    )
 
 @login_required
 def quote_list(request):
