@@ -13,6 +13,9 @@
         <div slot="body">
             <BlockQuote>
                 <p>"{quote.quote}"</p>
+                <footer>
+                    <cite> - {quote.author__name}</cite>
+                </footer>
             </BlockQuote>
         </div>
         <div slot="footer">{quote.author__name}</div>
