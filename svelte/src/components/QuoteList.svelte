@@ -67,7 +67,7 @@
         <div>
             {#if search}
             <div>
-              <small>Results for: <ins>"{search}"</ins> <a on:click={() => clear_and_submit_form()}>Clear</a></small>
+              <small>Results for: <ins>"{search}"</ins> <a href="#" on:click={() => clear_and_submit_form()}>Clear</a></small>
             </div>
           {:else}
             <div></div>
