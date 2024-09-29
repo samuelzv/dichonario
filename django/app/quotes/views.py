@@ -52,12 +52,16 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         else:
             quotes = quote_list_public(self.request.session["search"])
 
+        i18n = {
+            'search': gettext('Search'),
+            'new_quote': gettext('New quote'),
+        }
+
         kwargs.update({
-            "name": "single component view", 
-            "text": "Hello world 2", 
             "quotes": list(quotes.values('quote', 'author__name')),
             "command_buttons": get_command_buttons(),
             "selected_command": self.request.session["action"],
+            "i18n": i18n,
             })
 
         return kwargs
