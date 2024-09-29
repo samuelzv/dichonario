@@ -62,6 +62,8 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
             "command_buttons": get_command_buttons(),
             "selected_command": self.request.session["action"],
             "i18n": i18n,
+            'quote_list_url': reverse('quote-list'),
+            'quote_new_url': reverse('quote-new'),
             })
 
         return kwargs

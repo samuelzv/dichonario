@@ -5,7 +5,11 @@
     /**
      * @type {Array<{quote: string, author__name: string}>}
      */
-     export let quotes = [];
+    export let quotes = [];
+
+    export let quote_list_url = '';
+    export let quote_new_url = '';
+    export let i18n = {search: '', new_quote: ''};
     /**
      * @type {Array<{id: string, text: string, url: Location | (string & Location)}>}
      */
@@ -23,33 +27,48 @@
      * @param {string} url
      */
      function go_to_url(url) {
-         window.location.href = url;
+        window.location.href = url;
      }
 </script>
 
-<div class="container">
-    <div role="group">
-        {#each command_buttons as b }
-            <button on:click={() => !is_button_selected(b.id) && go_to_url(b.url.toString())} class:secondary={!is_button_selected(b.id)}>{b.text}</button>
-        {/each}
+<form id="quote_list_form" action="{quote_list_url}" class="quote-list">
+    <div class="container">
+        <div role="group">
+            {#each command_buttons as b }
+                <button on:click={() => !is_button_selected(b.id) && go_to_url(b.url.toString())} class:secondary={!is_button_selected(b.id)}>{b.text}</button>
+            {/each}
+        </div>
     </div>
-</div>
 
-<div class="wrapper">
-    {#each quotes as quote }
-        <CardIsInView>
-            <svelte:fragment slot="body">
-                <BlockQuote>
-                    <p>"{quote.quote}"</p>
-                    <footer>
-                        <cite> - {quote.author__name}</cite>
-                    </footer>
-                </BlockQuote>
-            </svelte:fragment>
-            <svelte:fragment slot="footer"></svelte:fragment>
-        </CardIsInView>
-{/each}
-</div>
+    <div class="grid">
+        <div></div>
+      <div class="top-controls-buttons">
+        <button type="button" class="outline secondary" on:click={() => go_to_url(quote_new_url)}>
+         {i18n.new_quote} 
+        </button>
+        <button type="button" class="outline secondary" data-target="search_modal">
+         {i18n.search} 
+        </button>
+        <input type="hidden" id="search" name="search" value="">
+      </div>
+    </div>
+
+    <div class="wrapper">
+        {#each quotes as quote }
+            <CardIsInView>
+                <svelte:fragment slot="body">
+                    <BlockQuote>
+                        <p>"{quote.quote}"</p>
+                        <footer>
+                            <cite> - {quote.author__name}</cite>
+                        </footer>
+                    </BlockQuote>
+                </svelte:fragment>
+                <svelte:fragment slot="footer"></svelte:fragment>
+            </CardIsInView>
+    {/each}
+    </div>
+</form>
 <style>
     .wrapper {
         margin-top: 30px;
