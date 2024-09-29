@@ -1,7 +1,6 @@
 <script>
     import BlockQuote from "./BlockQuote.svelte";
     import SearchModal from "./SearchModal.svelte";
-    import Card from './Card.svelte';
     import CardIsInView from "./CardIsInView.svelte";
     /**
      * @type {Array<{quote: string, author__name: string}>}
@@ -31,13 +30,17 @@
         window.location.href = url;
      }
 
+    /**
+     * @param {{ detail: { event: any; }; }} event
+     */
     function cancel_search(event) {
         toggleModal(event.detail.event) ;
     }
 
+    /**
+     * @param {{ detail: { search: string; }; }} event
+     */
     function submit_search(event) {
-        // toggleModal(event) ;
-        // document.getElementById("search").value = event.detail.search; // document.getElementById("search_modal_field").value;
         search = event.detail.search; // document.getElementById("search_modal_field").value;
         var form = document.getElementById("quote_list_form");
         if (form) {

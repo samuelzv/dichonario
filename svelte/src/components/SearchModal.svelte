@@ -9,14 +9,11 @@
 
     function submit_form() {
         dispatch('submit', { search });
-        /*
-        document.getElementById("search").value = document.getElementById("search_modal_field").value;
-        var form = document.getElementById("quote_list_form");
-        if (form) {
-            form.submit();
-        }
-       */
     }
+
+    /**
+     * @param {MouseEvent & { currentTarget: EventTarget & HTMLButtonElement; }} event
+     */
     function cancel(event) {
         dispatch('cancel', { event });
     }
