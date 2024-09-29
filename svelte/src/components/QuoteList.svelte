@@ -41,11 +41,15 @@
      * @param {{ detail: { search: string; }; }} event
      */
     function submit_search(event) {
-        search = event.detail.search; // document.getElementById("search_modal_field").value;
+        document.getElementById("search").value = event.detail.search;
         var form = document.getElementById("quote_list_form");
         if (form) {
             form.submit();
         }
+    }
+
+    function clear_and_submit_form() {
+        submit_search({detail: {search: ''}});
     }
 
 </script>
@@ -60,7 +64,15 @@
     </div>
 
     <div class="grid">
-        <div></div>
+        <div>
+            {#if search}
+            <div>
+              <small>Results for: <ins>"{search}"</ins> <a on:click={() => clear_and_submit_form()}>Clear</a></small>
+            </div>
+          {:else}
+            <div></div>
+          {/if}
+        </div>
       <div class="top-controls-buttons">
         <button type="button" class="outline secondary" on:click={() => go_to_url(quote_new_url)}>
          {i18n.new_quote} 

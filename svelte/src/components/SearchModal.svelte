@@ -3,7 +3,7 @@
 
     export let search = '';
     export let data_target = 'search_modal'; // search_modal
-    export let placeholder = 'Search2';
+    export let placeholder = 'Search';
 
     const dispatch = createEventDispatcher();
 
