@@ -58,6 +58,7 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         }
 
         kwargs.update({
+            "search": self.request.GET.get("search", ""),
             "quotes": list(quotes.values('quote', 'author__name')),
             "command_buttons": get_command_buttons(),
             "selected_command": self.request.session["action"],

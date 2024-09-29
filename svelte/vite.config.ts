@@ -15,6 +15,7 @@ export default defineConfig({
         'src/Card.js',
         'src/BlockQuote.js',
         'src/QuoteList.js',
+        'src/SearchModal.js',
         'src/CardIsInView.js',
       ],
     },

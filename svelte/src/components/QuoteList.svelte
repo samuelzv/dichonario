@@ -1,15 +1,16 @@
 <script>
     import BlockQuote from "./BlockQuote.svelte";
+    import SearchModal from "./SearchModal.svelte";
     import Card from './Card.svelte';
     import CardIsInView from "./CardIsInView.svelte";
     /**
      * @type {Array<{quote: string, author__name: string}>}
      */
     export let quotes = [];
-
     export let quote_list_url = '';
     export let quote_new_url = '';
     export let i18n = {search: '', new_quote: ''};
+    export let search = '';
     /**
      * @type {Array<{id: string, text: string, url: Location | (string & Location)}>}
      */
@@ -46,7 +47,7 @@
         <button type="button" class="outline secondary" on:click={() => go_to_url(quote_new_url)}>
          {i18n.new_quote} 
         </button>
-        <button type="button" class="outline secondary" data-target="search_modal">
+        <button type="button" class="outline secondary" data-target="search_modal" on:click="{() => toggleModal(event)}">
          {i18n.search} 
         </button>
         <input type="hidden" id="search" name="search" value="">
@@ -69,6 +70,8 @@
     {/each}
     </div>
 </form>
+<div>Search: {search}</div>
+<SearchModal data_target="search_modal" placeholder="{i18n.search}" bind:search />
 <style>
     .wrapper {
         margin-top: 30px;
