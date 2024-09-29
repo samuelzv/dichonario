@@ -52,9 +52,6 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         else:
             quotes = quote_list_public(self.request.session["search"])
 
-        #for button in command_buttons:
-        #    print(reverse(button["url"]) + "?action=" + button["id"])
-
         kwargs.update({
             "name": "single component view", 
             "text": "Hello world 2", 

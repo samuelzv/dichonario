@@ -1,6 +1,7 @@
 <script>
     import BlockQuote from "./BlockQuote.svelte";
     import Card from './Card.svelte';
+    import CardIsInView from "./CardIsInView.svelte";
     /**
      * @type {Array<{quote: string, author__name: string}>}
      */
@@ -34,19 +35,23 @@
     </div>
 </div>
 
-{#each quotes as quote }
-    <Card>
-        <svelte:fragment slot="body">
-            <BlockQuote>
-                <p>"{quote.quote}"</p>
-                <footer>
-                    <cite> - {quote.author__name}</cite>
-                </footer>
-            </BlockQuote>
-        </svelte:fragment>
-        <svelte:fragment slot="footer"></svelte:fragment>
-    </Card>
+<div class="wrapper">
+    {#each quotes as quote }
+        <CardIsInView>
+            <svelte:fragment slot="body">
+                <BlockQuote>
+                    <p>"{quote.quote}"</p>
+                    <footer>
+                        <cite> - {quote.author__name}</cite>
+                    </footer>
+                </BlockQuote>
+            </svelte:fragment>
+            <svelte:fragment slot="footer"></svelte:fragment>
+        </CardIsInView>
 {/each}
-
+</div>
 <style>
+    .wrapper {
+        /* background-color: yellow; */
+    }
 </style>
