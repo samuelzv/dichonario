@@ -30,6 +30,21 @@
      function go_to_url(url) {
         window.location.href = url;
      }
+
+    function cancel_search(event) {
+        toggleModal(event.detail.event) ;
+    }
+
+    function submit_search(event) {
+        // toggleModal(event) ;
+        // document.getElementById("search").value = event.detail.search; // document.getElementById("search_modal_field").value;
+        search = event.detail.search; // document.getElementById("search_modal_field").value;
+        var form = document.getElementById("quote_list_form");
+        if (form) {
+            form.submit();
+        }
+    }
+
 </script>
 
 <form id="quote_list_form" action="{quote_list_url}" class="quote-list">
@@ -50,7 +65,7 @@
         <button type="button" class="outline secondary" data-target="search_modal" on:click="{() => toggleModal(event)}">
          {i18n.search} 
         </button>
-        <input type="hidden" id="search" name="search" value="">
+        <input type="hidden" id="search" name="search" bind:value={search}>
       </div>
     </div>
 
@@ -71,7 +86,7 @@
     </div>
 </form>
 <div>Search: {search}</div>
-<SearchModal data_target="search_modal" placeholder="{i18n.search}" bind:search />
+<SearchModal data_target="search_modal" placeholder="{i18n.search}" bind:search on:cancel={cancel_search} on:submit={submit_search}/>
 <style>
     .wrapper {
         margin-top: 30px;
