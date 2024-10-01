@@ -1,7 +1,10 @@
 <script>
+    import '../quote-app.css';
+
     import BlockQuote from "./BlockQuote.svelte";
     import SearchModal from "./SearchModal.svelte";
     import CardIsInView from "./CardIsInView.svelte";
+    import Paginator from "./Paginator.svelte";
     /**
      * @type {Array<{quote: string, author__name: string}>}
      */
@@ -54,7 +57,7 @@
 
 </script>
 
-<form id="quote_list_form" action="{quote_list_url}" class="quote-list">
+<form id="quote_list_form" action="{quote_list_url}" class="quote-list full-height">
     <div class="container">
         <div role="group">
             {#each command_buttons as b }
@@ -100,9 +103,14 @@
     {/each}
     </div>
 </form>
-<div>Search: {search}</div>
+<Paginator />
 <SearchModal data_target="search_modal" placeholder="{i18n.search}" bind:search on:cancel={cancel_search} on:submit={submit_search}/>
 <style>
+    :global(#quotelist-target) {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
     .wrapper {
         margin-top: 30px;
     }

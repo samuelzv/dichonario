@@ -18,6 +18,13 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'app/app.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/quotes_app.css' %}" />
+
+    {% block css_block %}
+    {%  endblock %}
+
+    {% block js_block %}
+    {%  endblock %}
+
     <script src="{% static 'quotes/js/utils.js' %}"></script>
     <script src="{% static 'quotes/js/modal.js' %}"></script>
   </head>
@@ -25,7 +32,7 @@
   <body class="quotes-app">
     <div class="container">
       {% block header %}
-      {% include 'includes/navbar.html' %}
+        {% include 'includes/navbar.html' %}
       {% endblock %}
     </div>
 

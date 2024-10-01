@@ -7,23 +7,19 @@
 {% trans "Quotes" %}
 {% endblock %}
 
-{% comment %} {% block content %} {% endcomment %}
+{% block css_block %}
+    <link rel="stylesheet" href="{% static 'quotes/quote_list.css' %}" />
+{% endblock %}
+
+{% block js_block %}
     <script src="{% static 'quotes/js/utils.js' %}"></script>
     <script src="{% static 'quotes/js/quote_list.js' %}"></script>
+{% endblock %}
 
-
-    {% block svelte_styles %}
-
+{% block svelte_styles %}
     {% display_svelte_css component_name %}
+{% endblock %}
 
-    {% endblock %}
-
-
-    {% block content %}
-
+{% block content %}
     {% display_svelte component_name component_props %}
-
-    {% endblock %}
-
-
-{% comment %} {% endblock %} {% endcomment %}
+{% endblock %}

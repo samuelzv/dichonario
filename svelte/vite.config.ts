@@ -17,6 +17,7 @@ export default defineConfig({
         'src/QuoteList.js',
         'src/SearchModal.js',
         'src/CardIsInView.js',
+        'src/Paginator.js',
       ],
     },
     manifest: true,
