@@ -45,7 +45,7 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
         set_session_action(self.request)
 
-        params = {
+        filters = {
             'user': self.request.user, 
             'search': self.request.session["search"]
         }
@@ -57,7 +57,7 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         }
         kwargs.update({
             "search": self.request.GET.get("search", ""),
-            "quotes": list(quote_list_factory.quotes(**params).values('quote', 'author__name')),
+            "quotes": list(quote_list_factory.quotes(**filters).values('quote', 'author__name')),
             "command_buttons": get_command_buttons(),
             "selected_command": action, 
             "i18n": i18n,

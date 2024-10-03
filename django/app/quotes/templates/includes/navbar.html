@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="{% static 'quotes/navbar.css' %}">
 
+{% with request.resolver_match.url_name as url_name %}
 <nav>
   <ul>
     <li class="dichonario-container">
@@ -13,9 +14,11 @@
     </li>
   </ul>
   <ul>
+      {% if url_name != 'home' %}
       <li>
         <a href="{% url 'home' %}" aria-current="page">{% trans 'Home' %}</a>
       </li>
+      {% endif %}
       {% if request.user.is_authenticated %}
         <li>
           <a href="{% url 'quote-list' %}">{% trans 'Quotes' %}</a>
@@ -33,4 +36,5 @@
       {% endif %}
   </ul>
 </nav>
+{% endwith %}
 

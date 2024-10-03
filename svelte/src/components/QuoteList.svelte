@@ -57,14 +57,16 @@
 
 </script>
 
+
+<div class="container">
+    <div role="group">
+        {#each command_buttons as b }
+            <button on:click={() => !is_button_selected(b.id) && go_to_url(b.url.toString())} class:secondary={!is_button_selected(b.id)}>{b.text}</button>
+        {/each}
+   </div>
+</div>
+
 <form id="quote_list_form" action="{quote_list_url}" class="quote-list full-height">
-    <div class="container">
-        <div role="group">
-            {#each command_buttons as b }
-                <button on:click={() => !is_button_selected(b.id) && go_to_url(b.url.toString())} class:secondary={!is_button_selected(b.id)}>{b.text}</button>
-            {/each}
-        </div>
-    </div>
 
     <div class="grid">
         <div>
