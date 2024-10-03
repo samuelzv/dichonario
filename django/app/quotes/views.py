@@ -12,6 +12,7 @@ from .domain.constants import command_buttons
 from django.template import RequestContext
 
 from django.core import serializers
+from .domain.quote_list_factory import QuoteListFactory
 
 
 from .models import Quote
@@ -42,26 +43,23 @@ class QuotesBaseSvelteTemplateView(SvelteTemplateView):
 
 class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
-        quotes = []
         set_session_action(self.request)
 
-        if self.request.session["action"] == "mine":
-            quotes = quote_list_created_by(
-            user=self.request.user, search=self.request.session["search"]
-        )
-        else:
-            quotes = quote_list_public(self.request.session["search"])
-
+        params = {
+            'user': self.request.user, 
+            'search': self.request.session["search"]
+        }
+        action = self.request.session["action"]
+        quotes = QuoteListFactory().create(action).quotes(**params)
         i18n = {
             'search': gettext('Search'),
             'new_quote': gettext('New quote'),
         }
-
         kwargs.update({
             "search": self.request.GET.get("search", ""),
             "quotes": list(quotes.values('quote', 'author__name')),
             "command_buttons": get_command_buttons(),
-            "selected_command": self.request.session["action"],
+            "selected_command": action, 
             "i18n": i18n,
             'quote_list_url': reverse('quote-list'),
             'quote_new_url': reverse('quote-new'),
