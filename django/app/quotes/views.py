@@ -50,14 +50,14 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
             'search': self.request.session["search"]
         }
         action = self.request.session["action"]
-        quotes = QuoteListFactory().create(action).quotes(**params)
+        quote_list_factory = QuoteListFactory().create(action)
         i18n = {
             'search': gettext('Search'),
             'new_quote': gettext('New quote'),
         }
         kwargs.update({
             "search": self.request.GET.get("search", ""),
-            "quotes": list(quotes.values('quote', 'author__name')),
+            "quotes": list(quote_list_factory.quotes(**params).values('quote', 'author__name')),
             "command_buttons": get_command_buttons(),
             "selected_command": action, 
             "i18n": i18n,
