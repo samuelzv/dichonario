@@ -68,8 +68,8 @@
 
 <form id="quote_list_form" action="{quote_list_url}" class="quote-list full-height">
 
-    <div class="grid">
-        <div>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
             {#if search}
             <div>
               <small>Results for: <ins>"{search}"</ins> <a href="#" on:click={() => clear_and_submit_form()}>Clear</a></small>
@@ -78,15 +78,18 @@
             <div></div>
           {/if}
         </div>
-      <div class="top-controls-buttons">
-        <button type="button" class="outline secondary" on:click={() => go_to_url(quote_new_url)}>
-         {i18n.new_quote} 
-        </button>
-        <button type="button" class="outline secondary" data-target="search_modal" on:click="{() => toggleModal(event)}">
-         {i18n.search} 
-        </button>
-        <input type="hidden" id="search" name="search" bind:value={search}>
-      </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="row center-xs end-md">
+                <div class="col-xs-12">
+                    <button type="button" class="outline secondary" on:click={() => go_to_url(quote_new_url)}>
+                        {i18n.new_quote} 
+                    </button>
+                    <button type="button" class="outline secondary" data-target="search_modal" on:click="{() => toggleModal(event)}">
+                        {i18n.search} 
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="wrapper">
@@ -104,6 +107,7 @@
             </CardIsInView>
     {/each}
     </div>
+    <input type="hidden" id="search" name="search" bind:value={search}>
 </form>
 <Paginator />
 <SearchModal data_target="search_modal" placeholder="{i18n.search}" bind:search on:cancel={cancel_search} on:submit={submit_search}/>
@@ -115,5 +119,8 @@
     }
     .wrapper {
         margin-top: 30px;
+    }
+    button.secondary {
+        min-width: 145px;
     }
 </style>
