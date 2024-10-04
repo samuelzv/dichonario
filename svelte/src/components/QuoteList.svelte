@@ -58,29 +58,27 @@
 </script>
 
 
-<div class="container">
-    <div role="group">
-        {#each command_buttons as b }
-            <button on:click={() => !is_button_selected(b.id) && go_to_url(b.url.toString())} class:secondary={!is_button_selected(b.id)}>{b.text}</button>
-        {/each}
-   </div>
+<div role="group">
+    {#each command_buttons as b }
+        <button on:click={() => !is_button_selected(b.id) && go_to_url(b.url.toString())} class:secondary={!is_button_selected(b.id)}>{b.text}</button>
+    {/each}
 </div>
 
 <form id="quote_list_form" action="{quote_list_url}" class="quote-list full-height">
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            {#if search}
-            <div>
-              <small>Results for: <ins>"{search}"</ins> <a href="#" on:click={() => clear_and_submit_form()}>Clear</a></small>
+            <div class="row center-xs">
+                <div class="col-xs-12">
+                    {#if search}
+                        <small>Results for: <ins>"{search}"</ins> <a href="#" on:click={() => clear_and_submit_form()}>Clear</a></small>
+                    {/if}
+                </div>
             </div>
-          {:else}
-            <div></div>
-          {/if}
         </div>
         <div class="col-xs-12 col-md-6">
             <div class="row center-xs end-md">
-                <div class="col-xs-12">
+                <div class="col-xs-12 buttons-group">
                     <button type="button" class="outline secondary" on:click={() => go_to_url(quote_new_url)}>
                         {i18n.new_quote} 
                     </button>
@@ -120,7 +118,7 @@
     .wrapper {
         margin-top: 30px;
     }
-    button.secondary {
+    .buttons-group button.secondary {
         min-width: 145px;
     }
 </style>

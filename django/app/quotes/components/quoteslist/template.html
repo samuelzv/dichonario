@@ -40,10 +40,10 @@
         {% get_previous_page_link paginator_url page search as previous_page_link %}
         {% get_next_page_link paginator_url page search as next_page_link %}
         <div class="pagination">
-            <button type="button" onclick="goToUrl('{{previous_page_link}}')" title="Go to previous page" class="outline secondary" {% if page.has_previous == False %}disabled{% endif %}>
+            <button type="button" onclick="goToUrl('{{previous_page_link}}')" title="{% trans 'Go to previous page' %}" class="outline secondary" {% if page.has_previous == False %}disabled{% endif %}>
                 <
             </button>
-            <button type="button" onclick="goToUrl('{{next_page_link}}')" title="Go to next page" class="outline secondary" {% if page.has_next == False %}disabled{% endif %}>
+            <button type="button" onclick="goToUrl('{{next_page_link}}')" title="{% trans 'Go to next page' %}" class="outline secondary" {% if page.has_next == False %}disabled{% endif %}>
             >
             </button>
         </div>
