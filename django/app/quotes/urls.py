@@ -16,7 +16,7 @@ urlpatterns = [
     path("new", views.quote_new, name="quote-new"),
     path("quote/<int:pk>/edit", views.quote_edit, name="quote-edit"),
     path(
-        "quotes/<int:pk>/delete", views.QuoteDeleteView.as_view(), name="quote-delete"
+        "quote/<int:pk>/delete", views.QuoteDeleteView.as_view(), name="quote-delete"
     ),
     path("logout/", views.exit, name="exit"),
     path("signup/", views.signup, name="signup"),

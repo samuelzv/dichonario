@@ -54,7 +54,7 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         action = self.request.session["action"]
         quote_list_factory = QuoteListFactory().create(action)
 
-        quote_list = quote_list_factory.quotes(**filters).values('quote', 'author__name')
+        quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'created_by')
         paginator = Paginator(quote_list, ITEMS_PER_PAGE)
 
         try:
@@ -75,7 +75,9 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
             'previous_page': gettext('Go to previous page'),
             'search': gettext('Search'),
             'page': gettext('Page'),
-            'from': gettext('from')
+            'from': gettext('from'),
+            'edit': gettext('Edit'),
+            'delete': gettext('Delete'),
         }
         pagination = {
             "current_page": page_number,
@@ -87,15 +89,20 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
             "next_page": page.next_page_number() if page.has_next() else None,
         }
 
+        quotes = list(page.object_list)
+        for q in quotes:
+            q['is_owner'] = q['created_by'] == self.request.user.id
+
         kwargs.update({
             "command_buttons": get_command_buttons(),
             "i18n": i18n,
-            "quotes": list(page.object_list),
+            "quotes": quotes,
             "search": self.request.GET.get("search", ""),
             "selected_command": action, 
             'pagination': pagination,
             'quote_list_url': reverse('quote-list'),
             'quote_new_url': reverse('quote-new'),
+            'language_code': self.request.LANGUAGE_CODE,
             })
 
         return kwargs
@@ -284,7 +291,10 @@ def quote_edit(request, pk):
 @method_decorator(login_required, name="dispatch")
 class QuoteDeleteView(DeleteView):
     model = Quote
-    success_url = reverse_lazy("quote-list")
+
+    def get_success_url(self) -> str:
+        next = self.request.GET.get("next")
+        return next if next else reverse("quote-list")
 
 
 def exit(request):

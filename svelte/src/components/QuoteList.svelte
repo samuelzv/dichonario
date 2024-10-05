@@ -7,9 +7,10 @@
     import CardIsInView from "./CardIsInView.svelte";
     import Paginator from "./Paginator.svelte";
     /**
-     * @type {Array<{quote: string, author__name: string}>}
+     * @type {Array<{id: string, quote: string, author__name: string, is_owner: boolean}>}
      */
     export let quotes = [];
+
     export let quote_list_url = '';
     export let quote_new_url = '';
 
@@ -23,12 +24,20 @@
      */
     export let pagination;
 
+    /**
+     * @type {string}
+    */
     export let search = '';
     /**
      * @type {Array<{id: string, text: string, url: Location | (string & Location)}>}
      */
-     export let command_buttons = [];
-     export let selected_command = '';
+    export let command_buttons = [];
+    export let selected_command = '';
+
+    /**
+     * @type {string}
+    */
+    export let language_code;
 
      /**
      * @param {string} buttton_id
@@ -42,6 +51,17 @@
      */
      function go_to_url(url) {
         window.location.href = url;
+     }
+
+     /**
+      * @param {'edit'|'delete'} action
+      * @param {string} id
+      */
+     function get_action_url(action, id) {
+        let url = `quote/${id}/${action}`;
+        url += '?next=' + encodeURIComponent(`${window.location.pathname}${window.location.search}`)
+        console.log(url);
+        return url;
      }
 
     /**
@@ -112,7 +132,24 @@
                         </footer>
                     </BlockQuote>
                 </svelte:fragment>
-                <svelte:fragment slot="footer"></svelte:fragment>
+                <svelte:fragment slot="footer">
+                    <div class="row end-xs quote-actions">
+                        <div class="col-xs-12">
+                            {#if quote.is_owner}
+                                <a  data-tooltip="{i18n.edit}" 
+                                    class="secondary" 
+                                    href="{get_action_url('edit', quote.id)}">
+                                    <Icon icon="material-symbols-light:edit-outline" />
+                                </a>
+                                <a  data-tooltip="{i18n.delete}" 
+                                    class="secondary"
+                                    href="{get_action_url('delete', quote.id)}">
+                                    <Icon icon="material-symbols-light:delete-outline" />
+                                </a>
+                            {/if}
+                        </div>
+                    </div>
+               </svelte:fragment>
             </CardIsInView>
     {/each}
     </div>
@@ -131,5 +168,8 @@
     }
     .buttons-group button.secondary {
         min-width: 145px;
+    }
+    .quote-actions a {
+        cursor: pointer;
     }
 </style>

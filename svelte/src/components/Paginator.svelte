@@ -36,13 +36,13 @@
     <div class="row center-xs">
         <div class="col-xm-12">
             <a href="{make_pagination_url('previous')}" class:disabled-link={pagination.has_previous == false}>
-                <button type="button" title="{i18n.previous_page}" class="outline secondary" disabled={pagination.has_previous == false}>
+                <button type="button" data-tooltip="{i18n.previous_page}" class="outline secondary" disabled={pagination.has_previous == false}>
                     <Icon icon="material-symbols-light:arrow-back" />
                 </button>
             </a>
             <span class="pagination-legend">{i18n.page} {pagination.current_page} {i18n.from} {pagination.num_pages}</span>
             <a href="{make_pagination_url('next')}" class:disabled-link={pagination.has_next == false}>
-                <button type="button" title="{i18n.next_page}" class="outline secondary" disabled={pagination.has_next === false}>
+                <button type="button" data-tooltip="{i18n.next_page}" class="outline secondary" disabled={pagination.has_next === false}>
                     <Icon icon="material-symbols-light:arrow-forward" />
                 </button>
             </a>
