@@ -44,7 +44,7 @@ class QuotesBaseSvelteTemplateView(SvelteTemplateView):
 
 class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
-        ITEMS_PER_PAGE = 4
+        ITEMS_PER_PAGE = 10 
         set_session_action(self.request)
 
         filters = {
@@ -127,7 +127,13 @@ def index(request):
 
 
 def home(request):
-    return render(request, "quotes/home.html", {"component_props": {"text": "Welcome to Dichonario, the place for gathering and sharing your favorite quotes"} })
+    return render(request, 
+                  "quotes/home.html", 
+                  {
+                    "component_props": {
+                        "text": "Welcome to Dichonario, the place for gathering and sharing your favorite quotes"
+                    } 
+                  })
 
 
 def set_session_action(request):
@@ -141,7 +147,6 @@ def set_session_action(request):
         action = request.GET.get("action", "")
 
     request.session["action"] = action
-
     request.session["search"] = request.GET.get("search", "")
     request.session["page"] = request.GET.get("page", 1)
 
