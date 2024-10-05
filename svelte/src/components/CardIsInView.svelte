@@ -1,12 +1,12 @@
 <script>
-    import {fade} from 'svelte/transition';
+    import {fade,fly} from 'svelte/transition';
     import { inview } from 'svelte-inview';
 
     let isInView = false;
 </script>
 <!-- <article use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }} -->
-<article use:inview={{ unobserveOnEnter: true, rootMargin: '-80px' }}
-on:inview_change={({ detail }) => {
+<article use:inview={{ unobserveOnEnter: true, rootMargin: '-180px' }}
+    on:inview_change={({ detail }) => {
     isInView = detail.inView;
     console.log("isInView",isInView);
 }}>
@@ -17,7 +17,7 @@ on:inview_change={({ detail }) => {
     {/if}
 
     {#if isInView && $$slots.body}
-    <body in:fade={{ delay: 250, duration: 2000 }} >
+    <body in:fly={{ x: -200, duration: 2000 }} >
         <slot name="body"></slot>
     </body>
     {/if}
@@ -30,4 +30,17 @@ on:inview_change={({ detail }) => {
 </article>
 
 <style>
+    article {
+        position: relative;
+    }
+    article > div {
+        position: relative;
+    }
+
+    @keyframes myfirst {
+        0%   {left:  -100%;}
+        25%   {left: -50%;}
+        50%   {left: -25%;}
+        100%   {left: 0;}
+    }
 </style>
