@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-04 01:08+0000\n"
+"POT-Creation-Date: 2024-10-05 03:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
 
-#: quotes/components/quoteslist/template.html:31 quotes/views.py:241
+#: quotes/components/quoteslist/template.html:31 quotes/views.py:274
 msgid "Edit"
 msgstr "Editar"
 
@@ -27,11 +27,11 @@ msgstr "Editar"
 msgid "Delete"
 msgstr "Borrar"
 
-#: quotes/components/quoteslist/template.html:43
+#: quotes/components/quoteslist/template.html:43 quotes/views.py:75
 msgid "Go to previous page"
 msgstr "Ir a la página anterior"
 
-#: quotes/components/quoteslist/template.html:46
+#: quotes/components/quoteslist/template.html:46 quotes/views.py:74
 msgid "Go to next page"
 msgstr "Ir a la siguiente página"
 
@@ -120,11 +120,11 @@ msgstr "Guardar"
 
 #: quotes/templates/quotes/quote_list.html:36
 #: quotes/templates/quotes/quote_new.html:7
-#: quotes/templates/quotes/quote_new.html:15 quotes/views.py:56
+#: quotes/templates/quotes/quote_new.html:15 quotes/views.py:73
 msgid "New quote"
 msgstr "Nueva frase"
 
-#: quotes/templates/quotes/quote_list.html:39 quotes/views.py:55
+#: quotes/templates/quotes/quote_list.html:39 quotes/views.py:76
 msgid "Search"
 msgstr ""
 
@@ -133,9 +133,17 @@ msgstr ""
 msgid "Sign up"
 msgstr "Registarse"
 
-#: quotes/templatetags/util.py:87 quotes/views.py:190
+#: quotes/templatetags/util.py:87 quotes/views.py:223
 msgid "New"
 msgstr "Nueva"
+
+#: quotes/views.py:77
+msgid "Page"
+msgstr "Página"
+
+#: quotes/views.py:78
+msgid "from"
+msgstr "de"
 
 #~ msgid ""
 #~ "“Welcome to Dichonario, the place for gathering and sharing your favorite "
@@ -162,12 +170,6 @@ msgstr "Nueva"
 
 #~ msgid "Welcome"
 #~ msgstr "Bienvenido"
-
-#~ msgid "Page"
-#~ msgstr "Página"
-
-#~ msgid "from"
-#~ msgstr "de"
 
 #~ msgid "Visible for all users"
 #~ msgstr "Visible para todos los usuarios"

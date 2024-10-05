@@ -33,14 +33,14 @@
 {#if pagination.total_records > 1}
     <div class="row center-xs">
         <div class="col-xm-12">
-            <a href="{make_pagination_url('previous')}">
-                <button type="button" title="{i18n.previous_page}" class="outline secondary" disabled={!pagination.has_previous}>
+            <a href="{make_pagination_url('previous')}" class:disabled-link={pagination.has_previous == false}>
+                <button type="button" title="{i18n.previous_page}" class="outline secondary" disabled={pagination.has_previous == false}>
                     &lt;
                 </button>
             </a>
-            <span>Page 1 from 5</span>
-            <a href="{make_pagination_url('next')}">
-                <button type="button" title="{i18n.next_page}" class="outline secondary" disabled={!pagination.has_next}>
+            <span class="pagination-legend">{i18n.page} {pagination.current_page} {i18n.from} {pagination.num_pages}</span>
+            <a href="{make_pagination_url('next')}" class:disabled-link={pagination.has_next == false}>
+                <button type="button" title="{i18n.next_page}" class="outline secondary" disabled={pagination.has_next === false}>
                     &gt;
                 </button>
             </a>
@@ -49,7 +49,11 @@
 {/if}
 
 <style>
-    button[disabled] {
+    .pagination-legend {
+        margin: auto 10px;
+    }
+    .disabled-link {
+        pointer-events: none;
         cursor: not-allowed;
     }
 </style>
