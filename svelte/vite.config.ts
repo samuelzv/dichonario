@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { run } from 'vite-plugin-run'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 
 // https://vitejs.dev/config/
@@ -22,5 +23,14 @@ export default defineConfig({
     },
     manifest: true,
   },
-  plugins: [svelte()],
+  plugins: [
+    svelte(),
+    run([
+      {
+        name: 'docker restart web app',
+        run: ['docker', 'restart', 'dichonario-app-1'],
+        startup: true,
+      }
+    ]),
+  ],
 })
