@@ -218,7 +218,7 @@ def quote_new(request):
                 language=language_by_code(code=request.LANGUAGE_CODE),
             )
 
-            return redirect("home")
+            return redirect("quote-list")
     else:
         form = QuoteForm()
 
