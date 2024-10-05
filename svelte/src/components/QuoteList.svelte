@@ -17,6 +17,11 @@
      * */
     export let i18n; 
 
+    /**
+     * @type {import('$lib/types').Pagination}
+     */
+    export let pagination;
+
     export let search = '';
     /**
      * @type {Array<{id: string, text: string, url: Location | (string & Location)}>}
@@ -112,7 +117,7 @@
     </div>
     <input type="hidden" id="search" name="search" bind:value={search}>
 </form>
-<Paginator i18n={i18n} />
+<Paginator i18n={i18n} pagination={pagination} />
 <SearchModal data_target="search_modal" placeholder="{i18n.search}" bind:search on:cancel={cancel_search} on:submit={submit_search}/>
 <style>
     :global(#quotelist-target) {

@@ -1,3 +1,4 @@
+from django.core.paginator import EmptyPage, Paginator
 from django.utils.translation import gettext
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -43,6 +44,7 @@ class QuotesBaseSvelteTemplateView(SvelteTemplateView):
 
 class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
+        ITEMS_PER_PAGE = 4
         set_session_action(self.request)
 
         filters = {
@@ -51,18 +53,44 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         }
         action = self.request.session["action"]
         quote_list_factory = QuoteListFactory().create(action)
+
+        quote_list = quote_list_factory.quotes(**filters).values('quote', 'author__name')
+        paginator = Paginator(quote_list, ITEMS_PER_PAGE)
+
+        try:
+            page_number = int(self.request.GET.get("page", 1))
+        except ValueError:
+            page_number = 1
+
+        try:
+            page = paginator.page(page_number)
+        except EmptyPage:
+            page_number = 1
+            page = paginator.page(page_number)
+
         i18n = {
-            'search': gettext('Search'),
             'new_quote': gettext('New quote'),
-            'previous_page': gettext('Go to previous page'),
             'next_page': gettext('Go to next page'),
+            'previous_page': gettext('Go to previous page'),
+            'search': gettext('Search'),
         }
+        pagination = {
+            "current_page": page_number,
+            "has_next": page.has_next(),
+            "has_previous": page.has_previous(),
+            "num_pages": paginator.num_pages,
+            "total_records": paginator.count,
+            "previous_page": page.previous_page_number() if page.has_previous() else None,
+            "next_page": page.next_page_number() if page.has_next() else None,
+        }
+
         kwargs.update({
-            "search": self.request.GET.get("search", ""),
-            "quotes": list(quote_list_factory.quotes(**filters).values('quote', 'author__name')),
             "command_buttons": get_command_buttons(),
-            "selected_command": action, 
             "i18n": i18n,
+            "quotes": list(page.object_list),
+            "search": self.request.GET.get("search", ""),
+            "selected_command": action, 
+            'pagination': pagination,
             'quote_list_url': reverse('quote-list'),
             'quote_new_url': reverse('quote-new'),
             })
