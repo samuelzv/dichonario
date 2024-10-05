@@ -73,7 +73,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <div class="row center-xs">
+            <div class="row center-xs start-md">
                 <div class="col-xs-12">
                     {#if search}
                         <small>Results for: <ins>"{search}"</ins> <a href="#" on:click={() => clear_and_submit_form()}>Clear</a></small>

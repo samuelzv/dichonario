@@ -6,7 +6,7 @@
 </script>
 <div class="row center-xs">
     <div class="col-xm-12">
-        <button type="button" title="{i18n.previous_page}" class="x outline secondary">
+        <button type="button" title="{i18n.previous_page}" class="outline secondary">
             &lt;
         </button>
         <button type="button" title="{i18n.next_page}" class="outline secondary">
