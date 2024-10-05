@@ -11,9 +11,6 @@
      */
     export let pagination;
 
-    const current_url = window.location.href
-    console.log(current_url);
-
     /**
      * @param {'previous'|'next'} type
      */

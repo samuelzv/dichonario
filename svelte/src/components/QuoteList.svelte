@@ -60,7 +60,7 @@
      function get_action_url(action, id) {
         let url = `quote/${id}/${action}`;
         url += '?next=' + encodeURIComponent(`${window.location.pathname}${window.location.search}`)
-        console.log(url);
+
         return url;
      }
 
