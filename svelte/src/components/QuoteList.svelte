@@ -6,9 +6,10 @@
     import SearchModal from "./SearchModal.svelte";
     import CardIsInView from "./CardIsInView.svelte";
     import Paginator from "./Paginator.svelte";
+
     /**
-     * @type {Array<{id: string, quote: string, author__name: string, is_owner: boolean}>}
-     */
+     * @type {import('$lib/types').Quotes}
+    */ 
     export let quotes = [];
 
     export let quote_list_url = '';
@@ -164,7 +165,8 @@
         flex: 1;
     }
     .wrapper {
-        margin-top: 30px;
+        /* margin-top: 0px; */
+        /* margin-top: 30px; */
     }
     .buttons-group button.secondary {
         min-width: 145px;

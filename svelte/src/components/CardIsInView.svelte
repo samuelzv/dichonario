@@ -4,7 +4,8 @@
 
     let isInView = false;
 </script>
-<article use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }}
+<!-- <article use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }} -->
+<article use:inview={{ unobserveOnEnter: true, rootMargin: '-80px' }}
 on:inview_change={({ detail }) => {
     isInView = detail.inView;
     console.log("isInView",isInView);
