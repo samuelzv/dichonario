@@ -1,4 +1,5 @@
 <script>
+    import Icon from '@iconify/svelte';
     import '../quote-app.css';
 
     import BlockQuote from "./BlockQuote.svelte";
