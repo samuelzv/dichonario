@@ -54,6 +54,8 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         i18n = {
             'search': gettext('Search'),
             'new_quote': gettext('New quote'),
+            'previous_page': gettext('Go to previous page'),
+            'next_page': gettext('Go to next page'),
         }
         kwargs.update({
             "search": self.request.GET.get("search", ""),

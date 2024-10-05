@@ -11,7 +11,12 @@
     export let quotes = [];
     export let quote_list_url = '';
     export let quote_new_url = '';
-    export let i18n = {search: '', new_quote: ''};
+
+    /** 
+     * @type {import('$lib/types').I18n} 
+     * */
+    export let i18n; 
+
     export let search = '';
     /**
      * @type {Array<{id: string, text: string, url: Location | (string & Location)}>}
@@ -107,7 +112,7 @@
     </div>
     <input type="hidden" id="search" name="search" bind:value={search}>
 </form>
-<Paginator />
+<Paginator i18n={i18n} />
 <SearchModal data_target="search_modal" placeholder="{i18n.search}" bind:search on:cancel={cancel_search} on:submit={submit_search}/>
 <style>
     :global(#quotelist-target) {
