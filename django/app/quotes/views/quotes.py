@@ -10,7 +10,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import DeleteView, DetailView, UpdateView
 from django.db.models import Q
 
-from ..domain.util import get_command_buttons 
+from ..domain.util import get_command_buttons , set_session_action
+from ..domain.paginate_results import paginate_results
+from ..domain.i18n import get_i18n_quotes_list
 from ..domain.constants import command_buttons
 from django.template import RequestContext
 
@@ -45,9 +47,7 @@ class QuotesBaseSvelteTemplateView(SvelteTemplateView):
 
 class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
-        ITEMS_PER_PAGE = 10 
         set_session_action(self.request)
-
         filters = {
             'user': self.request.user, 
             'search': self.request.session["search"]
@@ -56,47 +56,14 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         quote_list_factory = QuoteListFactory().create(action)
 
         quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'author__image', 'created_by')
-        paginator = Paginator(quote_list, ITEMS_PER_PAGE)
-
-        try:
-            page_number = int(self.request.GET.get("page", 1))
-        except ValueError:
-            page_number = 1
-
-        try:
-            page = paginator.page(page_number)
-        except EmptyPage:
-            page_number = 1
-            page = paginator.page(page_number)
-
-
-        i18n = {
-            'new_quote': gettext('New quote'),
-            'next_page': gettext('Go to next page'),
-            'previous_page': gettext('Go to previous page'),
-            'search': gettext('Search'),
-            'page': gettext('Page'),
-            'from': gettext('from'),
-            'edit': gettext('Edit'),
-            'delete': gettext('Delete'),
-        }
-        pagination = {
-            "current_page": page_number,
-            "has_next": page.has_next(),
-            "has_previous": page.has_previous(),
-            "num_pages": paginator.num_pages,
-            "total_records": paginator.count,
-            "previous_page": page.previous_page_number() if page.has_previous() else None,
-            "next_page": page.next_page_number() if page.has_next() else None,
-        }
-
-        quotes = list(page.object_list)
+        (quotes, pagination) = paginate_results(quote_list, int(self.request.GET.get("page", 1)), 5)
+        
         for q in quotes:
             q['is_owner'] = q['created_by'] == self.request.user.id
 
         kwargs.update({
             "command_buttons": get_command_buttons(),
-            "i18n": i18n,
+            "i18n": get_i18n_quotes_list(),
             "quotes": quotes,
             "search": self.request.GET.get("search", ""),
             "selected_command": action, 
@@ -136,20 +103,6 @@ def home(request):
                     } 
                   })
 
-
-def set_session_action(request):
-    action = ""
-    if request.GET.get("action", "") == "":
-        if request.session.get("action", "") == "":
-            action = "mine"
-        else:
-            action = request.session.get("action", "")
-    else:
-        action = request.GET.get("action", "")
-
-    request.session["action"] = action
-    request.session["search"] = request.GET.get("search", "")
-    request.session["page"] = request.GET.get("page", 1)
 
 @login_required
 def quote_list(request):

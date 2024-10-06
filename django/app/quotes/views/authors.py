@@ -8,14 +8,14 @@ from ..selectors import get_author_list_count_quotes
 from ..models import Author
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.paginator import Paginator, EmptyPage
-from ..domain.util import get_command_buttons, is_authorizer
+from ..domain.util import get_command_buttons, is_authorizer, set_session_action
 from ..domain.constants import command_buttons
 
 @login_required
 def author_list(request):
     authors = get_author_list_count_quotes()
 
-    ### set_session_action(request)
+    set_session_action(request)
     return render(
         request,
         "quotes/author_list.html",

@@ -14,3 +14,16 @@ def is_authorizer(user):
     return user.groups.filter(name='authorizer').exists()
 
 
+def set_session_action(request):
+    action = ""
+    if request.GET.get("action", "") == "":
+        if request.session.get("action", "") == "":
+            action = "mine"
+        else:
+            action = request.session.get("action", "")
+    else:
+        action = request.GET.get("action", "")
+
+    request.session["action"] = action
+    request.session["search"] = request.GET.get("search", "")
+    request.session["page"] = request.GET.get("page", 1)
