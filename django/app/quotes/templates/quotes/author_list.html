@@ -24,9 +24,13 @@
       {% for author in  authors %}
           <tr>
             <th scope="row">
+              {% if is_authorizer %}
               <a href={% url 'author-update' author.id %}>
                 {{author.name}}
               </a>
+              {% else %}
+                {{author.name}}
+              {% endif %}
             </th>
             <td>{{author.num_quotes}}</td>
           </tr>

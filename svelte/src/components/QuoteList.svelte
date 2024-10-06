@@ -128,18 +128,24 @@
             <CardIsInView>
                 <svelte:fragment slot="body">
                     <BlockQuote>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-3">
+                        <div class="row start-xs center-md middle-xs">
+                            <div class="col-xs-4 col-sm-3">
                                 <img src="/{STATIC_PATH}/{quote.author__image}" alt="{quote.author__name}">
                             </div>
 
-                            <div class="col-xs-12 col-sm-9">
+                            <div class="col-xs-8 col-sm-9">
                                 <p>"{quote.quote}"</p>
                             </div>
                         </div>
-                        <footer>
-                            <cite> - {quote.author__name}</cite>
-                        </footer>
+                        <div class="row start-xs center-md">
+                            <div class="col-xs-12 col-sm-3">
+                                <footer>
+                                    <cite> - {quote.author__name}</cite>
+                                </footer>
+                            </div>
+                            <div class="col-xs-12 col-sm-9">
+                            </div>
+                        </div>
                     </BlockQuote>
                 </svelte:fragment>
                 <svelte:fragment slot="footer">

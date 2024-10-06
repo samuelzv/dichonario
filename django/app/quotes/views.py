@@ -1,7 +1,8 @@
 from django.core.paginator import EmptyPage, Paginator
 from django.utils.translation import gettext
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import logout
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
@@ -35,8 +36,8 @@ from django.contrib.auth import login
 
 from django_svelte.views import SvelteTemplateView
 
-def _is_authorizer(self):
-    return self.request.user.groups.filter(name='authorizer').exists()
+def _is_authorizer(user):
+    return user.groups.filter(name='authorizer').exists()
 
 class QuotesBaseSvelteTemplateView(SvelteTemplateView):
     template_name = "quotes/svelte_component.html"
@@ -190,6 +191,7 @@ def author_list(request):
             "command_buttons": command_buttons,
             "selected_command": request.session["action"],
             "authors": authors,
+            "is_authorizer": _is_authorizer(request.user)
         },
     )
 
@@ -297,8 +299,11 @@ def quote_edit(request, pk):
 
 
 @method_decorator(login_required, name="dispatch")
-class QuoteDeleteView(DeleteView):
+class QuoteDeleteView(UserPassesTestMixin, DeleteView):
     model = Quote
+
+    def test_func(self):
+        return self.get_object().created_by == self.request.user
 
     def get_success_url(self) -> str:
         next = self.request.GET.get("next")
@@ -313,7 +318,7 @@ class AuthorDetailsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if _is_authorizer(self):
+        if _is_authorizer(self.request.user):
             author_quotes = context['author'].quotes.all()
         else:
             author_quotes = context['author'].quotes.filter(
@@ -331,17 +336,19 @@ class AuthorDetailsView(DetailView):
             current_page = 1
 
         context['quotes'] = quotes
-        context['is_authorizer'] = _is_authorizer(self)
+        context['is_authorizer'] = _is_authorizer(self.request.user)
         context['is_author_creator'] = context['author'].created_by == self.request.user
         context['current_page'] = current_page
 
         return context
 
-
-class AuthorUpdateView(UpdateView):
+class AuthorUpdateView(UserPassesTestMixin, UpdateView):
     model = Author
     fields = ['name', 'image']
     context_object_name = 'author'
+
+    def test_func(self):
+        return _is_authorizer(self.request.user)
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
