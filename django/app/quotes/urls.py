@@ -1,26 +1,25 @@
 from django.urls import path, include
-from . import views
-from .views import QuoteListSvelteTemplateView 
+from .views import authors, quotes
 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path("index", views.index, name="index"),
+    path("", quotes.home, name="home"),
+    path("index", quotes.index, name="index"),
     path("list", 
-         QuoteListSvelteTemplateView.as_view(
+         quotes.QuoteListSvelteTemplateView.as_view(
             page_title="QuoteList", 
             component_name="QuoteList",
         ), 
          name="quote-list"),
-    path("list2", views.quote_list, name="quote-list-2"),
+    path("list2", quotes.quote_list, name="quote-list-2"),
      path('authors/<int:pk>/update',
-         views.AuthorUpdateView.as_view(), name='author-update'),
-    path('authors/<int:pk>', views.AuthorDetailsView.as_view(), name='author-detail'),
-    path("authors", views.author_list, name="author-list"),
-    path("new", views.quote_new, name="quote-new"),
-    path("quote/<int:pk>/edit", views.quote_edit, name="quote-edit"),
+         authors.AuthorUpdateView.as_view(), name='author-update'),
+    path('authors/<int:pk>', authors.AuthorDetailsView.as_view(), name='author-detail'),
+    path("authors", authors.author_list, name="author-list"),
+    path("new", quotes.quote_new, name="quote-new"),
+    path("quote/<int:pk>/edit", quotes.quote_edit, name="quote-edit"),
     path(
-        "quote/<int:pk>/delete", views.QuoteDeleteView.as_view(), name="quote-delete"
+        "quote/<int:pk>/delete", quotes.QuoteDeleteView.as_view(), name="quote-delete"
     ),
-    path("logout/", views.exit, name="exit"),
-    path("signup/", views.signup, name="signup"),
+    path("logout/", quotes.exit, name="exit"),
+    path("signup/", quotes.signup, name="signup"),
 ]

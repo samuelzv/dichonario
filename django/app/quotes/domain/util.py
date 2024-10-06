@@ -10,4 +10,7 @@ def get_command_buttons():
     return list(map(setUrlButton, copy.deepcopy(command_buttons)))
 
 
+def is_authorizer(user):
+    return user.groups.filter(name='authorizer').exists()
+
 

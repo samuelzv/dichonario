@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DeleteView, DetailView, UpdateView
 from django.db.models import Q
 
-from .domain.util import get_command_buttons
+from .domain.util import get_command_buttons, is_authorizer
 from .domain.constants import command_buttons
 from django.template import RequestContext
 
@@ -35,9 +35,6 @@ from .forms import RegistrationForm
 from django.contrib.auth import login
 
 from django_svelte.views import SvelteTemplateView
-
-def _is_authorizer(user):
-    return user.groups.filter(name='authorizer').exists()
 
 class QuotesBaseSvelteTemplateView(SvelteTemplateView):
     template_name = "quotes/svelte_component.html"
@@ -179,21 +176,6 @@ def quote_list(request):
     )
 
 
-@login_required
-def author_list(request):
-    authors = get_author_list_count_quotes()
-
-    set_session_action(request)
-    return render(
-        request,
-        "quotes/author_list.html",
-        {
-            "command_buttons": command_buttons,
-            "selected_command": request.session["action"],
-            "authors": authors,
-            "is_authorizer": _is_authorizer(request.user)
-        },
-    )
 
 
 @login_required
@@ -310,53 +292,6 @@ class QuoteDeleteView(UserPassesTestMixin, DeleteView):
         return next if next else reverse("quote-list")
 
 
-@method_decorator(login_required, name='dispatch')
-class AuthorDetailsView(DetailView):
-    model = Author
-    context_object_name = 'author'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if _is_authorizer(self.request.user):
-            author_quotes = context['author'].quotes.all()
-        else:
-            author_quotes = context['author'].quotes.filter(
-                Q(authorized=True) |
-                Q(created_by=self.request.user)
-            )
-
-        paginator = Paginator(author_quotes, 1)
-
-        try:
-            current_page = self.request.GET.get('page', 1)
-            quotes = paginator.page(current_page)
-        except EmptyPage:
-            quotes = paginator.page(1)
-            current_page = 1
-
-        context['quotes'] = quotes
-        context['is_authorizer'] = _is_authorizer(self.request.user)
-        context['is_author_creator'] = context['author'].created_by == self.request.user
-        context['current_page'] = current_page
-
-        return context
-
-class AuthorUpdateView(UserPassesTestMixin, UpdateView):
-    model = Author
-    fields = ['name', 'image']
-    context_object_name = 'author'
-
-    def test_func(self):
-        return _is_authorizer(self.request.user)
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-
-        # if not _is_authorizer(self):
-            # form.fields.pop('authorized')
-
-        return form
 
 
 def exit(request):
