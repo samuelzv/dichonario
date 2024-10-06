@@ -1,0 +1,29 @@
+{% extends 'quotes/quotes_app.html' %}
+{% load i18n %}
+
+{% block title %}
+    Authors Details
+{% endblock %}
+
+{% block content %}
+    <section class='quote-section author-detail'>
+        <div class='row'>
+            <div class='col-lg-12'>
+                <h1>{{ author.name }}</h1>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-lg-4 col-sm-12'>
+                {% if author.image %}
+                    <img class='author' src="{{author.image.url}}" alt="{{author.name}}">
+                {% endif %}
+            </div>
+            <div class='col-lg-8 col-sm-12'>
+             
+            </div>
+        </div>
+        <div class='row'>
+        </div>
+
+    </section>
+{% endblock %}

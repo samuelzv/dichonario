@@ -1,0 +1,14 @@
+{% extends 'quotes/quotes_app.html' %}
+{% load i18n %}
+
+{% block title %}
+    Authors Create
+{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create">
+    </form>
+{% endblock %}

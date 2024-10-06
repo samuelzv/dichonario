@@ -23,7 +23,11 @@
         <tbody>
       {% for author in  authors %}
           <tr>
-            <th scope="row">{{author.name}}</th>
+            <th scope="row">
+              <a href={% url 'author-update' author.id %}>
+                {{author.name}}
+              </a>
+            </th>
             <td>{{author.num_quotes}}</td>
           </tr>
       {% endfor %}

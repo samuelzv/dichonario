@@ -6,7 +6,8 @@ from django.contrib.auth import logout
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, DetailView, UpdateView
+from django.db.models import Q
 
 from .domain.util import get_command_buttons
 from .domain.constants import command_buttons
@@ -16,7 +17,7 @@ from django.core import serializers
 from .domain.quote_list_factory import QuoteListFactory
 
 
-from .models import Quote
+from .models import Author, Quote
 from .forms import QuoteForm
 from .domain.quote_session import QuoteSession, QuoteScope
 from .selectors import (
@@ -34,6 +35,8 @@ from django.contrib.auth import login
 
 from django_svelte.views import SvelteTemplateView
 
+def _is_authorizer(self):
+    return self.request.user.groups.filter(name='authorizer').exists()
 
 class QuotesBaseSvelteTemplateView(SvelteTemplateView):
     template_name = "quotes/svelte_component.html"
@@ -54,7 +57,7 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         action = self.request.session["action"]
         quote_list_factory = QuoteListFactory().create(action)
 
-        quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'created_by')
+        quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'author__image', 'created_by')
         paginator = Paginator(quote_list, ITEMS_PER_PAGE)
 
         try:
@@ -300,6 +303,53 @@ class QuoteDeleteView(DeleteView):
     def get_success_url(self) -> str:
         next = self.request.GET.get("next")
         return next if next else reverse("quote-list")
+
+
+@method_decorator(login_required, name='dispatch')
+class AuthorDetailsView(DetailView):
+    model = Author
+    context_object_name = 'author'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if _is_authorizer(self):
+            author_quotes = context['author'].quotes.all()
+        else:
+            author_quotes = context['author'].quotes.filter(
+                Q(authorized=True) |
+                Q(created_by=self.request.user)
+            )
+
+        paginator = Paginator(author_quotes, 1)
+
+        try:
+            current_page = self.request.GET.get('page', 1)
+            quotes = paginator.page(current_page)
+        except EmptyPage:
+            quotes = paginator.page(1)
+            current_page = 1
+
+        context['quotes'] = quotes
+        context['is_authorizer'] = _is_authorizer(self)
+        context['is_author_creator'] = context['author'].created_by == self.request.user
+        context['current_page'] = current_page
+
+        return context
+
+
+class AuthorUpdateView(UpdateView):
+    model = Author
+    fields = ['name', 'image']
+    context_object_name = 'author'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        # if not _is_authorizer(self):
+            # form.fields.pop('authorized')
+
+        return form
 
 
 def exit(request):

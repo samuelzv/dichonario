@@ -32,15 +32,9 @@
 <style>
     article {
         position: relative;
+        overflow: hidden;
     }
     article > div {
         position: relative;
-    }
-
-    @keyframes myfirst {
-        0%   {left:  -100%;}
-        25%   {left: -50%;}
-        50%   {left: -25%;}
-        100%   {left: 0;}
     }
 </style>

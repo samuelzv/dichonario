@@ -1,6 +1,7 @@
 <script>
     import Icon from '@iconify/svelte';
     import '../quote-app.css';
+    import {STATIC_PATH} from '../lib/constants';
 
     import BlockQuote from "./BlockQuote.svelte";
     import SearchModal from "./SearchModal.svelte";
@@ -127,7 +128,15 @@
             <CardIsInView>
                 <svelte:fragment slot="body">
                     <BlockQuote>
-                        <p>"{quote.quote}"</p>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-3">
+                                <img src="/{STATIC_PATH}/{quote.author__image}" alt="{quote.author__name}">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-9">
+                                <p>"{quote.quote}"</p>
+                            </div>
+                        </div>
                         <footer>
                             <cite> - {quote.author__name}</cite>
                         </footer>
@@ -174,5 +183,10 @@
     }
     .quote-actions a {
         cursor: pointer;
+    }
+    img {
+        border-radius: 50%;
+        width: 98px;
+        height: 130px;
     }
 </style>

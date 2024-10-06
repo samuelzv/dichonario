@@ -17,14 +17,14 @@
     "moduleDetection": "force",
     "baseUrl": ".",
     "paths": {
-			"$lib/types": ["src/lib/types.d.ts"]
+			"$lib/types": ["src/lib/types.d.ts"],
 		}
   },
   "include": [
       "src/**/*.ts", 
       "src/**/*.js", 
       "src/**/*.svelte",
-      "src/lib/types.d.ts"
+      "src/lib/types.d.ts",
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
