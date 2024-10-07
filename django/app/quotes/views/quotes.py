@@ -1,4 +1,3 @@
-from django.core.paginator import EmptyPage, Paginator
 from django.utils.translation import gettext
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -7,7 +6,7 @@ from django.contrib.auth import logout
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import DeleteView, DetailView, UpdateView
+from django.views.generic import DeleteView
 from django.db.models import Q
 
 from ..domain.util import get_command_buttons , set_session_action
@@ -20,7 +19,7 @@ from django.core import serializers
 from ..domain.quote_list_factory import QuoteListFactory
 
 
-from ..models import Author, Quote
+from ..models import Quote
 from ..forms import QuoteForm
 from ..domain.quote_session import QuoteSession, QuoteScope
 from ..selectors import (
@@ -29,7 +28,6 @@ from ..selectors import (
     author_by_id,
     language_by_code,
     get_author_list,
-    get_author_list_count_quotes,
     quote_by_id,
 )
 from ..services import quote_create, quote_update, author_create
@@ -56,7 +54,7 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         quote_list_factory = QuoteListFactory().create(action)
 
         quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'author__image', 'created_by')
-        (quotes, pagination) = paginate_results(quote_list, int(self.request.GET.get("page", 1)), 5)
+        (quotes, pagination) = paginate_results(quote_list, int(self.request.GET.get("page", 1)), 15)
         
         for q in quotes:
             q['is_owner'] = q['created_by'] == self.request.user.id

@@ -60,6 +60,7 @@ class AuthorDetailsView(DetailView):
         return context
 
 class AuthorUpdateView(UserPassesTestMixin, UpdateView):
+    template_name = 'quotes/author_create_update.html'
     model = Author
     fields = ['name', 'image']
     context_object_name = 'author'

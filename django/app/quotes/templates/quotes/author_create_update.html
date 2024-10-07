@@ -9,6 +9,11 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Create">
+
+        {% if form.instance.pk %}
+            <input type="submit" value={% trans "Update" %}>
+        {% else %}
+            <input type="submit" value={% trans "Create" %}>
+        {% endif %}
     </form>
 {% endblock %}
