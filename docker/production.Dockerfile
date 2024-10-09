@@ -3,9 +3,10 @@ LABEL maintainer="samuelzv@gmail.com"
 
 ENV PYTHONUNBUFFERED 1
 
-COPY ./app /app
-COPY ./requirements /app/requirements
-COPY ./scripts /scripts
+COPY ./django/app /app
+COPY ./django/requirements /app/requirements
+COPY ./django/scripts /scripts
+COPY ./svelte /svelte
 
 WORKDIR /app
 EXPOSE 8000
