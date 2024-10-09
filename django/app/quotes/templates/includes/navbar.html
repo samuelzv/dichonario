@@ -21,7 +21,7 @@
       {% endif %}
       {% if request.user.is_authenticated %}
         <li>
-          <a href="{% url 'quote-list' %}">{% trans 'Quotes' %}</a>
+          <a href="{% url 'quote-list' %}?action=public">{% trans 'Quotes' %}</a>
         </li>
         <li>
           <a href="{% url 'exit' %}">{% trans 'Logout' %}</a>
