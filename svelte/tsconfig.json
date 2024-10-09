@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
 			"$lib/types": ["src/lib/types.d.ts"],
+      "src/*": ["./src/*"]
 		}
   },
   "include": [
