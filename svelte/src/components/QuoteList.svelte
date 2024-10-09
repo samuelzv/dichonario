@@ -1,7 +1,7 @@
 <script>
     import Icon from '@iconify/svelte';
     import '../quote-app.css';
-    import {STATIC_PATH} from '../lib/constants';
+    import {STATIC_PATH} from 'src/lib/constants';
 
     import BlockQuote from "./BlockQuote.svelte";
     import SearchModal from "./SearchModal.svelte";
