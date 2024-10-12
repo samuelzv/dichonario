@@ -1,9 +1,14 @@
 {% load i18n %}
 {% load static %}
+{% load django_svelte %}
 {% load util %}
 
 
 <link rel="stylesheet" href="{% static 'quotes/navbar.css' %}">
+
+{% block svelte_styles %}
+  {% display_svelte_css 'DarkMode' %}
+{% endblock %}
 
 {% with request.resolver_match.url_name as url_name %}
 <nav>
@@ -14,6 +19,11 @@
     </li>
   </ul>
   <ul>
+      <li>
+        {% block content %}
+            {% display_svelte 'DarkMode' %}
+        {% endblock %}
+      </li>
       {% if url_name != 'home' %}
       <li>
         <a href="{% url 'home' %}" aria-current="page">{% trans 'Home' %}</a>

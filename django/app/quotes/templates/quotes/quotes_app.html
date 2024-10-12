@@ -4,7 +4,8 @@
 
 <!doctype html>
 <html>
-  <head>
+  <head lang="en">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
       {% block title %}
@@ -32,7 +33,7 @@
   <body class="quotes-app">
     <div class="container">
       {% block header %}
-        {% include 'includes/navbar.html' %}
+        {% include 'includes/navbar.html' with  mode='dark' %}
       {% endblock %}
     </div>
 
