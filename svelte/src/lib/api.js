@@ -5,7 +5,7 @@
  *  differs then you'll have to build support for that here(ish).
  */
 
-function getCookie(name) {
+export function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
       const cookies = document.cookie.split(';');

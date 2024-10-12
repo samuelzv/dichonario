@@ -1,8 +1,9 @@
 from django.urls import path, include
-from .views import authors, quotes
+from .views import authors, quotes, preferences
 
 urlpatterns = [
     path("", quotes.home, name="home"),
+    path('preferences/theme', preferences.theme, name='theme'),
     path("index", quotes.index, name="index"),
     path("list", 
          quotes.QuoteListSvelteTemplateView.as_view(
