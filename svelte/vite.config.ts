@@ -20,7 +20,7 @@ export default defineConfig({
         'src/SearchModal.js',
         'src/CardIsInView.js',
         'src/Paginator.js',
-        'src/DarkMode.js',
+        'src/ThemeToggle.js',
       ],
     },
     manifest: true,

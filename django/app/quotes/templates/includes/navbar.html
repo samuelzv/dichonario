@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{% static 'quotes/navbar.css' %}">
 
 {% block svelte_styles %}
-  {% display_svelte_css 'DarkMode' %}
+  {% display_svelte_css 'ThemeToggle' %}
 {% endblock %}
 
 {% with request.resolver_match.url_name as url_name %}
@@ -21,7 +21,7 @@
   <ul>
       <li>
         {% block content %}
-            {% display_svelte 'DarkMode' props %}
+            {% display_svelte 'ThemeToggle' props %}
         {% endblock %}
       </li>
       {% if url_name != 'home' %}
