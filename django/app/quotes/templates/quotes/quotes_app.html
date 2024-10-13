@@ -4,8 +4,9 @@
 {% load django_svelte %}
 
 <!doctype html>
-{% get_theme as props %}
-<html data-theme="{{props.theme}}">
+{% get_theme as props_theme %}
+{% get_language as props_language %}
+<html data-theme="{{props_theme.theme}}">
   <head lang="en">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,7 @@
   <body class="quotes-app">
     <div class="container">
       {% block header %}
-        {% include 'includes/navbar.html' with  props=props %}
+        {% include 'includes/navbar.html' with  props_theme=props_theme props_language=props_language %}
       {% endblock %}
     </div>
 

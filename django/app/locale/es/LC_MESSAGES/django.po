@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-05 03:19+0000\n"
+"POT-Creation-Date: 2024-10-13 16:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,27 +19,28 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
 
-#: quotes/components/quoteslist/template.html:31 quotes/views.py:274
+#: quotes/components/quoteslist/template.html:31 quotes/domain/i18n.py:11
+#: quotes/views/quotes.py:224
 msgid "Edit"
 msgstr "Editar"
 
-#: quotes/components/quoteslist/template.html:32
+#: quotes/components/quoteslist/template.html:32 quotes/domain/i18n.py:12
 msgid "Delete"
 msgstr "Borrar"
 
-#: quotes/components/quoteslist/template.html:43 quotes/views.py:75
+#: quotes/components/quoteslist/template.html:43 quotes/domain/i18n.py:7
 msgid "Go to previous page"
 msgstr "Ir a la página anterior"
 
-#: quotes/components/quoteslist/template.html:46 quotes/views.py:74
+#: quotes/components/quoteslist/template.html:46 quotes/domain/i18n.py:6
 msgid "Go to next page"
 msgstr "Ir a la siguiente página"
 
-#: quotes/domain/constants.py:12 quotes/templatetags/util.py:73
+#: quotes/domain/constants.py:12 quotes/templatetags/util.py:92
 msgid "Mine"
 msgstr "Mias"
 
-#: quotes/domain/constants.py:19 quotes/templatetags/util.py:80
+#: quotes/domain/constants.py:19 quotes/templatetags/util.py:99
 msgid "Public"
 msgstr "Públicas"
 
@@ -47,30 +48,64 @@ msgstr "Públicas"
 msgid "Authors"
 msgstr "Autores"
 
-#: quotes/templates/includes/navbar.html:19 quotes/templates/quotes/home.html:7
+#: quotes/domain/i18n.py:5 quotes/templates/quotes/quote_list.html:36
+#: quotes/templates/quotes/quote_new.html:7
+#: quotes/templates/quotes/quote_new.html:15
+msgid "New quote"
+msgstr "Nueva frase"
+
+#: quotes/domain/i18n.py:8 quotes/templates/quotes/quote_list.html:39
+msgid "Search"
+msgstr ""
+
+#: quotes/domain/i18n.py:9
+msgid "Page"
+msgstr "Página"
+
+#: quotes/domain/i18n.py:10
+msgid "from"
+msgstr "de"
+
+#: quotes/domain/i18n.py:17 quotes/templatetags/util.py:76
+msgid "English"
+msgstr "Inglés"
+
+#: quotes/domain/i18n.py:18 quotes/templatetags/util.py:79
+msgid "Spanish"
+msgstr "Español"
+
+#: quotes/templates/includes/navbar.html:36 quotes/templates/quotes/home.html:7
 #: quotes/templates/quotes/index.html:5
 msgid "Home"
 msgstr "Inicio"
 
-#: quotes/templates/includes/navbar.html:24
+#: quotes/templates/includes/navbar.html:41
 #: quotes/templates/quotes/author_list.html:20
 #: quotes/templates/quotes/quote_list.html:6
 #: quotes/templates/quotes/quote_list2.html:7
 msgid "Quotes"
 msgstr "Frases"
 
-#: quotes/templates/includes/navbar.html:27
+#: quotes/templates/includes/navbar.html:44
 msgid "Logout"
 msgstr "Salir"
 
-#: quotes/templates/includes/navbar.html:31
+#: quotes/templates/includes/navbar.html:48
 #: quotes/templates/registration/login.html:21
 msgid "Login"
 msgstr "Entrar"
 
-#: quotes/templates/includes/navbar.html:34
+#: quotes/templates/includes/navbar.html:51
 msgid "Register"
 msgstr "Registrarse"
+
+#: quotes/templates/quotes/author_create_update.html:14
+msgid "Update"
+msgstr ""
+
+#: quotes/templates/quotes/author_create_update.html:16
+msgid "Create"
+msgstr ""
 
 #: quotes/templates/quotes/author_list.html:7
 #, fuzzy
@@ -118,32 +153,22 @@ msgstr "Solo visible para mi"
 msgid "Save"
 msgstr "Guardar"
 
-#: quotes/templates/quotes/quote_list.html:36
-#: quotes/templates/quotes/quote_new.html:7
-#: quotes/templates/quotes/quote_new.html:15 quotes/views.py:73
-msgid "New quote"
-msgstr "Nueva frase"
-
-#: quotes/templates/quotes/quote_list.html:39 quotes/views.py:76
-msgid "Search"
-msgstr ""
-
 #: quotes/templates/registration/signup.html:9
 #: quotes/templates/registration/signup.html:13
 msgid "Sign up"
 msgstr "Registarse"
 
-#: quotes/templatetags/util.py:87 quotes/views.py:223
+#: quotes/templatetags/util.py:77
+msgid "Switch to English"
+msgstr "Cambiar a Inglés"
+
+#: quotes/templatetags/util.py:80
+msgid "Switch to Spanish"
+msgstr "Cambiar a Español"
+
+#: quotes/templatetags/util.py:106 quotes/views/quotes.py:173
 msgid "New"
 msgstr "Nueva"
-
-#: quotes/views.py:77
-msgid "Page"
-msgstr "Página"
-
-#: quotes/views.py:78
-msgid "from"
-msgstr "de"
 
 #~ msgid ""
 #~ "“Welcome to Dichonario, the place for gathering and sharing your favorite "

@@ -69,6 +69,21 @@ def get_theme(context):
         "theme": theme 
     } 
 
+@register.simple_tag(takes_context=True)
+def get_language(context):
+    return {
+        'is_english': context['request'].LANGUAGE_CODE == 'en',
+        'is_spanish': context['request'].LANGUAGE_CODE == 'es',
+        'i18n': {
+            'english_code': 'en' ,
+            'english_label': gettext_lazy('English'),
+            'english_description': gettext_lazy('Switch to English'),
+            'spanish_code': 'es',
+            'spanish_label': gettext_lazy('Spanish'),
+            'spanish_description': gettext_lazy('Switch to Spanish'),
+        }
+    }
+
 
 @register.simple_tag(takes_context=True)
 def get_quote_groups(context):

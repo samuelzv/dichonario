@@ -21,6 +21,7 @@ export default defineConfig({
         'src/CardIsInView.js',
         'src/Paginator.js',
         'src/ThemeToggle.js',
+        'src/LanguageToggle.js',
       ],
     },
     manifest: true,

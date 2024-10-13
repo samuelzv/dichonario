@@ -8,7 +8,9 @@
 
 {% block svelte_styles %}
   {% display_svelte_css 'ThemeToggle' %}
+  {% display_svelte_css 'LanguageToggle' %}
 {% endblock %}
+
 
 {% with request.resolver_match.url_name as url_name %}
 <nav>
@@ -19,11 +21,14 @@
     </li>
   </ul>
   <ul>
+      {% comment %} {% block content %} {% endcomment %}
       <li>
-        {% block content %}
-            {% display_svelte 'ThemeToggle' props %}
-        {% endblock %}
+            {% display_svelte 'ThemeToggle' props_theme %}
       </li>
+      <li>
+            {% display_svelte 'LanguageToggle' props_language %}
+      </li>
+      {% comment %} {% endblock %} {% endcomment %}
       {% if url_name != 'home' %}
       <li>
         <a href="{% url 'home' %}" aria-current="page">{% trans 'Home' %}</a>

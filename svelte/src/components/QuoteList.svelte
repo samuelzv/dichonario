@@ -17,7 +17,7 @@
     export let quote_new_url = '';
 
     /** 
-     * @type {import('$lib/types').I18n} 
+     * @type {import('$lib/types').QuoteListI18n} 
      * */
     export let i18n; 
 

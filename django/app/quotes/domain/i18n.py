@@ -11,3 +11,9 @@ def get_i18n_quotes_list():
        'edit': gettext('Edit'),
        'delete': gettext('Delete'),
     }
+
+def get_i18n_theme_toggle():
+    return {
+        'set_english': gettext('English'),
+        'set_spanish': gettext('Spanish'),
+    }

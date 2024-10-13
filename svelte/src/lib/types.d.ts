@@ -1,4 +1,4 @@
-export type I18n = {
+export type QuoteListI18n = {
     search: string;
     new_quote: string;
     previous_page: string;
@@ -7,6 +7,15 @@ export type I18n = {
     from: string;
     edit: string;
     delete: string;
+}
+
+export type LanguageToggleI18n = {
+  english_code: string;
+  english_label: string;
+  english_description: string;
+  spanish_code: string;
+  spanish_label: string;
+  spanish_description: string;
 }
 
 export type Pagination = {
