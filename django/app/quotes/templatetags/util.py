@@ -61,6 +61,14 @@ def get_button_config(
         "util_classes": util_classes,
     }
 
+@register.simple_tag(takes_context=True)
+def get_theme(context):
+    theme = context['request'].COOKIES.get("theme", "dark")
+
+    return {
+        "theme": theme 
+    } 
+
 
 @register.simple_tag(takes_context=True)
 def get_quote_groups(context):

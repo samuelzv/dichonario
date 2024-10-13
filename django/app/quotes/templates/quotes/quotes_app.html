@@ -1,9 +1,11 @@
 {% load static %}
+{% load util %}
 {% load component_tags %}
 {% load django_svelte %}
 
 <!doctype html>
-<html>
+{% get_theme as props %}
+<html data-theme="{{props.theme}}">
   <head lang="en">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +35,7 @@
   <body class="quotes-app">
     <div class="container">
       {% block header %}
-        {% include 'includes/navbar.html' with  mode='dark' %}
+        {% include 'includes/navbar.html' with  props=props %}
       {% endblock %}
     </div>
 

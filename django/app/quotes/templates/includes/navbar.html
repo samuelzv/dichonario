@@ -21,7 +21,7 @@
   <ul>
       <li>
         {% block content %}
-            {% display_svelte 'DarkMode' %}
+            {% display_svelte 'DarkMode' props %}
         {% endblock %}
       </li>
       {% if url_name != 'home' %}

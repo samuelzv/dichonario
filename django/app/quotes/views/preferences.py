@@ -4,8 +4,6 @@ from django.core import serializers
 from django.http import JsonResponse
 
 
-
-@login_required
 def theme(request):
     theme = request.POST.get("theme", 'dark')
 
