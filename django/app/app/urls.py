@@ -40,3 +40,6 @@ if apps.is_installed("pattern_library"):
     urlpatterns += [
         path("pattern-library/", include("pattern_library.urls")),
     ]
+urlpatterns += [
+    path("i18n/", include("django.conf.urls.i18n")),
+]

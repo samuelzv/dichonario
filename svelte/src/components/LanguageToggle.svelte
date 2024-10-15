@@ -22,17 +22,60 @@
      * @param {'en'|'es'} language
      */
     async function set_language(language) {
+                    // 'next': '/quotes/list?action=public',
+                    // 'next': encodeURIComponent('/quotes/list?action=public'),
+                    // 'Accept': 'text/html',
+                    // 'Accept': 'application/json',
+                    // 'next': '/' + language + '/quotes/list?action=public',
+        // alert(`${window.location.pathname}--${window.location.search}`);
+
+        // todo
+// So I found the problem. Apparently, you MUST include a next parameter/input field that correspond to the current path (without the language prefix) in order for the redirect to work.
+// I erroneously assumed, this was automatically figured out by Django.
         const response = await fetch(
-            'preferences/language',
+            '/i18n/setlang/',
             {
                 method: 'POST',
+                redirect: 'follow',
                 headers: {
+                    'Accept': 'text/html',
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: new URLSearchParams({
                     'language': language || '',
+                    'next': '/quotes/list?action=mine',  
                     'csrfmiddlewaretoken': getCookie('csrftoken') || '', 
                 }),
+            }
+        );
+        // const data = await response.text();
+        if (response.redirected) {
+            window.location.href = response.url;
+        }
+
+        // console.log(data);
+        // window.location.href = '/';
+    }
+
+
+    /**
+     * @param {'en'|'es'} language
+     */
+    async function set_language2(language) {
+                    // 'next': '/quotes/list?action=public',
+                    // 'next': encodeURIComponent('/quotes/list?action=public'),
+        const response = await fetch(
+                    '/i18n/setlang?' + new URLSearchParams({
+                    'language': language || '',
+                    'next': '/quotes/list?action=public',
+                    'csrfmiddlewaretoken': getCookie('csrftoken') || '', 
+                }),
+            {
+                method: 'get',
+                headers: {
+                    'Accept': 'text/html',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
             }
         );
         const data = await response.json();
