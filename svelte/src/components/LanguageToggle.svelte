@@ -32,6 +32,8 @@
         // todo
 // So I found the problem. Apparently, you MUST include a next parameter/input field that correspond to the current path (without the language prefix) in order for the redirect to work.
 // I erroneously assumed, this was automatically figured out by Django.
+        const next = (window.location.pathname + window.location.search).substring(3);
+        // alert(next);
         const response = await fetch(
             '/i18n/setlang/',
             {
@@ -43,7 +45,7 @@
                 },
                 body: new URLSearchParams({
                     'language': language || '',
-                    'next': '/quotes/list?action=mine',  
+                    'next': next, // '/quotes/list?action=mine',  
                     'csrfmiddlewaretoken': getCookie('csrftoken') || '', 
                 }),
             }
