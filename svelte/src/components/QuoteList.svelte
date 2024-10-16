@@ -109,6 +109,8 @@
                 </div>
             </div>
         </div>
+
+        <!--
         <div class="col-xs-12 col-md-6">
             <div class="row center-xs end-md">
                 <div class="col-xs-12 buttons-group">
@@ -121,6 +123,8 @@
                 </div>
             </div>
         </div>
+        -->
+
     </div>
 
     <div class="wrapper">
@@ -135,15 +139,9 @@
 
                             <div class="col-xs-8 col-sm-9">
                                 <p>"{quote.quote}"</p>
-                            </div>
-                        </div>
-                        <div class="row start-xs center-md">
-                            <div class="col-xs-12 col-sm-3">
                                 <footer>
                                     <cite> - {quote.author__name}</cite>
                                 </footer>
-                            </div>
-                            <div class="col-xs-12 col-sm-9">
                             </div>
                         </div>
                     </BlockQuote>
