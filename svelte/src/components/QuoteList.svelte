@@ -127,6 +127,12 @@
 
     </div>
 
+    <!--
+                                     sizes="((max-width: 380px)) 150px,
+                                            ((max-width: 780px)) 521px,
+                                            (min-width: 1024px) 600px" 
+    -->
+
     <div class="wrapper">
         {#each quotes as quote }
             <CardIsInView>
@@ -134,7 +140,11 @@
                     <BlockQuote>
                         <div class="row start-xs center-md middle-xs">
                             <div class="col-xs-4 col-sm-3">
-                                <img src="/{STATIC_PATH}/{quote.author__image}" alt="{quote.author__name}">
+                                <img srcset="/{STATIC_PATH}/{quote.author__image_sm} 150w, /{STATIC_PATH}/{quote.author__image_md} 521w, /{STATIC_PATH}/{quote.author__image_lg} 600w"
+                                     sizes="((max-width: 780px)) 150px,
+                                            ((min-width: 781px) and (max-width: 1024px)) 521px,
+                                            (min-width: 1025px) 600px" 
+                                     alt="{quote.author__name}">
                             </div>
 
                             <div class="col-xs-8 col-sm-9">
@@ -190,7 +200,5 @@
     }
     img {
         border-radius: 50%;
-        width: 98px;
-        height: 130px;
     }
 </style>

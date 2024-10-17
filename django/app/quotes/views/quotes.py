@@ -53,7 +53,7 @@ class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
         action = self.request.session["action"]
         quote_list_factory = QuoteListFactory().create(action)
 
-        quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'author__image', 'created_by')
+        quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'author__image', 'author__image_sm', 'author__image_md', 'author__image_lg', 'created_by')
         (quotes, pagination) = paginate_results(quote_list, int(self.request.GET.get("page", 1)), 15)
         
         for q in quotes:

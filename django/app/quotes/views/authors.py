@@ -62,7 +62,7 @@ class AuthorDetailsView(DetailView):
 class AuthorUpdateView(UserPassesTestMixin, UpdateView):
     template_name = 'quotes/author_create_update.html'
     model = Author
-    fields = ['name', 'image']
+    fields = ['name', 'image', 'image_sm', 'image_md', 'image_lg']
     context_object_name = 'author'
 
     def test_func(self):

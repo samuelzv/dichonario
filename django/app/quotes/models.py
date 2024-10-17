@@ -34,6 +34,9 @@ class Author(BaseModel):
     name = models.CharField(max_length=200, unique=True)
     authorized = models.BooleanField(default=False)
     image = models.ImageField(upload_to='images', null=True, blank=True)
+    image_sm = models.ImageField(upload_to='images', null=True, blank=True)
+    image_md = models.ImageField(upload_to='images', null=True, blank=True)
+    image_lg = models.ImageField(upload_to='images', null=True, blank=True)
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True
     )

@@ -33,6 +33,9 @@ export type Quote = {
   quote: string;
   author__name: string;
   author__image: string;
+  author__image_sm: string;
+  author__image_md: string;
+  author__image_lg: string;
   is_owner: boolean;
 }
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-13 16:59+0000\n"
+"POT-Creation-Date: 2024-10-17 01:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,11 +36,11 @@ msgstr "Ir a la página anterior"
 msgid "Go to next page"
 msgstr "Ir a la siguiente página"
 
-#: quotes/domain/constants.py:12 quotes/templatetags/util.py:92
+#: quotes/domain/constants.py:12 quotes/templatetags/util.py:96
 msgid "Mine"
 msgstr "Mias"
 
-#: quotes/domain/constants.py:19 quotes/templatetags/util.py:99
+#: quotes/domain/constants.py:19 quotes/templatetags/util.py:103
 msgid "Public"
 msgstr "Públicas"
 
@@ -48,13 +48,15 @@ msgstr "Públicas"
 msgid "Authors"
 msgstr "Autores"
 
-#: quotes/domain/i18n.py:5 quotes/templates/quotes/quote_list.html:36
+#: quotes/domain/i18n.py:5 quotes/templates/includes/navbar.html:45
+#: quotes/templates/quotes/quote_list.html:36
 #: quotes/templates/quotes/quote_new.html:7
 #: quotes/templates/quotes/quote_new.html:15
 msgid "New quote"
 msgstr "Nueva frase"
 
-#: quotes/domain/i18n.py:8 quotes/templates/quotes/quote_list.html:39
+#: quotes/domain/i18n.py:8 quotes/templates/includes/navbar.html:49
+#: quotes/templates/quotes/quote_list.html:39
 msgid "Search"
 msgstr ""
 
@@ -66,18 +68,13 @@ msgstr "Página"
 msgid "from"
 msgstr "de"
 
-#: quotes/domain/i18n.py:17 quotes/templatetags/util.py:76
+#: quotes/domain/i18n.py:17 quotes/templatetags/util.py:79
 msgid "English"
 msgstr "Inglés"
 
-#: quotes/domain/i18n.py:18 quotes/templatetags/util.py:79
+#: quotes/domain/i18n.py:18 quotes/templatetags/util.py:82
 msgid "Spanish"
 msgstr "Español"
-
-#: quotes/templates/includes/navbar.html:36 quotes/templates/quotes/home.html:7
-#: quotes/templates/quotes/index.html:5
-msgid "Home"
-msgstr "Inicio"
 
 #: quotes/templates/includes/navbar.html:41
 #: quotes/templates/quotes/author_list.html:20
@@ -86,16 +83,16 @@ msgstr "Inicio"
 msgid "Quotes"
 msgstr "Frases"
 
-#: quotes/templates/includes/navbar.html:44
+#: quotes/templates/includes/navbar.html:53
 msgid "Logout"
 msgstr "Salir"
 
-#: quotes/templates/includes/navbar.html:48
+#: quotes/templates/includes/navbar.html:60
 #: quotes/templates/registration/login.html:21
 msgid "Login"
 msgstr "Entrar"
 
-#: quotes/templates/includes/navbar.html:51
+#: quotes/templates/includes/navbar.html:63
 msgid "Register"
 msgstr "Registrarse"
 
@@ -118,6 +115,10 @@ msgstr "Autor"
 #: quotes/templates/quotes/quote_new.html:28
 msgid "Author"
 msgstr "Autor"
+
+#: quotes/templates/quotes/home.html:7 quotes/templates/quotes/index.html:5
+msgid "Home"
+msgstr "Inicio"
 
 #: quotes/templates/quotes/quote_confirm_delete.html:7
 #: quotes/templates/quotes/quote_confirm_delete.html:13
@@ -158,15 +159,15 @@ msgstr "Guardar"
 msgid "Sign up"
 msgstr "Registarse"
 
-#: quotes/templatetags/util.py:77
+#: quotes/templatetags/util.py:80
 msgid "Switch to English"
 msgstr "Cambiar a Inglés"
 
-#: quotes/templatetags/util.py:80
+#: quotes/templatetags/util.py:83
 msgid "Switch to Spanish"
 msgstr "Cambiar a Español"
 
-#: quotes/templatetags/util.py:106 quotes/views/quotes.py:173
+#: quotes/templatetags/util.py:110 quotes/views/quotes.py:173
 msgid "New"
 msgstr "Nueva"
 

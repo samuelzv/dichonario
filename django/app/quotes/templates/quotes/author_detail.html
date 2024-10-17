@@ -19,10 +19,35 @@
                 {% endif %}
             </div>
             <div class='col-lg-8 col-sm-12'>
-             
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-lg-4 col-sm-12'>
+                {% if author.image_sm %}
+                    <img class='author' src="{{author.image_sm.url}}" alt="{{author.name}}">
+                {% endif %}
+            </div>
+            <div class='col-lg-8 col-sm-12'>
             </div>
         </div>
         <div class='row'>
+            <div class='col-lg-4 col-sm-12'>
+                {% if author.image_md %}
+                    <img class='author' src="{{author.image_md.url}}" alt="{{author.name}}">
+                {% endif %}
+            </div>
+            <div class='col-lg-8 col-sm-12'>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-lg-4 col-sm-12'>
+                {% if author.image_lg %}
+                    <img class='author' src="{{author.image_lg.url}}" alt="{{author.name}}">
+                {% endif %}
+            </div>
+            <div class='col-lg-8 col-sm-12'>
+            </div>
         </div>
 
     </section>
