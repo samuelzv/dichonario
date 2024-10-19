@@ -15,13 +15,13 @@
       <div role="group">
         <button 
           hx-target="#main-content"
-          hx-get="{% url 'quote-main-mine' %}"
+          hx-get="{% url 'quote-partial-mine' %}"
           class="{% if section == 'mine'%}active{%else%}secondary{% endif %}">
           {% trans 'Mine' %}
         </button>
         <button 
           hx-target="#main-content"
-          hx-get="{% url 'quote-main-public' %}"
+          hx-get="{% url 'quote-partial-public' %}"
           class="{% if section == 'public'%}active{%else%}secondary{% endif %}">
           {% trans 'Public' %}
         </button>

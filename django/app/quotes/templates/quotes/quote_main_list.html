@@ -1,0 +1,9 @@
+{% extends 'quotes/quote_main.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block main-content %}
+    {% if section == 'public' or section == 'mine' %}
+      {% include "quotes/partials/quote_main_list.html" with quotes=quotes page=page search=search  %}
+    {% endif %}
+{% endblock %}

@@ -135,7 +135,24 @@ def quote_public(request):
 
     return render(
         request,
-        "quotes/partials/quote_list.html",
+        "quotes/quote_main_list.html",
+        {
+            'section': 'public',
+            'quotes': quotes,
+            'page': page,
+            'search': search 
+        },
+    )
+
+@login_required
+def quote_partial_public(request):
+    search = request.GET.get("search", "")
+    page = request.GET.get("page", "1")
+    quotes = quote_list_public(search)
+
+    return render(
+        request,
+        "quotes/partials/quote_main_list.html",
         {
             'section': 'public',
             'quotes': quotes,
@@ -152,7 +169,24 @@ def quote_mine(request):
 
     return render(
         request,
-        "quotes/partials/quote_list.html",
+        "quotes/quote_main_list.html",
+        {
+            'section': 'mine',
+            'quotes': quotes,
+            'page': page,
+            'search': search 
+        },
+    )
+
+@login_required
+def quote_partial_mine(request):
+    search = request.GET.get("search", "")
+    page = request.GET.get("page", "1")
+    quotes = quote_list_created_by(user=request.user, search=search)
+
+    return render(
+        request,
+        "quotes/partials/quote_main_list.html",
         {
             'section': 'mine',
             'quotes': quotes,

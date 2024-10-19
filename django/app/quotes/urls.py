@@ -14,6 +14,10 @@ urlpatterns = [
     path("list2", quotes.quote_list, name="quote-list-2"),
     path("main/mine", quotes.quote_mine, name="quote-main-mine"),
     path("main/public", quotes.quote_public, name="quote-main-public"),
+
+    path("main/partial/mine", quotes.quote_partial_mine, name="quote-partial-mine"),
+    path("main/partial/public", quotes.quote_partial_public, name="quote-partial-public"),
+
      path('authors/<int:pk>/update',
          authors.AuthorUpdateView.as_view(), name='author-update'),
     path('authors/<int:pk>', authors.AuthorDetailsView.as_view(), name='author-detail'),
