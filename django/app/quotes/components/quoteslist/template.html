@@ -26,7 +26,7 @@
             {% fill "footer" %}
                 {% if q.created_by == request.user %}
                     {% get_current_url as current_url %}
-                    {% url 'quote-edit' q.id as edit_url %}
+                    {% url 'quote-partial-edit' q.id as edit_url %}
                     {% url 'quote-delete' q.id as delete_url %}
                     <a href="{{edit_url}}?next={{current_url}}" class="">{% trans "Edit" %}</a>
                     <a href="{{delete_url}}?next={{current_url}}" class="">{% trans "Delete" %}</a>

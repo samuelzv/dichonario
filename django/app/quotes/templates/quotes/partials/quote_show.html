@@ -1,0 +1,23 @@
+{% extends 'quotes/quotes_partials.html' %}
+{% load static %}
+{% load util %}
+{% load i18n %}
+
+{% block content %}
+  <div class="row start-xs center-md middle-xs" >
+    <div class="col-xs-4 col-sm-3">
+        <img srcset="/static/media/{{quote.author.image_sm}} 150w, /static/media/{{quote.author.image_md}} 521w, /static/media/{{quote.author.image_lg}} 600w"
+            sizes="((max-width: 780px)) 150px,
+                    ((min-width: 781px) and (max-width: 1024px)) 521px,
+                    (min-width: 1025px) 600px" 
+            alt="{{quote.author__name}}">
+    </div>
+
+    <div class="col-xs-8 col-sm-9">
+            <p>"{{quote.quote}}"</p>
+            <footer>
+                <cite> - {{quote.author.name}}</cite>
+            </footer>
+    </div>
+</div>
+{% endblock %}

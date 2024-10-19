@@ -60,7 +60,7 @@
       * @param {string} id
       */
      function get_action_url(action, id) {
-        let url = `quote/${id}/${action}`;
+        let url = `quote/partial/${id}/${action}`;
         // url += '?next=' + encodeURIComponent(`${window.location.pathname}${window.location.search}`)
 
         return url;
@@ -116,29 +116,32 @@
             <CardIsInView>
                 <svelte:fragment slot="body">
                     <BlockQuote>
-                        <div class="row start-xs center-md middle-xs">
-                            <div class="col-xs-4 col-sm-3">
-                                <img srcset="/{STATIC_PATH}/{quote.author__image_sm} 150w, /{STATIC_PATH}/{quote.author__image_md} 521w, /{STATIC_PATH}/{quote.author__image_lg} 600w"
-                                     sizes="((max-width: 780px)) 150px,
-                                            ((min-width: 781px) and (max-width: 1024px)) 521px,
-                                            (min-width: 1025px) 600px" 
-                                     alt="{quote.author__name}">
-                            </div>
+                        <div id="quote-{quote.id}" hx-swap="outerHTML">
+                            <div class="row start-xs center-md middle-xs" >
+                                <div class="col-xs-4 col-sm-3">
+                                    <img srcset="/{STATIC_PATH}/{quote.author__image_sm} 150w, /{STATIC_PATH}/{quote.author__image_md} 521w, /{STATIC_PATH}/{quote.author__image_lg} 600w"
+                                        sizes="((max-width: 780px)) 150px,
+                                                ((min-width: 781px) and (max-width: 1024px)) 521px,
+                                                (min-width: 1025px) 600px" 
+                                        alt="{quote.author__name}">
+                                </div>
 
-                            <div class="col-xs-8 col-sm-9">
-                                <p>"{quote.quote}"</p>
-                                <footer>
-                                    <cite> - {quote.author__name}</cite>
-                                </footer>
+                                <div class="col-xs-8 col-sm-9">
+                                        <p>"{quote.quote}"</p>
+                                        <footer>
+                                            <cite> - {quote.author__name}</cite>
+                                        </footer>
+                                </div>
                             </div>
                         </div>
                     </BlockQuote>
                 </svelte:fragment>
                 <svelte:fragment slot="footer">
                     <div class="row end-xs quote-actions">
-                        <div class="col-xs-12" hx-target="this" hx-swap="outerHTML">
+                        <div class="col-xs-12">
                             {#if quote.is_owner}
-                                <button hx-get="/en/quotes/quote/30/edit"
+                                <button hx-get="{get_action_url('edit', quote.id)}"
+                                    hx-target="#quote-{quote.id}"
                                     data-tooltip="{i18n.edit}" 
                                     class="secondary">
                                     <Icon icon="material-symbols-light:edit-outline" />

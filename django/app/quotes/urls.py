@@ -18,7 +18,8 @@ urlpatterns = [
     path("authors", authors.author_list, name="author-list"),
     path("new", quotes.quote_new, name="quote-new"),
     path("quote/<int:pk>/edit-old", quotes.quote_edit_old, name="quote-edit-old"),
-    path("quote/<int:pk>/edit", quotes.quote_edit, name="quote-edit"),
+    path("quote/partial/<int:pk>/edit", quotes.quote_partial_edit, name="quote-partial-edit"),
+    path("quote/partial/<int:pk>/show", quotes.quote_partial_show, name="quote-partial-show"),
     path(
         "quote/<int:pk>/delete", quotes.QuoteDeleteView.as_view(), name="quote-delete"
     ),

@@ -178,9 +178,8 @@ def quote_new(request):
         },
     )
 
-def quote_edit(request, pk):
+def quote_partial_edit(request, pk):
     quote = quote_by_id(id=pk)
-    next = request.GET.get("next")
     author = None
 
     if request.method == "POST":
@@ -210,7 +209,8 @@ def quote_edit(request, pk):
                 is_private=form.cleaned_data["is_private"],
             )
 
-            return HttpResponseRedirect(next)
+            return redirect('quote-partial-show', pk=pk)
+            #return HttpResponseRedirect(next)
     else:
         form = QuoteForm(instance=quote)
 
@@ -223,6 +223,17 @@ def quote_edit(request, pk):
             "title": gettext("Edit"),
             "quote": quote,
             "authors": authors
+        },
+    )
+
+def quote_partial_show(request, pk):
+    quote = quote_by_id(id=pk)
+
+    return render(
+        request,
+        "quotes/partials/quote_show.html",
+        {
+            "quote": quote,
         },
     )
 
