@@ -5,6 +5,7 @@ from django.urls import reverse
 QuoteScope = Literal["mine", "public"]
 
 # reverse(button["url"]) + "?action=" + button["id"]
+sections = ["mine", "public", "authors"]
 
 command_buttons = [
     {

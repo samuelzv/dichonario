@@ -1,0 +1,13 @@
+{% extends 'quotes/quote_main.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block main-content %}
+      {% url 'quote-list' as quote_list_url %}
+      {% component 'quotespartiallist' name='quotes' list=quotes page_number=page paginator_url=quote_list_url search=search %}
+        {% fill "header" %}
+        <div class="grid">
+        </div>
+        {% endfill %}
+      {% endcomponent %}
+{% endblock %}

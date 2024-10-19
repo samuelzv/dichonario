@@ -6,8 +6,15 @@
   height: 100%;
 }
 
+.quotes-app .full-height,
 .quotes-app .main-container {
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow: auto;
 }
+
+.quotes-app .quote img {
+  border-radius: 50%;
+}
+

@@ -12,7 +12,7 @@ from django.db.models import Q
 from ..domain.util import get_command_buttons , set_session_action
 from ..domain.paginate_results import paginate_results
 from ..domain.i18n import get_i18n_quotes_list
-from ..domain.constants import command_buttons
+from ..domain.constants import command_buttons, sections
 from django.template import RequestContext
 
 from django.core import serializers
@@ -123,6 +123,41 @@ def quote_list(request):
             "selected_command": request.session["action"],
             "page": request.session["page"],
             "search": request.session["search"],
+        },
+    )
+
+
+@login_required
+def quote_public(request):
+    search = request.GET.get("search", "")
+    page = request.GET.get("page", "1")
+    quotes = quote_list_public(search)
+
+    return render(
+        request,
+        "quotes/partials/quote_list.html",
+        {
+            'section': 'public',
+            'quotes': quotes,
+            'page': page,
+            'search': search 
+        },
+    )
+
+@login_required
+def quote_mine(request):
+    search = request.GET.get("search", "")
+    page = request.GET.get("page", "1")
+    quotes = quote_list_created_by(user=request.user, search=search)
+
+    return render(
+        request,
+        "quotes/partials/quote_list.html",
+        {
+            'section': 'mine',
+            'quotes': quotes,
+            'page': page,
+            'search': search 
         },
     )
 
