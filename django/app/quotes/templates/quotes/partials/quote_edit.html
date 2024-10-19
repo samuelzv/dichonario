@@ -12,7 +12,7 @@
              <div >
                 <label for="quote_id">{% trans 'Quote' %}</label>
                 <div>
-                  <textarea cols="50" rows="5" id="quote_id" name="quote" required>{{quote.quote}}</textarea>
+                  <textarea cols="50" rows="3" id="quote_id" name="quote" required>{{quote.quote}}</textarea>
                   {{ form.quote.errors }}
                 </div>
              </div>
@@ -34,7 +34,10 @@
            </fieldset>
 
             <div class="form-actions">
-                <input type="submit" value="{% trans 'Save' %}">
+                {% comment %} <input type="submit" value="{% trans 'Save' %}"> {% endcomment %}
+                <button type="button" hx-post="{% url 'quote-partial-edit' quote.id %}"  hx-target="#quote-{{quote.id}}">
+                  {% trans 'Save' %}
+                </button>
                 <button type="button" hx-get="{% url 'quote-partial-show' quote.id %}"  hx-target="#quote-{{quote.id}}">
                   {% trans 'Cancel' %}
                 </button>
