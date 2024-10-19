@@ -1,21 +1,9 @@
-{% extends 'quotes/quotes_app.html' %}
+{% extends 'quotes/quotes_partials.html' %}
 {% load static %}
 {% load util %}
 {% load i18n %}
 
-{% block title %}
-    Quote Edit
-{% endblock %}
-
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_edit.css' %}">
-    <div hx-target="this" hx-swap="outerHTML">
-        <h1>Hello world</h1>
-
-        <button hx-get="/en/quotes/quote/30/edit" class="secondary">Update</button>
-
-    </div>
-
     <div class="container quote-edit">
         <h3>Edit Quote</h3>
         <form method="post">
@@ -24,7 +12,7 @@
              <div class="my-4">
                 <label for="quote_id">{% trans 'Quote' %}</label>
                 <div>
-                        <textarea cols="50" rows="5" id="quote_id" name="quote" required>{{quote.quote}}</textarea>
+                  <textarea cols="50" rows="5" id="quote_id" name="quote" required>{{quote.quote}}</textarea>
                   {{ form.quote.errors }}
                 </div>
              </div>
@@ -49,9 +37,6 @@
                 <input type="submit" value="{% trans "Save" %}">
                 <input type="reset" value="{% trans "Cancel" %}" onclick="javascript:history.back()">
             </div>
-
-
-            <input type="hidden" name="next" value="{{success_url}}"/>
         </form>
     </div>
 {% endblock %}

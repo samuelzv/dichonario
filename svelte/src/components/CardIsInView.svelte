@@ -3,12 +3,20 @@
     import { inview } from 'svelte-inview';
 
     let isInView = false;
+    const id = self.crypto.randomUUID();
+
 </script>
 <!-- <article use:inview={{ unobserveOnEnter: true, rootMargin: '-20%' }} -->
-<article use:inview={{ unobserveOnEnter: true, rootMargin: '-180px' }}
+<article id="{id}" use:inview={{ unobserveOnEnter: true, rootMargin: '-180px' }}
     on:inview_change={({ detail }) => {
     isInView = detail.inView;
     console.log("isInView",isInView);
+    if (isInView) {
+        setTimeout(() => {
+            htmx.process(document.getElementById(id));
+        }, 0);
+    }
+
 }}>
     {#if isInView && $$slots.header}
     <header in:fade>

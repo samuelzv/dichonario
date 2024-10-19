@@ -107,6 +107,10 @@
 
 
 <style>
+    :global(#languagetoggle-target) {
+        display: flex;
+    }
+
     .language {
         background: transparent;
         border: transparent;

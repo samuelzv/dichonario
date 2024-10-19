@@ -61,7 +61,7 @@
       */
      function get_action_url(action, id) {
         let url = `quote/${id}/${action}`;
-        url += '?next=' + encodeURIComponent(`${window.location.pathname}${window.location.search}`)
+        // url += '?next=' + encodeURIComponent(`${window.location.pathname}${window.location.search}`)
 
         return url;
      }
@@ -109,29 +109,7 @@
                 </div>
             </div>
         </div>
-
-        <!--
-        <div class="col-xs-12 col-md-6">
-            <div class="row center-xs end-md">
-                <div class="col-xs-12 buttons-group">
-                    <button type="button" class="outline secondary" on:click={() => go_to_url(quote_new_url)}>
-                        {i18n.new_quote} 
-                    </button>
-                    <button type="button" class="outline secondary" data-target="search_modal" on:click="{() => toggleModal(event)}">
-                        {i18n.search} 
-                    </button>
-                </div>
-            </div>
-        </div>
-        -->
-
     </div>
-
-    <!--
-                                     sizes="((max-width: 380px)) 150px,
-                                            ((max-width: 780px)) 521px,
-                                            (min-width: 1024px) 600px" 
-    -->
 
     <div class="wrapper">
         {#each quotes as quote }
@@ -158,13 +136,13 @@
                 </svelte:fragment>
                 <svelte:fragment slot="footer">
                     <div class="row end-xs quote-actions">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12" hx-target="this" hx-swap="outerHTML">
                             {#if quote.is_owner}
-                                <a  data-tooltip="{i18n.edit}" 
-                                    class="secondary" 
-                                    href="{get_action_url('edit', quote.id)}">
+                                <button hx-get="/en/quotes/quote/30/edit"
+                                    data-tooltip="{i18n.edit}" 
+                                    class="secondary">
                                     <Icon icon="material-symbols-light:edit-outline" />
-                                </a>
+                                </button>
                                 <a  data-tooltip="{i18n.delete}" 
                                     class="secondary"
                                     href="{get_action_url('delete', quote.id)}">

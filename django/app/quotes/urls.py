@@ -17,6 +17,7 @@ urlpatterns = [
     path('authors/<int:pk>', authors.AuthorDetailsView.as_view(), name='author-detail'),
     path("authors", authors.author_list, name="author-list"),
     path("new", quotes.quote_new, name="quote-new"),
+    path("quote/<int:pk>/edit-old", quotes.quote_edit_old, name="quote-edit-old"),
     path("quote/<int:pk>/edit", quotes.quote_edit, name="quote-edit"),
     path(
         "quote/<int:pk>/delete", quotes.QuoteDeleteView.as_view(), name="quote-delete"

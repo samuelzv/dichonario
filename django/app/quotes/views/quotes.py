@@ -178,8 +178,57 @@ def quote_new(request):
         },
     )
 
-
 def quote_edit(request, pk):
+    quote = quote_by_id(id=pk)
+    next = request.GET.get("next")
+    author = None
+
+    if request.method == "POST":
+        author_id = request.POST.get("author")
+        if not author_id:
+            # theres no author, so try to  create a new one
+            author = author_create(
+                name=request.POST.get("author_text"), created_by=request.user
+            )
+            form = QuoteForm(
+                {
+                    "quote": request.POST.get("quote"),
+                    "author": author.id,
+                    "is_private": request.POST.get("is_private"),
+                },
+                instance=quote,
+            )
+        else:
+            author = author_by_id(id=author_id)
+            form = QuoteForm(request.POST)
+
+        if form.is_valid():
+            quote_update(
+                id=pk,
+                quote=form.cleaned_data["quote"],
+                author=form.cleaned_data["author"],
+                is_private=form.cleaned_data["is_private"],
+            )
+
+            return HttpResponseRedirect(next)
+    else:
+        form = QuoteForm(instance=quote)
+
+    authors = get_author_list()
+    return render(
+        request,
+        "quotes/partials/quote_edit.html",
+        {
+            "form": form,
+            "title": gettext("Edit"),
+            "quote": quote,
+            "authors": authors
+        },
+    )
+
+
+
+def quote_edit_old(request, pk):
     quote = quote_by_id(id=pk)
     next = request.GET.get("next")
     author = None
