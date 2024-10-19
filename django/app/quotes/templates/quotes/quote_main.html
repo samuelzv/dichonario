@@ -13,13 +13,26 @@
 
     <div class="container">
       <div role="group">
-        <button class="{% if section == 'mine'%}active{%else%}secondary{% endif %}">{% trans 'Mine' %}</button>
-        <button class="{% if section == 'public'%}active{%else%}secondary{% endif %}">{% trans 'Public' %}</button>
-        <button class="{% if section == 'authors'%}active{%else%}secondary{% endif %}">{% trans 'Authors' %}</button>
+        <button 
+          hx-target="#main-content"
+          hx-get="{% url 'quote-main-mine' %}"
+          class="{% if section == 'mine'%}active{%else%}secondary{% endif %}">
+          {% trans 'Mine' %}
+        </button>
+        <button 
+          hx-target="#main-content"
+          hx-get="{% url 'quote-main-public' %}"
+          class="{% if section == 'public'%}active{%else%}secondary{% endif %}">
+          {% trans 'Public' %}
+        </button>
+        <button 
+          class="{% if section == 'authors'%}active{%else%}secondary{% endif %}">
+          {% trans 'Authors' %}
+        </button>
       </div>
     </div>
 
-    <div class="container full-height">
+    <div class="container full-height" id="main-content" hx-swap="outerHTML">
       {% block main-content %}
       {% endblock %}
     </div>

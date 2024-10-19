@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_list.css' %}">
 
-<form id="quote_list_form" action="{% url 'quote-main-mine' %}" class="quote-list">
+<form id="quote_list_form" action="{% url 'quote-main-mine' %}" class="quote-list full-height">
     {% slot "header" %}
     {% endslot %}
     {% for q in page %}
@@ -36,19 +36,19 @@
             {% endfill %}
         {% endcomponent %}
     {% endfor %}
-
-    <!-- pagination controls -->
-    {% if total_count > 0 %}
-        {% get_previous_page_link paginator_url page search as previous_page_link %}
-        {% get_next_page_link paginator_url page search as next_page_link %}
-        <div class="pagination">
-            <button type="button" onclick="goToUrl('{{previous_page_link}}')" title="{% trans 'Go to previous page' %}" class="outline secondary" {% if page.has_previous == False %}disabled{% endif %}>
-                <
-            </button>
-            <button type="button" onclick="goToUrl('{{next_page_link}}')" title="{% trans 'Go to next page' %}" class="outline secondary" {% if page.has_next == False %}disabled{% endif %}>
-            >
-            </button>
-        </div>
-    {% endif %}
 </form>
+
+<!-- pagination controls -->
+{% if total_count > 0 %}
+    {% get_previous_page_link paginator_url page search as previous_page_link %}
+    {% get_next_page_link paginator_url page search as next_page_link %}
+    <div class="pagination">
+        <button type="button" onclick="goToUrl('{{previous_page_link}}')" title="{% trans 'Go to previous page' %}" class="outline secondary" {% if page.has_previous == False %}disabled{% endif %}>
+            <
+        </button>
+        <button type="button" onclick="goToUrl('{{next_page_link}}')" title="{% trans 'Go to next page' %}" class="outline secondary" {% if page.has_next == False %}disabled{% endif %}>
+        >
+        </button>
+    </div>
+{% endif %}
 
