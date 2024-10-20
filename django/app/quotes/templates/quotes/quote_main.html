@@ -11,26 +11,37 @@
     <script src="{% static 'quotes/js/quote_list.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_list.css' %}">
 
-    <div class="container">
+    <div class="container" x-data="{ selected: '{{section}}' }">
       <div role="group">
+
         <button 
           hx-target="#main-content"
           hx-get="{% url 'quote-main-mine' %}"
-          class="{% if section == 'mine'%}active{%else%}secondary{% endif %}">
+          x-on:click="selected = 'mine'"
+          :class="{'active': selected === 'mine', 'secondary': selected !== 'mine'}"
+          >
           {% trans 'Mine' %}
         </button>
+
         <button 
+          x-on:click="selected = 'public'"
+          :class="{'active': selected === 'public', 'secondary': selected !== 'public'}"
           hx-target="#main-content"
           hx-get="{% url 'quote-main-public' %}"
-          class="{% if section == 'public'%}active{%else%}secondary{% endif %}">
+          >
           {% trans 'Public' %}
         </button>
+
         <button 
-          class="{% if section == 'authors'%}active{%else%}secondary{% endif %}">
+          x-on:click="selected = 'authors'"
+          :class="{'active': selected === 'authors', 'secondary': selected !== 'authors'}"
+          >
           {% trans 'Authors' %}
         </button>
+
       </div>
     </div>
+    </span>
 
     <div class="container full-height" id="main-content" hx-swap="outerHTML">
       {% block main-content %}
