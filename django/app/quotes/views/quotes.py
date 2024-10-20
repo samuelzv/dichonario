@@ -130,70 +130,70 @@ def quote_list(request):
 @login_required
 def quote_public(request):
     search = request.GET.get("search", "")
-    page = request.GET.get("page", "1")
-    quotes = quote_list_public(search)
+    context = {
+        'search': search,
+        'page': request.GET.get("page", "1"),
+        'quotes': quote_list_public(search),
+    }
 
-    return render(
-        request,
-        "quotes/quote_main_list.html",
-        {
-            'section': 'public',
-            'quotes': quotes,
-            'page': page,
-            'search': search 
-        },
-    )
+    if "HX-Request" in request.headers:
+        return render(request, "quotes/partials/quote_list.html", context=context)
 
-@login_required
-def quote_partial_public(request):
-    search = request.GET.get("search", "")
-    page = request.GET.get("page", "1")
-    quotes = quote_list_public(search)
+    context['section'] = 'public'
+    return render(request,"quotes/quote_main_list.html", context=context,)
 
-    return render(
-        request,
-        "quotes/partials/quote_main_list.html",
-        {
-            'section': 'public',
-            'quotes': quotes,
-            'page': page,
-            'search': search 
-        },
-    )
+# @login_required
+# def quote_partial_public(request):
+#     search = request.GET.get("search", "")
+#     page = request.GET.get("page", "1")
+#     quotes = quote_list_public(search)
+
+#     return render(
+#         request,
+#         "quotes/partials/quote_list.html",
+#         {
+#             'section': 'public',
+#             'quotes': quotes,
+#             'page': page,
+#             'search': search 
+#         },
+#     )
 
 @login_required
 def quote_mine(request):
     search = request.GET.get("search", "")
-    page = request.GET.get("page", "1")
-    quotes = quote_list_created_by(user=request.user, search=search)
+    context = {
+        'search': search,
+        'page': request.GET.get("page", "1"),
+        'quotes': quote_list_created_by(user=request.user, search=search),
+    }
 
+    if "HX-Request" in request.headers:
+        return render(request, "quotes/partials/quote_list.html", context=context)
+    
+    context['section'] = 'mine'
     return render(
         request,
         "quotes/quote_main_list.html",
-        {
-            'section': 'mine',
-            'quotes': quotes,
-            'page': page,
-            'search': search 
-        },
+        context=context,
     )
 
-@login_required
-def quote_partial_mine(request):
-    search = request.GET.get("search", "")
-    page = request.GET.get("page", "1")
-    quotes = quote_list_created_by(user=request.user, search=search)
+# @login_required
+# def quote_partial_mine(request):
+#     search = request.GET.get("search", "")
+#     page = request.GET.get("page", "1")
+#     quotes = quote_list_created_by(user=request.user, search=search)
 
-    return render(
-        request,
-        "quotes/partials/quote_main_list.html",
-        {
-            'section': 'mine',
-            'quotes': quotes,
-            'page': page,
-            'search': search 
-        },
-    )
+#     return render(
+#         request,
+#         "quotes/partials/quote_list.html",
+#         {
+#             'section': 'mine',
+#             'quotes': quotes,
+#             'page': page,
+#             'search': search 
+#         },
+#     )
 
 
 
