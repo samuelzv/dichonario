@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DeleteView
 from django.db.models import Q
 
-from ..domain.util import get_command_buttons , set_session_action
+from ..domain.util import get_command_buttons , set_session_action, paginate_list
 from ..domain.paginate_results import paginate_results
 from ..domain.i18n import get_i18n_quotes_list
 from ..domain.constants import command_buttons, sections
@@ -17,6 +17,7 @@ from django.template import RequestContext
 
 from django.core import serializers
 from ..domain.quote_list_factory import QuoteListFactory
+from django.http import JsonResponse
 
 
 from ..models import Quote
@@ -130,73 +131,41 @@ def quote_list(request):
 @login_required
 def quote_public(request):
     search = request.GET.get("search", "")
-    context = {
-        'search': search,
-        'page': request.GET.get("page", "1"),
-        'quotes': quote_list_public(search),
-    }
+    page_number = request.GET.get("page", "1")
+    quotes = quote_list_public(search)
+
+    c = paginate_list(
+        items_per_page= 5, 
+        list_items= quotes, 
+        page_number= page_number, 
+        paginator_url= "quote-public", 
+        search= search)
 
     if "HX-Request" in request.headers:
-        return render(request, "quotes/partials/quote_list.html", context=context)
+        return render(request, "quotes/partials/quote_list.html", context=c)
 
-    context['section'] = 'public'
-    return render(request,"quotes/quote_main_list.html", context=context,)
+    c['section'] = 'public'
+    return render(request,"quotes/quote_main_list.html", context=c)
 
-# @login_required
-# def quote_partial_public(request):
-#     search = request.GET.get("search", "")
-#     page = request.GET.get("page", "1")
-#     quotes = quote_list_public(search)
-
-#     return render(
-#         request,
-#         "quotes/partials/quote_list.html",
-#         {
-#             'section': 'public',
-#             'quotes': quotes,
-#             'page': page,
-#             'search': search 
-#         },
-#     )
 
 @login_required
 def quote_mine(request):
     search = request.GET.get("search", "")
-    context = {
-        'search': search,
-        'page': request.GET.get("page", "1"),
-        'quotes': quote_list_created_by(user=request.user, search=search),
-    }
+    page_number = request.GET.get("page", "1")
+    quotes = quote_list_created_by(user=request.user, search=search),
+
+    ctx = paginate_list(
+        items_per_page= 50, 
+        list_items= quotes, 
+        page_number= page_number, 
+        paginator_url= "quote-public", 
+        search= search)
 
     if "HX-Request" in request.headers:
-        return render(request, "quotes/partials/quote_list.html", context=context)
-    
-    context['section'] = 'mine'
-    return render(
-        request,
-        "quotes/quote_main_list.html",
-        context=context,
-    )
+        return render(request, "quotes/partials/quote_list.html", context=ctx)
 
-# @login_required
-# def quote_partial_mine(request):
-#     search = request.GET.get("search", "")
-#     page = request.GET.get("page", "1")
-#     quotes = quote_list_created_by(user=request.user, search=search)
-
-#     return render(
-#         request,
-#         "quotes/partials/quote_list.html",
-#         {
-#             'section': 'mine',
-#             'quotes': quotes,
-#             'page': page,
-#             'search': search 
-#         },
-#     )
-
-
-
+    ctx['section'] = 'mine'
+    return render(request,"quotes/quote_main_list.html", context=ctx)
 
 @login_required
 def quote_new(request):

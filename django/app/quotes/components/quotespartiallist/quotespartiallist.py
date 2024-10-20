@@ -21,17 +21,17 @@ class Datalist(component.Component):
         search: str,
         attrs={},
     ):
-        paginator = Paginator(list, self.ITEMS_PER_PAGE)
+        paginator = Paginator(list(list), self.ITEMS_PER_PAGE)
 
         try:
-            page = paginator.page(page_number)
+            page = paginator.get_page(page_number)
         except EmptyPage:
             page_number = 1
-            page = paginator.page(page_number)
+            page = paginator.get_page(page_number)
 
         return {
             "name": name,
-            "page": page,
+            "page": list(page.object_list),
             "total_count": paginator.count,
             "current_page": page_number,
             "num_pages": paginator.num_pages,

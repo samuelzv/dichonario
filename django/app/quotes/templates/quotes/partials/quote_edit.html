@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block content %}
-    <div class="quote-edit">
+    <div class="quote-edit" id="quote-{{quote.id}}" hx-swap="outerHTML">
         <h3>{% trans "Edit" %}</h3>
         <form method="post" action="{% url 'quote-partial-edit' quote.id %}" method="post">
            {% csrf_token %}

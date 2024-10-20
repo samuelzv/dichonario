@@ -15,9 +15,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-print('-------')
-print(BASE_DIR.parent)
-print('-------')
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,6 +40,7 @@ THIRD_PARTY_APPS = [
     "django_components",
     "pattern_library",
     "django_svelte",
+    "django_cotton",
 ]
 
 LOCAL_APPS = ["core", "quotes"]
@@ -71,12 +69,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "components"),
     os.path.join(BASE_DIR, "quotes", "components"),
     BASE_DIR.parent / "svelte" / "dist" / "assets",
-    #BASE_DIR / "svelte" / "dist" / "assets",
-    #BASE_DIR.parent / "hola1",
-    #BASE_DIR / "hola2" 
 ]
 
-DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  "svelte" / "dist" / ".vite" / "manifest.json" 
+# good
+#DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  "svelte" / "dist" / ".vite" / "manifest.json" 
+# because python manage.py shell was failing
+DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  ".." / "svelte" / "dist" / ".vite" / "manifest.json" 
 
 
 
@@ -99,6 +97,7 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / "templates",
         ],
+        "APP_DIRS": False,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -110,6 +109,7 @@ TEMPLATES = [
                 (
                     "django.template.loaders.cached.Loader",
                     [
+                        "django_cotton.cotton_loader.Loader",
                         "django.template.loaders.filesystem.Loader",
                         "django.template.loaders.app_directories.Loader",
                         "django_components.template_loader.Loader",
@@ -117,6 +117,7 @@ TEMPLATES = [
                 )
             ],
             "builtins": [
+                "django_cotton.templatetags.cotton",
                 "django_components.templatetags.component_tags",
                 "pattern_library.loader_tags",
             ],

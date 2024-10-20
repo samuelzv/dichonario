@@ -11,7 +11,12 @@ def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:
     if search:
         filter_dict |= {"quote__icontains": search}
 
-    return Quote.objects.filter(**filter_dict).order_by("-created_at")
+    results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
+    print('Results:', results)
+    print('Length:', len(results))
+
+    return results
+
 
 
 def quote_list_public(search: str) -> Iterable[Quote]:
@@ -20,7 +25,11 @@ def quote_list_public(search: str) -> Iterable[Quote]:
     if search:
         filter_dict |= {"quote__icontains": search}
 
-    return Quote.objects.filter(**filter_dict).order_by("-created_at")
+    results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
+    print('Results:', results)
+    print('Length:', len(results))
+
+    return results
 
 
 def author_by_id(*, id: int) -> Author:
