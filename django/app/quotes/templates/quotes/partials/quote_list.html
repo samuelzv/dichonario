@@ -10,12 +10,9 @@
 {% load i18n %}
 
 <c-quotes-paginated-list 
-    :list_items= list_items
-    :total_count= paginator.count
-    :current_page= page_number
-    :num_pages= paginator.num_pages
+    :paginated_results= paginated_results
     :search= search
-    :paginator_url= paginator_url
+    :paginator_url= quote_list_url 
     :attrs= attrs
     >
 </c-quotes-paginated-list> 

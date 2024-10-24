@@ -41,6 +41,8 @@ THIRD_PARTY_APPS = [
     "pattern_library",
     "django_svelte",
     "django_cotton",
+    # 'django_cotton.apps.SimpleAppConfig',
+
 ]
 
 LOCAL_APPS = ["core", "quotes"]
@@ -72,9 +74,9 @@ STATICFILES_DIRS = [
 ]
 
 # good
-#DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  "svelte" / "dist" / ".vite" / "manifest.json" 
+DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  "svelte" / "dist" / ".vite" / "manifest.json" 
 # because python manage.py shell was failing
-DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  ".." / "svelte" / "dist" / ".vite" / "manifest.json" 
+# DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  ".." / "svelte" / "dist" / ".vite" / "manifest.json" 
 
 
 
@@ -97,7 +99,7 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / "templates",
         ],
-        "APP_DIRS": False,
+        # "APP_DIRS": False,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",

@@ -11,3 +11,4 @@ django-pattern-library==1.2.0
 django-svelte==0.2.1
 pillow==10.4.0
 django-cotton==1.2.1
+pillow==11.0.0

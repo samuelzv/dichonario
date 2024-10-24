@@ -6,7 +6,7 @@
 
 
 <form id="quote_list_form" action="{% url 'quote-main-mine' %}" class="quote-list full-height">
-    {% for q in list_items %}
+    {% for q in paginated_results.list_items %}
         {% component "card" %}
             {% fill "content" %}
                 <blockquote>
@@ -36,17 +36,16 @@
 </form>
 
 <!-- pagination controls -->
-
-{% comment %} {% if total_count > 0 %}
-    {% get_previous_page_link paginator_url page search as previous_page_link %}
-    {% get_next_page_link paginator_url page search as next_page_link %}
+{% if paginated_results.total_records > 0 %}
+    {% get_previous_page_link paginator_url paginated_results search as previous_page_link %}
+    {% get_next_page_link paginator_url paginated_results search as next_page_link %}
     <div class="pagination">
-        <button type="button" onclick="goToUrl('{{previous_page_link}}')" title="{% trans 'Go to previous page' %}" class="outline secondary" {% if page.has_previous == False %}disabled{% endif %}>
+        <button type="button" onclick="goToUrl('{{previous_page_link}}')" title="{% trans 'Go to previous page' %}" class="outline secondary" {% if paginated_results.has_previous == False %}disabled{% endif %}>
             <
         </button>
-        <button type="button" onclick="goToUrl('{{next_page_link}}')" title="{% trans 'Go to next page' %}" class="outline secondary" {% if page.has_next == False %}disabled{% endif %}>
+        <button type="button" onclick="goToUrl('{{next_page_link}}')" title="{% trans 'Go to next page' %}" class="outline secondary" {% if paginated_results.has_next == False %}disabled{% endif %}>
         >
         </button>
     </div>
-{% endif %} {% endcomment %}
+{% endif %}
 

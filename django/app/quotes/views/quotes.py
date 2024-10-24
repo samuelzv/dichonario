@@ -1,7 +1,7 @@
 from django.utils.translation import gettext
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
@@ -9,8 +9,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import DeleteView
 from django.db.models import Q
 
-from ..domain.util import get_command_buttons , set_session_action, paginate_list
-from ..domain.paginate_results import paginate_results
+from ..domain.util import get_command_buttons, set_session_action, paginate_list
+from ..domain.paginate_results import Paginated, PaginatedResults, paginate_results
 from ..domain.i18n import get_i18n_quotes_list
 from ..domain.constants import command_buttons, sections
 from django.template import RequestContext
@@ -37,6 +37,7 @@ from django.contrib.auth import login
 
 from django_svelte.views import SvelteTemplateView
 
+
 class QuotesBaseSvelteTemplateView(SvelteTemplateView):
     template_name = "quotes/svelte_component.html"
 
@@ -47,30 +48,40 @@ class QuotesBaseSvelteTemplateView(SvelteTemplateView):
 class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
     def get_svelte_props(self, **kwargs):
         set_session_action(self.request)
-        filters = {
-            'user': self.request.user, 
-            'search': self.request.session["search"]
-        }
+        filters = {"user": self.request.user, "search": self.request.session["search"]}
         action = self.request.session["action"]
         quote_list_factory = QuoteListFactory().create(action)
 
-        quote_list = quote_list_factory.quotes(**filters).values('id','quote', 'author__name', 'author__image', 'author__image_sm', 'author__image_md', 'author__image_lg', 'created_by')
-        (quotes, pagination) = paginate_results(quote_list, int(self.request.GET.get("page", 1)), 15)
-        
-        for q in quotes:
-            q['is_owner'] = q['created_by'] == self.request.user.id
+        quote_list = quote_list_factory.quotes(**filters).values(
+            "id",
+            "quote",
+            "author__name",
+            "author__image",
+            "author__image_sm",
+            "author__image_md",
+            "author__image_lg",
+            "created_by",
+        )
+        (quotes, pagination) = paginate_results(
+            quote_list, int(self.request.GET.get("page", 1)), 15
+        )
 
-        kwargs.update({
-            "command_buttons": get_command_buttons(),
-            "i18n": get_i18n_quotes_list(),
-            "quotes": quotes,
-            "search": self.request.GET.get("search", ""),
-            "selected_command": action, 
-            'pagination': pagination,
-            'quote_list_url': reverse('quote-list'),
-            'quote_new_url': reverse('quote-new'),
-            'language_code': self.request.LANGUAGE_CODE,
-            })
+        for q in quotes:
+            q["is_owner"] = q["created_by"] == self.request.user.id
+
+        kwargs.update(
+            {
+                "command_buttons": get_command_buttons(),
+                "i18n": get_i18n_quotes_list(),
+                "quotes": quotes,
+                "search": self.request.GET.get("search", ""),
+                "selected_command": action,
+                "pagination": pagination,
+                "quote_list_url": reverse("quote-list"),
+                "quote_new_url": reverse("quote-new"),
+                "language_code": self.request.LANGUAGE_CODE,
+            }
+        )
 
         return kwargs
 
@@ -94,13 +105,15 @@ def index(request):
 
 
 def home(request):
-    return render(request, 
-                  "quotes/home.html", 
-                  {
-                    "component_props": {
-                        "text": "Welcome to Dichonario, the place for gathering and sharing your favorite quotes"
-                    } 
-                  })
+    return render(
+        request,
+        "quotes/home.html",
+        {
+            "component_props": {
+                "text": "Welcome to Dichonario, the place for gathering and sharing your favorite quotes"
+            }
+        },
+    )
 
 
 @login_required
@@ -134,38 +147,37 @@ def quote_public(request):
     page_number = request.GET.get("page", "1")
     quotes = quote_list_public(search)
 
-    c = paginate_list(
-        items_per_page= 5, 
-        list_items= quotes, 
-        page_number= page_number, 
-        paginator_url= "quote-public", 
-        search= search)
+    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=2)
+    ctx = {
+        "search": search,
+        "section": "public",
+        "paginated_results": paginated.paginate(),
+    }
 
     if "HX-Request" in request.headers:
-        return render(request, "quotes/partials/quote_list.html", context=c)
+        return render(request, "quotes/partials/quote_list.html", context=ctx)
 
-    c['section'] = 'public'
-    return render(request,"quotes/quote_main_list.html", context=c)
+    return render(request, "quotes/quote_main_list.html", context=ctx)
 
 
 @login_required
 def quote_mine(request):
     search = request.GET.get("search", "")
     page_number = request.GET.get("page", "1")
-    quotes = quote_list_created_by(user=request.user, search=search),
+    quotes = quote_list_created_by(user=request.user, search=search)
 
-    ctx = paginate_list(
-        items_per_page= 50, 
-        list_items= quotes, 
-        page_number= page_number, 
-        paginator_url= "quote-public", 
-        search= search)
+    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=2)
+    ctx = {
+        "search": search,
+        "section": "mine",
+        "paginated_results": paginated.paginate(),
+    }
 
     if "HX-Request" in request.headers:
         return render(request, "quotes/partials/quote_list.html", context=ctx)
 
-    ctx['section'] = 'mine'
-    return render(request,"quotes/quote_main_list.html", context=ctx)
+    return render(request, "quotes/quote_main_list.html", context=ctx)
+
 
 @login_required
 def quote_new(request):
@@ -216,6 +228,7 @@ def quote_new(request):
         },
     )
 
+
 def quote_partial_edit(request, pk):
     quote = quote_by_id(id=pk)
     author = None
@@ -247,8 +260,8 @@ def quote_partial_edit(request, pk):
                 is_private=form.cleaned_data["is_private"],
             )
 
-            return redirect('quote-partial-show', pk=pk)
-            #return HttpResponseRedirect(next)
+            return redirect("quote-partial-show", pk=pk)
+            # return HttpResponseRedirect(next)
     else:
         form = QuoteForm(instance=quote)
 
@@ -256,13 +269,9 @@ def quote_partial_edit(request, pk):
     return render(
         request,
         "quotes/partials/quote_edit.html",
-        {
-            "form": form,
-            "title": gettext("Edit"),
-            "quote": quote,
-            "authors": authors
-        },
+        {"form": form, "title": gettext("Edit"), "quote": quote, "authors": authors},
     )
+
 
 def quote_partial_show(request, pk):
     quote = quote_by_id(id=pk)
@@ -274,7 +283,6 @@ def quote_partial_show(request, pk):
             "quote": quote,
         },
     )
-
 
 
 def quote_edit_old(request, pk):
@@ -339,8 +347,6 @@ class QuoteDeleteView(UserPassesTestMixin, DeleteView):
     def get_success_url(self) -> str:
         next = self.request.GET.get("next")
         return next if next else reverse("quote-list")
-
-
 
 
 def exit(request):
