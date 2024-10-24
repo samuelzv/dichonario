@@ -4,6 +4,6 @@
 
 {% block main-content %}
     {% if section == 'public' or section == 'mine' %}
-      {% include "quotes/partials/quote_list.html" with paginated_results=paginated_results search=search  %}
+      {% include "quotes/partials/quote_list.html" with paginated_results=paginated_results search=search navigation_url=navigation_url %}
     {% endif %}
 {% endblock %}

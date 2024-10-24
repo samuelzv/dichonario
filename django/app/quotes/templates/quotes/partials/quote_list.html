@@ -1,18 +1,7 @@
-{% load i18n %}
-{% load static %}
-
-{% url 'quote-list' as quote_list_url %}
-
-{# rename util into quote_helper_tags #}
-{% load static %}
-{% comment %} {% load util %} {% endcomment %}
-{% comment %} {% load paginator %} {% endcomment %}
-{% load i18n %}
-
 <c-quotes-paginated-list 
     :paginated_results= paginated_results
     :search= search
-    :paginator_url= quote_list_url 
+    :paginator_url= navigation_url 
     :attrs= attrs
     >
 </c-quotes-paginated-list> 

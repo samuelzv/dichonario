@@ -152,6 +152,7 @@ def quote_public(request):
         "search": search,
         "section": "public",
         "paginated_results": paginated.paginate(),
+        "navigation_url": reverse("quote-main-mine"),
     }
 
     if "HX-Request" in request.headers:
@@ -171,6 +172,7 @@ def quote_mine(request):
         "search": search,
         "section": "mine",
         "paginated_results": paginated.paginate(),
+        "navigation_url": reverse("quote-main-mine"),
     }
 
     if "HX-Request" in request.headers:

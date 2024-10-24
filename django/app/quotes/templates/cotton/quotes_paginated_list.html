@@ -4,48 +4,56 @@
 {% load paginator %}
 {% load i18n %}
 
+<div id="quotes-paginated-list" class="quote-list full-height" hx-swap="outerHTML">
+    <form id="quote_list_form" action="{% url 'quote-main-mine' %}" class="full-height">
+        {% for q in paginated_results.list_items %}
+            {% component "card" %}
+                {% fill "content" %}
+                    <blockquote>
+                        {% include 'quotes/partials/quote_show.html' with quote=q %}
+                    </blockquote>
+                {% endfill %}
+                {% fill "footer" %}
+                    {% if q.created_by == request.user %}
+                        <button hx-get="{% url 'quote-partial-edit' q.id %}"
+                                hx-target="#quote-{{q.id}}"
+                                data-tooltip="{% trans 'Edit' %}" 
+                                class="secondary">
+                                <c-icons.edit></c-icons.edit>
+                                {% trans 'Edit' %}
+                        </button>
+                        <button hx-get="/quotes/quote/partial/{{q.id}}/delete"
+                                hx-target="#quote-{{q.id}}"
+                                data-tooltip="{% trans 'Delete' %}" 
+                                class="secondary">
+                                {% trans 'Delete' %}
+                        </button>
+                    {% endif %}
+                {% endfill %}
+            {% endcomponent %} 
 
-<form id="quote_list_form" action="{% url 'quote-main-mine' %}" class="quote-list full-height">
-    {% for q in paginated_results.list_items %}
-        {% component "card" %}
-            {% fill "content" %}
-                <blockquote>
-                    {% include 'quotes/partials/quote_show.html' with quote=q %}
-                </blockquote>
-            {% endfill %}
-            {% fill "footer" %}
-                {% if q.created_by == request.user %}
-                    <button hx-get="{% url 'quote-partial-edit' q.id %}"
-                            hx-target="#quote-{{q.id}}"
-                            data-tooltip="{% trans 'Edit' %}" 
-                            class="secondary">
-                            <c-icons.edit></c-icons.edit>
-                            {% trans 'Edit' %}
-                    </button>
-                    <button hx-get="/quotes/quote/partial/{{q.id}}/delete"
-                            hx-target="#quote-{{q.id}}"
-                            data-tooltip="{% trans 'Delete' %}" 
-                            class="secondary">
-                            {% trans 'Delete' %}
-                    </button>
-                {% endif %}
-            {% endfill %}
-        {% endcomponent %} 
+        {% endfor %}
+    </form>
 
-    {% endfor %}
-</form>
-
-<!-- pagination controls -->
-{% if paginated_results.total_records > 0 %}
-    {% get_previous_page_link paginator_url paginated_results search as previous_page_link %}
-    {% get_next_page_link paginator_url paginated_results search as next_page_link %}
-    <div class="pagination">
-        <button type="button" onclick="goToUrl('{{previous_page_link}}')" title="{% trans 'Go to previous page' %}" class="outline secondary" {% if paginated_results.has_previous == False %}disabled{% endif %}>
-            <
-        </button>
-        <button type="button" onclick="goToUrl('{{next_page_link}}')" title="{% trans 'Go to next page' %}" class="outline secondary" {% if paginated_results.has_next == False %}disabled{% endif %}>
-        >
-        </button>
-    </div>
-{% endif %}
-
+    <!-- pagination controls -->
+    {% if paginated_results.total_records > 0 %}
+        {% get_previous_page_link paginator_url paginated_results search as previous_page_link %}
+        {% get_next_page_link paginator_url paginated_results search as next_page_link %}
+        <div class="pagination">
+            <button 
+                type="button" 
+                hx-target="#quotes-paginated-list" j
+                hx-get="{{previous_page_link}}" 
+                title="{% trans 'Go to previous page' %}" class="outline secondary" {% if paginated_results.has_previous == False %}disabled{% endif %}>
+                <
+            </button>
+            <button type="button" 
+                hx-target="#quotes-paginated-list" 
+                hx-get="{{next_page_link}}" 
+                title="{% trans 'Go to next page' %}" 
+                class="outline secondary" {% if paginated_results.has_next == False %}disabled{% endif %}>
+            >
+            </button>
+        </div>
+    {% endif %}
+</div>

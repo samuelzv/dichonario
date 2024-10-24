@@ -15,19 +15,18 @@
       <div role="group">
 
         <button 
-          hx-target="#main-content"
+          hx-target="#quotes-paginated-list"
           hx-get="{% url 'quote-main-mine' %}"
           x-on:click="selected = 'mine'"
           :class="{'active': selected === 'mine', 'secondary': selected !== 'mine'}"
           >
-          <c-icons.edit></c-icons.edit>
           {% trans 'Mine' %}
         </button>
 
         <button 
           x-on:click="selected = 'public'"
           :class="{'active': selected === 'public', 'secondary': selected !== 'public'}"
-          hx-target="#main-content"
+          hx-target="#quotes-paginated-list"
           hx-get="{% url 'quote-main-public' %}"
           >
           {% trans 'Public' %}
@@ -44,7 +43,7 @@
     </div>
     </span>
 
-    <div class="container full-height" id="main-content" hx-swap="outerHTML">
+    <div class="container full-height" id="main-content" >
       {% block main-content %}
       {% endblock %}
     </div>
