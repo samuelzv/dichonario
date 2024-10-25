@@ -4,8 +4,10 @@
 {% load paginator %}
 {% load i18n %}
 
+{% url view_name as base_url %}
+
 <div id="quotes-paginated-list" class="quote-list full-height" hx-swap="outerHTML">
-    <form id="quote_list_form" action="{% url 'quote-main-mine' %}" class="full-height">
+    <form id="quote_list_form" action="{{base_url}}" class="full-height">
         {% for q in paginated_results.list_items %}
             {% component "card" %}
                 {% fill "content" %}
@@ -37,8 +39,8 @@
 
     <!-- pagination controls -->
     {% if paginated_results.total_records > 0 %}
-        {% get_previous_page_link paginator_url paginated_results search as previous_page_link %}
-        {% get_next_page_link paginator_url paginated_results search as next_page_link %}
+        {% get_previous_page_link base_url paginated_results search as previous_page_link %}
+        {% get_next_page_link base_url paginated_results search as next_page_link %}
         <div class="pagination">
             <button 
                 type="button" 
