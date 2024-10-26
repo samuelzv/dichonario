@@ -4,7 +4,7 @@
 {% url view_name as base_url %}
 
     <!-- <div class="container full-height fade-in" id="main-content"  hx-swap="outerHTML"> -->
-<div id="quotes-paginated-list" class="container quote-list full-height fade-in" hx-swap="outerHTML">
+<div id="quotes-paginated-list" class="container quote-list full-height move-from-left-to-right" hx-swap="outerHTML">
     <form id="quote_list_form" action="{{base_url}}" class="full-height">
         {% for q in paginated_results.list_items %}
             {% component "card" %}
