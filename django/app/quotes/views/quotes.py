@@ -93,7 +93,7 @@ def signup(request):
             user = form.save()
             login(request, user)
 
-            return redirect("quote-list")
+            return redirect("quote-main-public")
     else:
         form = RegistrationForm()
 
