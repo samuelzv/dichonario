@@ -3,35 +3,33 @@
 
 {% url view_name as base_url %}
 
-    <!-- <div class="container full-height fade-in" id="main-content"  hx-swap="outerHTML"> -->
 <div id="quotes-paginated-list" class="container quote-list full-height " hx-swap="outerHTML">
     <form id="quote_list_form" action="{{base_url}}" class="full-height">
         {% for q in paginated_results.list_items %}
-            {% component "card" %}
-                {% fill "content" %}
-                    <blockquote>
-                        {% include 'quotes/partials/quote_show.html' with quote=q %}
-                    </blockquote>
-                {% endfill %}
-                {% fill "footer" %}
-                    {% if q.created_by == request.user %}
-                        <button hx-get="{% url 'quote-partial-edit' q.id %}"
-                                hx-target="#quote-{{q.id}}"
-                                data-tooltip="{% trans 'Edit' %}" 
-                                class="secondary">
-                                <c-icons.edit></c-icons.edit>
-                                {% trans 'Edit' %}
-                        </button>
-                        <button hx-get="/quotes/quote/partial/{{q.id}}/delete"
-                                hx-target="#quote-{{q.id}}"
-                                data-tooltip="{% trans 'Delete' %}" 
-                                class="secondary">
-                                {% trans 'Delete' %}
-                        </button>
-                    {% endif %}
-                {% endfill %}
-            {% endcomponent %} 
-
+            <div x-data="{ isShow: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false">
+                <article x-bind:class="isShow ? 'non-scaled-quote' : ''" class="scaled-quote">
+                   <blockquote>
+                    {% include 'quotes/partials/quote_show.html' with quote=q %}
+                   </blockquote>
+                   <footer>
+                        {% if q.created_by == request.user %}
+                            <button hx-get="{% url 'quote-partial-edit' q.id %}"
+                                    hx-target="#quote-{{q.id}}"
+                                    data-tooltip="{% trans 'Edit' %}" 
+                                    class="secondary">
+                                    <c-icons.edit></c-icons.edit>
+                                    {% trans 'Edit' %}
+                            </button>
+                            <button hx-get="/quotes/quote/partial/{{q.id}}/delete"
+                                    hx-target="#quote-{{q.id}}"
+                                    data-tooltip="{% trans 'Delete' %}" 
+                                    class="secondary">
+                                    {% trans 'Delete' %}
+                            </button>
+                        {% endif %}
+                    </footer>
+                </article>
+            </div>
         {% endfor %}
     </form>
 

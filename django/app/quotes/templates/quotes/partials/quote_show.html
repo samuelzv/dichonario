@@ -4,7 +4,10 @@
 {% load i18n %}
 
 {% block content %}
-<div id="quote-{{quote.id}}" class="quote" hx-swap="outerHTML">
+<div id="quote-{{quote.id}}" 
+     class="quote" 
+     hx-swap="outerHTML"
+>
   <div class="row start-xs center-md middle-xs" >
     <div class="col-xs-4 col-sm-3">
         <img srcset="/static/media/{{quote.author.image_sm}} 150w, /static/media/{{quote.author.image_md}} 521w, /static/media/{{quote.author.image_lg}} 600w"
@@ -14,7 +17,7 @@
             alt="{{quote.author__name}}">
     </div>
 
-    <div class="col-xs-8 col-sm-9 move-from-right-to-left">
+    <div class="col-xs-8 col-sm-9">
             <p>"{{quote.quote}}"</p>
             <footer>
                 <cite> - {{quote.author.name}}</cite>

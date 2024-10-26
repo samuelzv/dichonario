@@ -145,48 +145,10 @@ def quote_list(request):
 def quote_public(request):
     return get_quotes(request, "public")
 
-    # search = request.GET.get("search", "")
-    # page_number = request.GET.get("page", "1")
-    # quotes = quote_list_public(search)
-    #
-    # paginated = Paginated(queryset=quotes, current_page=page_number, page_size=2)
-    # ctx = {
-    #     "search": search,
-    #     "section": "public",
-    #     "paginated_results": paginated.paginate(),
-    #     "navigation_url": reverse("quote-main-mine"),
-    # }
-    #
-    # if "HX-Request" in request.headers:
-    #     return render(request, "quotes/partials/quote_list.html", context=ctx)
-    #
-    # return render(request, "quotes/quote_main_list.html", context=ctx)
-
 
 @login_required
 def quote_mine(request):
     return get_quotes(request, "mine")
-
-    # section = "mine"
-    # search = request.GET.get("search", "")
-    # page_number = request.GET.get("page", "1")
-    #
-    # filters = {"user": request.user, "search": search}
-    # quote_list_factory = QuoteListFactory().create(section)
-    # quotes = quote_list_factory.quotes(**filters)
-    #
-    # paginated = Paginated(queryset=quotes, current_page=page_number, page_size=2)
-    # ctx = {
-    #     "search": search,
-    #     "section": "mine",
-    #     "paginated_results": paginated.paginate(),
-    #     "navigation_url": reverse("quote-main-mine"),
-    # }
-    #
-    # if "HX-Request" in request.headers:
-    #     return render(request, "quotes/partials/quote_list.html", context=ctx)
-    #
-    # return render(request, "quotes/quote_main_list.html", context=ctx)
 
 
 def get_quotes(request, section: str):
@@ -197,7 +159,7 @@ def get_quotes(request, section: str):
     quote_list_factory = QuoteListFactory().create(section)
     quotes = quote_list_factory.quotes(**filters)
 
-    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=2)
+    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=10)
     ctx = {
         "search": search,
         "section": section,
