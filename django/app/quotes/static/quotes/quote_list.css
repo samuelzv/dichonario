@@ -1,2 +1,23 @@
 #quotelist-target {
 }
+
+/* .smooth { */
+    /* transition: all 2s ease-in; */
+/* }  */
+
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 3.5s;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

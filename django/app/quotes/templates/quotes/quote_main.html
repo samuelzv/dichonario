@@ -7,8 +7,6 @@
 {% endblock %}
 
 {% block content %}
-    <script src="{% static 'quotes/js/utils.js' %}"></script>
-    <script src="{% static 'quotes/js/quote_list.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_list.css' %}">
 
     <div class="container" x-data="{ selected: '{{section}}' }">
@@ -43,7 +41,8 @@
     </div>
     </span>
 
-    <div class="container full-height" id="main-content" >
+    <!-- <div class="container full-height fade-in" id="main-content"  hx-swap="outerHTML"> -->
+    <div class="full-height" id="main-content" >
       {% block main-content %}
       {% endblock %}
     </div>

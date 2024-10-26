@@ -1,12 +1,10 @@
-{# rename util into quote_helper_tags #}
-{% load static %}
-{% load util %}
 {% load paginator %}
 {% load i18n %}
 
 {% url view_name as base_url %}
 
-<div id="quotes-paginated-list" class="quote-list full-height" hx-swap="outerHTML">
+    <!-- <div class="container full-height fade-in" id="main-content"  hx-swap="outerHTML"> -->
+<div id="quotes-paginated-list" class="container quote-list full-height fade-in" hx-swap="outerHTML">
     <form id="quote_list_form" action="{{base_url}}" class="full-height">
         {% for q in paginated_results.list_items %}
             {% component "card" %}
@@ -44,13 +42,13 @@
         <div class="pagination">
             <button 
                 type="button" 
-                hx-target="#quotes-paginated-list" j
+                hx-target="#quotes-paginated-list"
                 hx-get="{{previous_page_link}}" 
                 title="{% trans 'Go to previous page' %}" class="outline secondary" {% if paginated_results.has_previous == False %}disabled{% endif %}>
                 <
             </button>
             <button type="button" 
-                hx-target="#quotes-paginated-list" 
+                hx-target="#quotes-paginated-list"
                 hx-get="{{next_page_link}}" 
                 title="{% trans 'Go to next page' %}" 
                 class="outline secondary" {% if paginated_results.has_next == False %}disabled{% endif %}>
