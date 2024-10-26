@@ -42,7 +42,6 @@ THIRD_PARTY_APPS = [
     "django_svelte",
     "django_cotton",
     # 'django_cotton.apps.SimpleAppConfig',
-
 ]
 
 LOCAL_APPS = ["core", "quotes"]
@@ -74,10 +73,11 @@ STATICFILES_DIRS = [
 ]
 
 # good
-DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  "svelte" / "dist" / ".vite" / "manifest.json" 
+DJANGO_SVELTE_VITE_MANIFEST_PATH = (
+    BASE_DIR.parent / "svelte" / "dist" / ".vite" / "manifest.json"
+)
 # because python manage.py shell was failing
-# DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  ".." / "svelte" / "dist" / ".vite" / "manifest.json" 
-
+# DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  ".." / "svelte" / "dist" / ".vite" / "manifest.json"
 
 
 MIDDLEWARE = [
@@ -201,7 +201,7 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-LOGIN_REDIRECT_URL = "quote-list"
+LOGIN_REDIRECT_URL = "quote-main-public"
 LOGOUT_REDIRECT_URL = "home"
 
 PATTERN_LIBRARY_TEMPLATE_DIR = os.path.join("patterns")
