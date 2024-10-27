@@ -5,30 +5,8 @@
 
 <div id="quotes-paginated-list" class="container quote-list full-height " hx-swap="outerHTML">
     <form id="quote_list_form" action="{{base_url}}" class="full-height">
-        {% for q in paginated_results.list_items %}
-            <div x-data="{ isShow: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false">
-                <article x-bind:class="isShow ? 'non-scaled-quote' : ''" class="quote scaled-quote">
-                   <blockquote>
-                    {% include 'quotes/partials/quote_show.html' with quote=q %}
-                   </blockquote>
-                   <footer>
-                        {% if q.created_by == request.user %}
-                            <button hx-get="{% url 'quote-partial-edit' q.id %}"
-                                    hx-target="#quote-{{q.id}}"
-                                    data-tooltip="{% trans 'Edit' %}" 
-                                    class="secondary transparent-button">
-                                    <c-icons.edit></c-icons.edit>
-                            </button>
-                            <button hx-get="/quotes/quote/partial/{{q.id}}/delete"
-                                    hx-target="#quote-{{q.id}}"
-                                    data-tooltip="{% trans 'Delete' %}" 
-                                    class="secondary transparent-button">
-                                    <c-icons.delete></c-icons.delete>
-                            </button>
-                        {% endif %}
-                    </footer>
-                </article>
-            </div>
+        {% for quote in paginated_results.list_items %}
+            <c-quote />
         {% endfor %}
     </form>
 

@@ -1,6 +1,5 @@
 {% extends 'quotes/quotes_app.html' %}
 {% load static %}
-{% load django_svelte %}
 {% load i18n %}
 
 {% block title %}
@@ -11,28 +10,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/home.css' %}">
 
     <div class='container home'>
-        {% comment %} {% display_svelte_css "App" %} {% endcomment %}
-        {% comment %} {% display_svelte "App" %} {% endcomment %}
-
-        {% comment %} {% display_svelte_css "main-neon-text" %} {% endcomment %}
-        {% comment %} {% display_svelte "main-neon-text" component_props %} {% endcomment %}
-
-        {% component "card" %}
-            {% fill "content" %}
-                <blockquote>
-               {% display_svelte_css "components-js/main-type-writer-1" %}
-               {% display_svelte "components-js/main-type-writer-1" component_props %}
-                </blockquote>
-            {% endfill %}
-            {% fill "footer" %}
-            {% endfill %}
-        {% endcomponent %}
-      {% comment %}
-      {% if user.is_authenticated %}
-         <h4>
-          {{ user.username | upper}}, {% trans 'Welcome' %}
-         </h4>  
-      {% endif %}
-      {% endcomment %}
+        <c-quote></c-quote>
     </div>
 {% endblock %}

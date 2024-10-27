@@ -18,3 +18,15 @@
   border-radius: 50%;
 }
 
+.c-text-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.transparent-button {
+    background: transparent;
+    border: 0;
+}
+

@@ -105,13 +105,15 @@ def index(request):
 
 
 def home(request):
+    quote_list_factory = QuoteListFactory().create("welcome")
+    quotes = quote_list_factory.quotes()
+    [welcome] = quotes
+
     return render(
         request,
         "quotes/home.html",
         {
-            "component_props": {
-                "text": "Welcome to Dichonario, the place for gathering and sharing your favorite quotes"
-            }
+            "quote": welcome,
         },
     )
 
@@ -205,7 +207,7 @@ def quote_new(request):
                 language=language_by_code(code=request.LANGUAGE_CODE),
             )
 
-            return redirect("quote-list")
+            return redirect("quote-main-mine")
     else:
         form = QuoteForm()
 

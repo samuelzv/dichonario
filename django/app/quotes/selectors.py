@@ -12,11 +12,10 @@ def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:
         filter_dict |= {"quote__icontains": search}
 
     results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
-    print('Results:', results)
-    print('Length:', len(results))
+    print("Results:", results)
+    print("Length:", len(results))
 
     return results
-
 
 
 def quote_list_public(search: str) -> Iterable[Quote]:
@@ -26,8 +25,8 @@ def quote_list_public(search: str) -> Iterable[Quote]:
         filter_dict |= {"quote__icontains": search}
 
     results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
-    print('Results:', results)
-    print('Length:', len(results))
+    print("Results:", results)
+    print("Length:", len(results))
 
     return results
 
@@ -71,3 +70,7 @@ def language_by_code(*, code: str) -> Language:
         raise ValidationError("Invalid language code")
 
     return found
+
+
+def get_welcome_quote(*, id: int) -> Iterable[Quote]:
+    return [quote_by_id(id=id)]

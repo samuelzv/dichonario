@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<div x-data="{ isShow: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false">
+    <article x-bind:class="isShow ? 'non-scaled-quote' : ''" class="quote scaled-quote">
+       <blockquote>
+        {% include 'quotes/partials/quote_show.html' with quote=quote %}
+       </blockquote>
+       <footer>
+            {% if quote.created_by == request.user %}
+                <button hx-get="{% url 'quote-partial-edit' quote.id %}"
+                        hx-target="#quote-{{quote.id}}"
+                        data-tooltip="{% trans 'Edit' %}" 
+                        class="outline secondary transparent-button">
+                        <c-text-icon>
+                            {% trans "Edit" %}
+                            <c-icons.edit></c-icons.edit>
+                        </c-text-icon>
+                </button>
+                <button hx-get="/quotes/quote/partial/{{quote.id}}/delete"
+                        hx-target="#quote-{{quote.id}}"
+                        data-tooltip="{% trans 'Delete' %}" 
+                        class="outline secondary transparent-button">
+                        <c-text-icon>
+                            {% trans "Delete" %}
+                            <c-icons.delete></c-icons.delete>
+                        </c-text-icon>
+                </button>
+            {% endif %}
+        </footer>
+    </article>
+</div>
