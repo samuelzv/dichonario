@@ -1,10 +1,15 @@
 .home {
+  align-items: center;
   display: flex;
+  flex-direction: column;
   flex: 1;
   justify-content: center;
-  align-items: center;
 }
 
 .home svg {
   font-size: 1.5em;
+}
+
+.home button {
+  min-width: 160px;
 }

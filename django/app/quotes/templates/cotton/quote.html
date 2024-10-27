@@ -6,7 +6,7 @@
         {% include 'quotes/partials/quote_show.html' with quote=quote %}
        </blockquote>
        <footer>
-            {% if quote.created_by == request.user %}
+            {% if editable == True %}
                 <button hx-get="{% url 'quote-partial-edit' quote.id %}"
                         hx-target="#quote-{{quote.id}}"
                         data-tooltip="{% trans 'Edit' %}" 

@@ -143,7 +143,6 @@ def quote_list(request):
     )
 
 
-@login_required
 def quote_public(request):
     return get_quotes(request, "public")
 

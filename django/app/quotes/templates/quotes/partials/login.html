@@ -1,0 +1,40 @@
+
+{% load static %}
+{% load i18n %}
+
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'quotes/home.css' %}">
+
+  <div class="container home">
+      <form method="post">
+          {% csrf_token %}
+          <div class="row center-xs middle-xs">
+              <div class="col-xs-2">
+                <c-icons.user />
+              </div>
+              <div class="col-xs-10">
+                <input type="text" name="username" id="username" placeholder="User name" required />
+              </div>
+          </div> 
+          <div class="row center-xs middle-xs">
+              <div class="col-xs-2">
+                <c-icons.lock />
+              </div>
+              <div class="col-xs-10">
+                <input type="password" name="password" id="password" placeholder="Password" required />
+              </div>
+          </div> 
+          <div class="row center-xs">
+              <div class="col-xs-offset-2 col-xs-10">
+                <button type="submit">
+                      <c-text-icon>
+                        {% trans "Login" %}
+                        <c-icons.next class="animate-push-right" />
+                      </c-text-icon>
+                  </button>
+              </div>
+          </div>
+      </form>
+  </div>
+{% endblock %}

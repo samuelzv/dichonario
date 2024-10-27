@@ -11,5 +11,16 @@
 
     <div class='container home'>
         <c-quote></c-quote>
+        <div>
+            <a href="{% url 'quote-main-public' %}">
+                <button type="button">
+                      <c-text-icon>
+                        {% trans "Enter" %}
+                        <c-icons.next class="animate-push-right" />
+                      </c-text-icon>
+                  </button>
+            </a>
+        </div>
+
     </div>
 {% endblock %}

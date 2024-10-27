@@ -12,20 +12,30 @@
     <div class="container" x-data="{ selected: '{{section}}' }">
       <div role="group">
 
-        <button 
-          hx-target="#quotes-paginated-list"
-          hx-get="{% url 'quote-main-mine' %}"
-          x-on:click="selected = 'mine'"
-          :class="{'active': selected === 'mine', 'secondary': selected !== 'mine'}"
-          >
-          {% trans 'Mine' %}
-        </button>
+        {% if request.user.is_authenticated %}
+          <button 
+            hx-target="#quotes-paginated-list"
+            hx-get="{% url 'quote-main-mine' %}"
+            x-on:click="selected = 'mine'"
+            :class="{'active': selected === 'mine', 'secondary': selected !== 'mine'}"
+            >
+            {% trans 'Mine' %}
+          </button>
+        {% else %}
+          <button 
+            type="button"
+            :class="{'active': selected === 'mine', 'secondary': selected !== 'mine'}"
+            onclick="goToUrl('{% url 'login' %}?next={% url 'quote-main-mine' %}')"
+            >
+            {% trans 'Mine' %}
+          </button>
+        {% endif %}
 
         <button 
-          x-on:click="selected = 'public'"
-          :class="{'active': selected === 'public', 'secondary': selected !== 'public'}"
           hx-target="#quotes-paginated-list"
           hx-get="{% url 'quote-main-public' %}"
+          x-on:click="selected = 'public'"
+          :class="{'active': selected === 'public', 'secondary': selected !== 'public'}"
           >
           {% trans 'Public' %}
         </button>
