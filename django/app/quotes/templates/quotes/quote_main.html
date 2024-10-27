@@ -1,5 +1,6 @@
 {% extends 'quotes/quotes_app.html' %}
 {% load i18n %}
+{% load util %}
 {% load static %}
 
 {% block title %}
@@ -9,9 +10,58 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_list.css' %}">
 
-    <div class="container" x-data="{ selected: '{{section}}' }">
-      <div role="group">
+   {% get_text_by_section section as selected_title %}
 
+    <div class="container" x-data="{ selected: '{{section}}', selected_title: '{{selected_title}}' }">
+      <div class="row">
+        <div class="col-md-4">
+          <details class="dropdown">
+            <summary role="button" x-text="selected_title">
+            </summary>
+            <ul @click="closeDropdown($event)">
+
+              <li x-show="selected !== 'public'">
+                <a 
+                   data-discover="true" 
+                   hx-target="#quotes-paginated-list"
+                   hx-get="{% url 'quote-main-public' %}"
+                  @click="selected = 'public';selected_title='{% get_text_by_section 'public'%}'"
+                >{% trans 'Public' %}
+                </a>
+              </li>
+
+              <li x-show="selected !== 'mine'">
+                {% if request.user.is_authenticated %}
+                  <a 
+                     data-discover="true" 
+                     hx-target="#quotes-paginated-list"
+                     hx-get="{% url 'quote-main-mine' %}"
+                     @click="selected = 'mine';selected_title='{% get_text_by_section 'mine'%}'"
+                  >{% trans 'Mine' %}</a>
+                {% else %}
+                  <a 
+                     data-discover="true" 
+                     href="{% url 'login' %}?next={% url 'quote-main-mine' %}"
+                  >{% trans 'Mine' %}</a>
+                {% endif %}
+              </li>
+
+              <li x-show="selected !== 'authors'">
+                <a 
+                   data-discover="true" 
+                   href="{% url 'author-list' %}"
+                >{% trans 'Authors' %}</a>
+              </li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="col-md-4">
+        </div>
+      </div>
+      
+      <!-- 
+      <div role="group">
         {% if request.user.is_authenticated %}
           <button 
             hx-target="#quotes-paginated-list"
@@ -46,10 +96,9 @@
           >
           {% trans 'Authors' %}
         </button>
-
       </div>
+      -->
     </div>
-    </span>
 
     <div class="full-height" id="main-content" >
       {% block main-content %}

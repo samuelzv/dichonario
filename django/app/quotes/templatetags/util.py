@@ -15,19 +15,35 @@ register = template.Library()
 def get_url_from_button(button):
     return reverse(button["url"]) + "?action=" + button["id"]
 
+
 @register.simple_tag
 def create_dict(str_dict):
     return ast.literal_eval(str_dict)
+
+
+@register.simple_tag
+def get_text_by_section(section: str) -> str:
+    if section == "mine":
+        return gettext("Mine")
+
+    if section == "public":
+        return gettext("Public")
+
+    if section == "authors":
+        return gettext("Authors")
+
+    return ""
+
 
 @register.simple_tag
 def get_type_writer_dic(text: str, index: int) -> dict:
 
     return {
         "text": f'"{text}"',
-        "filename": 'components-js/main-type-writer-' + str(index),
+        "filename": "components-js/main-type-writer-" + str(index),
         "index": index,
+    }
 
-    } 
 
 @register.simple_tag
 def map_quote_to_card(quote) -> CardModel:
@@ -61,27 +77,27 @@ def get_button_config(
         "util_classes": util_classes,
     }
 
+
 @register.simple_tag(takes_context=True)
 def get_theme(context):
-    theme = context['request'].COOKIES.get("theme", "dark")
+    theme = context["request"].COOKIES.get("theme", "dark")
 
-    return {
-        "theme": theme 
-    } 
+    return {"theme": theme}
+
 
 @register.simple_tag(takes_context=True)
 def get_language(context):
     return {
-        'is_english': context['request'].LANGUAGE_CODE == 'en',
-        'is_spanish': context['request'].LANGUAGE_CODE == 'es',
-        'i18n': {
-            'english_code': 'en' ,
-            'english_label': gettext_lazy('English'),
-            'english_description': gettext_lazy('Switch to English'),
-            'spanish_code': 'es',
-            'spanish_label': gettext_lazy('Spanish'),
-            'spanish_description': gettext_lazy('Switch to Spanish'),
-        }
+        "is_english": context["request"].LANGUAGE_CODE == "en",
+        "is_spanish": context["request"].LANGUAGE_CODE == "es",
+        "i18n": {
+            "english_code": "en",
+            "english_label": gettext_lazy("English"),
+            "english_description": gettext_lazy("Switch to English"),
+            "spanish_code": "es",
+            "spanish_label": gettext_lazy("Spanish"),
+            "spanish_description": gettext_lazy("Switch to Spanish"),
+        },
     }
 
 

@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.db.models import QuerySet
 from django.core.paginator import EmptyPage, Paginator
 from .constants import command_buttons
+from django.utils.translation import gettext
 import copy
 
 
