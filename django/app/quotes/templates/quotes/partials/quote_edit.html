@@ -25,12 +25,19 @@
              </div>
              <div class="row">
                     <div class="col-xs-12 col-md-4">
-                        <label for="is_private_id">{% trans "Private" %}</label>
-                        <input type="checkbox" 
-                            id="is_private_id" 
-                            name="is_private" 
-                            {% if quote.is_private == True %}checked{% endif %}
-                        >
+                        <fieldset>
+                          <label>
+                            <input 
+                                name="is_private" 
+                                id="is_private_id" 
+                                type="checkbox" 
+                                role="switch" 
+                                {% if quote.is_private == True %}checked{% endif %}
+                            />
+                                {% trans "Private" %}
+                          </label>
+                          <label>
+                        </fieldset>
                     </div>
                     <div class="col-xs-12 col-md-8 center-xs end-md">
                         <div class="form-actions">
