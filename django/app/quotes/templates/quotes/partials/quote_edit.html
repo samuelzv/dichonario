@@ -23,29 +23,34 @@
                   </div>
                   {{ form.author.errors }}
              </div>
-             <div >
-               <label for="is_private_id">{% trans "Private" %}</label>
-               <input type="checkbox" 
-                    id="is_private_id" 
-                    name="is_private" 
-                    {% if quote.is_private == True %}checked{% endif %}>
+             <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <label for="is_private_id">{% trans "Private" %}</label>
+                        <input type="checkbox" 
+                            id="is_private_id" 
+                            name="is_private" 
+                            {% if quote.is_private == True %}checked{% endif %}
+                        >
+                    </div>
+                    <div class="col-xs-12 col-md-8 center-xs end-md">
+                        <div class="form-actions">
+                            <button type="button" class="outline secondary secondary-button" hx-post="{% url 'quote-partial-edit' quote.id %}"  hx-target="#quote-{{quote.id}}">
+                                <c-text-icon>
+                                    {% trans "Save" %}
+                                    <c-icons.save></c-icons.save>
+                                </c-text-icon>
+                            </button>
+                            <button type="button" class="outline secondary secondary-button"  hx-get="{% url 'quote-partial-show' quote.id %}"  hx-target="#quote-{{quote.id}}">
+                                <c-text-icon>
+                                    {% trans 'Cancel' %}
+                                    <c-icons.cancel></c-icons.cancel>
+                                </c-text-icon>
+                            </button>
+                        </div>
+                    </div>
              </div>
            </fieldset>
 
-            <div class="form-actions">
-                <button type="button" class="outline secondary secondary-button" hx-post="{% url 'quote-partial-edit' quote.id %}"  hx-target="#quote-{{quote.id}}">
-                    <c-text-icon>
-                        {% trans "Save" %}
-                        <c-icons.save></c-icons.save>
-                    </c-text-icon>
-                </button>
-                <button type="button" class="outline secondary secondary-button"  hx-get="{% url 'quote-partial-show' quote.id %}"  hx-target="#quote-{{quote.id}}">
-                    <c-text-icon>
-                        {% trans 'Cancel' %}
-                        <c-icons.cancel></c-icons.cancel>
-                    </c-text-icon>
-                </button>
-            </div>
         </form>
     </div>
 {% endblock %}
