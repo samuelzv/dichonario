@@ -28,6 +28,13 @@
     animation: bounce 1s infinite;
 }
 
+.animate-bounce-5s {
+    animation-name: bounce;
+    animation-duration: 1s;
+    animation-iteration-count: 2;
+    animation-delay: 1s;
+}
+
 .scaled-quote {
     transform: scale(0.5);
     transition: 1s;

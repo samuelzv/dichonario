@@ -14,7 +14,7 @@
 
     <div class="container" x-data="{ selected: '{{section}}', selected_title: '{{selected_title}}' }">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-xs-12 col-md-3">
           <details class="dropdown">
             <summary role="button" x-text="selected_title">
             </summary>
@@ -23,7 +23,7 @@
               <li x-show="selected !== 'public'">
                 <a 
                    data-discover="true" 
-                   hx-target="#quotes-paginated-list"
+                   hx-target="#paginated-content"
                    hx-get="{% url 'quote-main-public' %}"
                   @click="selected = 'public';selected_title='{% get_text_by_section 'public'%}'"
                 >{% trans 'Public' %}
@@ -34,7 +34,7 @@
                 {% if request.user.is_authenticated %}
                   <a 
                      data-discover="true" 
-                     hx-target="#quotes-paginated-list"
+                     hx-target="#paginated-content"
                      hx-get="{% url 'quote-main-mine' %}"
                      @click="selected = 'mine';selected_title='{% get_text_by_section 'mine'%}'"
                   >{% trans 'Mine' %}</a>
@@ -56,51 +56,35 @@
           </details>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-xs-12 col-md-9">
+          <div class="row">
+            <div class="col-xs-12 center-xs end-md">
+                <button 
+                  hx-get="{% url 'quote-new' %}"
+                  hx-push-url="true"
+                  hx-target="#main-content"
+                  class="primary-button outline secondary"
+              >
+                  <c-text-icon>
+                    {% trans "New quote" %}
+                    <c-icons.new class="animate-bounce-5s" />
+                  </c-text-icon>
+              </button>
+                <button class="primary-button outline secondary">
+                  <c-text-icon>
+                    {% trans "Search" %}
+                    <c-icons.search  class="animate-bounce-5s" />
+                  </c-text-icon>
+              </button>
+            </div>
+
+          </div>
         </div>
       </div>
       
-      <!-- 
-      <div role="group">
-        {% if request.user.is_authenticated %}
-          <button 
-            hx-target="#quotes-paginated-list"
-            hx-get="{% url 'quote-main-mine' %}"
-            x-on:click="selected = 'mine'"
-            :class="{'active': selected === 'mine', 'secondary': selected !== 'mine'}"
-            >
-            {% trans 'Mine' %}
-          </button>
-        {% else %}
-          <button 
-            type="button"
-            :class="{'active': selected === 'mine', 'secondary': selected !== 'mine'}"
-            onclick="goToUrl('{% url 'login' %}?next={% url 'quote-main-mine' %}')"
-            >
-            {% trans 'Mine' %}
-          </button>
-        {% endif %}
-
-        <button 
-          hx-target="#quotes-paginated-list"
-          hx-get="{% url 'quote-main-public' %}"
-          x-on:click="selected = 'public'"
-          :class="{'active': selected === 'public', 'secondary': selected !== 'public'}"
-          >
-          {% trans 'Public' %}
-        </button>
-
-        <button 
-          x-on:click="selected = 'authors'"
-          :class="{'active': selected === 'authors', 'secondary': selected !== 'authors'}"
-          >
-          {% trans 'Authors' %}
-        </button>
-      </div>
-      -->
     </div>
 
-    <div class="full-height" id="main-content" >
+    <div class="full-height" id="main-content" hx-swap="innerHTML" hx-history-elt>
       {% block main-content %}
       {% endblock %}
     </div>

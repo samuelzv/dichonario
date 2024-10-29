@@ -160,7 +160,7 @@ def get_quotes(request, section: str):
     quote_list_factory = QuoteListFactory().create(section)
     quotes = quote_list_factory.quotes(**filters)
 
-    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=10)
+    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=2)
     ctx = {
         "search": search,
         "section": section,
@@ -210,17 +210,22 @@ def quote_new(request):
     else:
         form = QuoteForm()
 
+    ctx = {
+        "form": form,
+        "title": gettext("New"),
+        "authors": authors,
+        "command_buttons": command_buttons,
+        "selected_command": "new",
+        "success_url": "home",
+    }
+
+    if "HX-Request" in request.headers:
+        return render(request, "quotes/partials/quote_new.html", context=ctx)
+
     return render(
         request,
         "quotes/quote_new.html",
-        {
-            "form": form,
-            "title": gettext("New"),
-            "authors": authors,
-            "command_buttons": command_buttons,
-            "selected_command": "new",
-            "success_url": "home",
-        },
+        context=ctx,
     )
 
 

@@ -10,7 +10,7 @@
                 <button hx-get="{% url 'quote-partial-edit' quote.id %}"
                         hx-target="#quote-{{quote.id}}"
                         data-tooltip="{% trans 'Edit' %}" 
-                        class="outline secondary transparent-button">
+                        class="outline secondary secondary-button">
                         <c-text-icon>
                             {% trans "Edit" %}
                             <c-icons.edit></c-icons.edit>
@@ -19,7 +19,7 @@
                 <button hx-get="/quotes/quote/partial/{{quote.id}}/delete"
                         hx-target="#quote-{{quote.id}}"
                         data-tooltip="{% trans 'Delete' %}" 
-                        class="outline secondary transparent-button">
+                        class="outline secondary secondary-button">
                         <c-text-icon>
                             {% trans "Delete" %}
                             <c-icons.delete></c-icons.delete>

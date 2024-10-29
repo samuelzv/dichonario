@@ -33,13 +33,13 @@
            </fieldset>
 
             <div class="form-actions">
-                <button type="button" class="outline secondary transparent-button" hx-post="{% url 'quote-partial-edit' quote.id %}"  hx-target="#quote-{{quote.id}}">
+                <button type="button" class="outline secondary secondary-button" hx-post="{% url 'quote-partial-edit' quote.id %}"  hx-target="#quote-{{quote.id}}">
                     <c-text-icon>
                         {% trans "Save" %}
                         <c-icons.save></c-icons.save>
                     </c-text-icon>
                 </button>
-                <button type="button" class="outline secondary transparent-button"  hx-get="{% url 'quote-partial-show' quote.id %}"  hx-target="#quote-{{quote.id}}">
+                <button type="button" class="outline secondary secondary-button"  hx-get="{% url 'quote-partial-show' quote.id %}"  hx-target="#quote-{{quote.id}}">
                     <c-text-icon>
                         {% trans 'Cancel' %}
                         <c-icons.cancel></c-icons.cancel>

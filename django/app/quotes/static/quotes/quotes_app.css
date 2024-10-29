@@ -25,7 +25,11 @@
   gap: 7px;
 }
 
-.transparent-button {
+.primary-button {
+  min-width: 175px;
+}
+
+.secondary-button {
     background: transparent;
     border: 0;
 }

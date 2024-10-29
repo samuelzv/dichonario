@@ -1,0 +1,44 @@
+
+{% load static %}
+{% load util %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container quote-edit">
+        <h3>{% trans "New quote" %}</h3>
+
+        <form action="{% url 'quote-new' %}" method="post">
+            {% csrf_token %}
+           <fieldset>
+             <div class="my-4">
+                <label for="quote_id" class="">{% trans 'Quote' %}</label>
+                <div class="">
+                  <textarea cols="50" rows="5" id="quote_id" name="quote" required></textarea>
+                  {{ form.quote.errors }}
+                </div>
+             </div>
+             <div class="my-4">
+                  <label for="id_list_author" class="">{% trans "Author" %}</label>
+                  <div class="">
+                   {% component "datalist" name="author" data=authors initial_value=None external_class="author-list"  attrs:required=True %}
+                   {% endcomponent %}
+                  </div>
+                  {{ form.author.errors }}
+             </div>
+             <div class="my-4">
+                <div class="">
+                    <label class="form-check-label" for="is_private_id">{% trans "Private" %}</label>
+                    <input class="form-check-input" type="checkbox" id="is_private_id" name="is_private">
+                </div>
+             </div>
+           </fieldset>
+
+            <div class="form-actions">
+                <input type="submit" value="{% trans "Save" %}">
+                <input type="reset" value="{% trans "Cancel" %}" onclick="javascript:history.back()">
+            </div>
+
+            <input type="hidden" name="next" value="{{success_url}}"/>
+        </form>
+    </div>
+{% endblock %}
