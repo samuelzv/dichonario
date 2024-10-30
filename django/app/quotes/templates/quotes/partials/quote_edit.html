@@ -41,18 +41,24 @@
                     </div>
                     <div class="col-xs-12 col-md-8 center-xs end-md">
                         <div class="form-actions">
-                            <button type="button" class="outline secondary secondary-button" hx-post="{% url 'quote-partial-edit' quote.id %}"  hx-target="#quote-{{quote.id}}">
-                                <c-text-icon>
-                                    {% trans "Save" %}
-                                    <c-icons.save></c-icons.save>
-                                </c-text-icon>
-                            </button>
-                            <button type="button" class="outline secondary secondary-button"  hx-get="{% url 'quote-partial-show' quote.id %}"  hx-target="#quote-{{quote.id}}">
-                                <c-text-icon>
-                                    {% trans 'Cancel' %}
-                                    <c-icons.cancel></c-icons.cancel>
-                                </c-text-icon>
-                            </button>
+                            <c-secondary-button 
+                                hx-post="{% url 'quote-partial-edit' quote.id %}"  
+                                data-tooltip="{% trans 'Save' %}" 
+                                hx-target="#quote-{{quote.id}}"
+                            >
+                               {% trans "Save" %}
+                               <c-icons.save></c-icons.save>
+                            </c-secondary-button>
+
+                            <c-secondary-button 
+                                hx-get="{% url 'quote-partial-show' quote.id %}"  
+                                data-tooltip="{% trans 'Cancel' %}" 
+                                x-on:click="isEditing = false"
+                                hx-target="#quote-{{quote.id}}"
+                            >
+                                {% trans 'Cancel' %}
+                                <c-icons.cancel></c-icons.cancel>
+                            </c-secondary-button>
                         </div>
                     </div>
              </div>
