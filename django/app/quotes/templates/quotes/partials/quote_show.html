@@ -1,23 +1,6 @@
 {% extends 'quotes/quotes_partials.html' %}
-{% load static %}
-{% load util %}
-{% load i18n %}
 
 {% block content %}
-<div id="quote-{{quote.id}}" 
-     class="quote" 
-     hx-swap="outerHTML"
->
-  <div class="row start-xs center-md middle-xs" >
-    <div class="col-xs-4 col-sm-3">
-        <c-author-image />
-    </div>
-    <div class="col-xs-8 col-sm-9">
-        <p>"{{quote.quote}}"</p>
-        <footer>
-            <cite> - {{quote.author.name}}</cite>
-        </footer>
-    </div>
-  </div>
-</div>
+    <c-quote-details>
+    </c-quote-details>
 {% endblock %}

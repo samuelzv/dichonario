@@ -19,7 +19,7 @@
 
                 <c-secondary-button 
                     x-on:click="isDeleting = true"
-                    hx-get="/quotes/quote/partial/{{quote.id}}/delete"
+                    hx-get="{% url 'quote-partial-delete' quote.id %}"
                     hx-target="#quote-{{quote.id}}"
                     data-tooltip="{% trans 'Delete' %}" 
                 >

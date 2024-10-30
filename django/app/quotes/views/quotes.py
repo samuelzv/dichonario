@@ -285,6 +285,18 @@ def quote_partial_show(request, pk):
     )
 
 
+def quote_partial_delete(request, pk):
+    quote = quote_by_id(id=pk)
+
+    return render(
+        request,
+        "quotes/partials/quote_delete.html",
+        {
+            "quote": quote,
+        },
+    )
+
+
 def quote_edit_old(request, pk):
     quote = quote_by_id(id=pk)
     next = request.GET.get("next")
