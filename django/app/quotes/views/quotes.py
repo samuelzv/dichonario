@@ -24,6 +24,7 @@ from ..models import Quote
 from ..forms import QuoteForm
 from ..domain.quote_session import QuoteSession, QuoteScope
 from ..selectors import (
+    quote_delete_by_id,
     quote_list_created_by,
     quote_list_public,
     author_by_id,
@@ -286,15 +287,10 @@ def quote_partial_show(request, pk):
 
 
 def quote_partial_delete(request, pk):
-    quote = quote_by_id(id=pk)
+    next = request.GET.get("next")
+    quote = quote_delete_by_id(id=pk)
 
-    return render(
-        request,
-        "quotes/partials/quote_delete.html",
-        {
-            "quote": quote,
-        },
-    )
+    return HttpResponseRedirect(next)
 
 
 def quote_edit_old(request, pk):

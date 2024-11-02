@@ -49,6 +49,17 @@ def quote_by_id(*, id: int) -> Quote:
     return found
 
 
+def quote_delete_by_id(*, id: int) -> Quote:
+    found = Quote.objects.get(id=id)
+
+    if found is None:
+        raise ValidationError("Invalid quote id")
+    else:
+        found.delete()
+
+    return found
+
+
 def get_author_list() -> Iterable[Author]:
     return Author.objects.all().order_by("name")
 
