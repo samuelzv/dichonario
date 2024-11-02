@@ -307,6 +307,20 @@ def quote_partial_confirm_delete(request, pk):
     )
 
 
+def quote_partial_actions_bar(request, pk):
+    next = request.GET.get("next")
+    quote = quote_by_id(id=pk)
+
+    return render(
+        request,
+        "quotes/partials/quote_actions_bar.html",
+        {
+            "quote": quote,
+            "next": next,
+        },
+    )
+
+
 def quote_edit_old(request, pk):
     quote = quote_by_id(id=pk)
     next = request.GET.get("next")

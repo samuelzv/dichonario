@@ -1,0 +1,21 @@
+{% load i18n %}
+<c-secondary-button 
+    id="quote-edit-button-{{quote.id}}"
+    hx-get="{% url 'quote-partial-edit' quote.id %}"
+    hx-target="#quote-{{quote.id}}"
+    data-tooltip="{% trans 'Edit' %}" 
+>
+    {% trans "Edit" %}
+    <c-icons.edit></c-icons.edit>
+</c-secondary-button>
+
+<c-secondary-button 
+    id="quote-delete-button-{{quote.id}}"
+    hx-get="{% url 'quote-partial-confirm-delete'  quote.id %}?next={{next}}"
+    hx-swap="innerHTML transition:true"
+    hx-target="closest .quote-actions-bar"
+    data-tooltip="{% trans 'Delete' %}" 
+>
+    {% trans "Delete" %}
+    <c-icons.delete></c-icons.delete>
+</c-secondary-button>

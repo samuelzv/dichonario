@@ -17,8 +17,8 @@
 <c-secondary-button 
     hx-get="{% url 'quote-partial-show' quote.id %}"  
     data-tooltip="{% trans 'Cancel' %}" 
-    x-on:click="isDeleting = false"
-    hx-target="#quote-{{quote.id}}"
+    hx-get="{% url 'quote-partial-actions-bar' quote.id %}?next={{next}}"
+    hx-target="closest .quote-actions-bar"
 >
     {% trans "Cancel" %}
     <c-icons.cancel></c-icons.cancel>

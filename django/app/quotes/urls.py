@@ -48,6 +48,11 @@ urlpatterns = [
         name="quote-partial-confirm-delete",
     ),
     path(
+        "quote/partial/<int:pk>/actions-bar",
+        quotes.quote_partial_actions_bar,
+        name="quote-partial-actions-bar",
+    ),
+    path(
         "quote/<int:pk>/delete",
         quotes.QuoteDeleteView.as_view(),
         name="quote-delete",
