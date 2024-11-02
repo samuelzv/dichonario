@@ -46,3 +46,8 @@
   }
 }
 
+.quotes-app .quote-actions-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+}

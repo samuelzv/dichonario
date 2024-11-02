@@ -1,61 +1,40 @@
 {% load i18n %}
 
-<div x-data="{ isShow: false, isEditing: false, isDeleting: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false">
+<div x-data="{ isShow: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false">
     <article x-bind:class="isShow ? 'non-scaled-quote' : ''" class="quote scaled-quote">
        <blockquote>
-        {% include 'quotes/partials/quote_show.html' with quote=quote %}
+            <c-quote-details />
        </blockquote>
        <footer>
             {% if editable == True %}
-                <c-secondary-button 
-                    x-show="!isEditing && !isDeleting"
-                    x-on:click="isEditing = true"
-                    hx-get="{% url 'quote-partial-edit' quote.id %}"
-                    hx-target="#quote-{{quote.id}}"
-                    data-tooltip="{% trans 'Edit' %}" 
-                >
-                    {% trans "Edit" %}
-                    <c-icons.edit></c-icons.edit>
-                </c-secondary-button>
-
-                <c-secondary-button 
-                    x-show="!isEditing && !isDeleting"
-                    x-on:click="isDeleting = true"
-                    data-tooltip="{% trans 'Delete' %}" 
-                >
-                    {% trans "Delete" %}
-                    <c-icons.delete></c-icons.delete>
-                </c-secondary-button>
-
-
-                <span x-show="isDeleting == true" class="quote-delete-section">
-                    <p class="pico-color-pumpkin-300">Are you sure?</p>
-                    {% url view_name as url_view_name %}
-                    {% with next=url_view_name|add:'?page='|add:paginated_results.current_page|urlencode %}
-                        <button 
-                            type="button" 
-                            class="pico-background-pink-600"
-                            hx-get="{% url 'quote-partial-delete' quote.id %}?next={{next}}"
-                            hx-target="#main-content"
-                        >
-                              <c-text-icon>
-                                {% trans "Delete" %}
-                                <c-icons.trash />
-                              </c-text-icon>
-                        </button>
-                    {% endwith %}
-
-                    <c-secondary-button 
-                        hx-get="{% url 'quote-partial-show' quote.id %}"  
-                        data-tooltip="{% trans 'Cancel' %}" 
-                        x-on:click="isDeleting = false"
-                        hx-target="#quote-{{quote.id}}"
+               {% url view_name as url_view_name %}
+               {% with next=url_view_name|add:'?page='|add:paginated_results.current_page|urlencode %}
+                    <div 
+                        class="quote-actions-bar" 
+                        id="quote-actions-bar-{{quote.id}}" 
+                        hx-swap="innerHTML"
                     >
-                        {% trans "Cancel" %}
-                        <c-icons.cancel></c-icons.cancel>
-                    </c-secondary-button>
-                </span>
+                        <c-secondary-button 
+                            id="quote-edit-button-{{quote.id}}"
+                            hx-get="{% url 'quote-partial-edit' quote.id %}"
+                            hx-target="#quote-{{quote.id}}"
+                            data-tooltip="{% trans 'Edit' %}" 
+                        >
+                            {% trans "Edit" %}
+                            <c-icons.edit></c-icons.edit>
+                        </c-secondary-button>
 
+                        <c-secondary-button 
+                            id="quote-delete-button-{{quote.id}}"
+                            hx-get="{% url 'quote-partial-confirm-delete'  quote.id %}?next={{next}}"
+                            hx-target="closest div.quote-actions-bar"
+                            data-tooltip="{% trans 'Delete' %}" 
+                        >
+                            {% trans "Delete" %}
+                            <c-icons.delete></c-icons.delete>
+                        </c-secondary-button>
+                    </div>
+               {% endwith %}
             {% endif %}
         </footer>
     </article>

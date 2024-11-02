@@ -293,6 +293,20 @@ def quote_partial_delete(request, pk):
     return HttpResponseRedirect(next)
 
 
+def quote_partial_confirm_delete(request, pk):
+    next = request.GET.get("next")
+    quote = quote_by_id(id=pk)
+
+    return render(
+        request,
+        "quotes/partials/quote_confirm_delete.html",
+        {
+            "quote": quote,
+            "next": next,
+        },
+    )
+
+
 def quote_edit_old(request, pk):
     quote = quote_by_id(id=pk)
     next = request.GET.get("next")

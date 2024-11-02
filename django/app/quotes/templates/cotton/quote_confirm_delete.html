@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<p class="pico-color-pumpkin-300">{% trans 'Are you sure?' %}</p>
+<button 
+    type="button" 
+    id="quote-delete-confirm-{{quote.id}}"
+    class="pico-background-pink-600"
+    hx-get="{% url 'quote-partial-delete' quote.id %}?next={{next}}"
+    hx-target="#main-content"
+>
+      <c-text-icon>
+        {% trans "Delete" %}
+        <c-icons.trash />
+      </c-text-icon>
+</button>
+
+<c-secondary-button 
+    hx-get="{% url 'quote-partial-show' quote.id %}"  
+    data-tooltip="{% trans 'Cancel' %}" 
+    x-on:click="isDeleting = false"
+    hx-target="#quote-{{quote.id}}"
+>
+    {% trans "Cancel" %}
+    <c-icons.cancel></c-icons.cancel>
+</c-secondary-button>
