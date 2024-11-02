@@ -1,8 +1,26 @@
 {% extends 'quotes/quotes_partials.html' %}
+{% load i18n %}
 
 {% block content %}
     <c-quote-details>
-        <p>Are you sure you want to delete this quote?</p>
-        <button type="button" class="pico-background-pink-600">Confirm</button>
+        <section class="quote-delete-section">
+            <p class="pico-color-pumpkin-300">Are you sure you want to delete this quote?</p>
+            <button type="button" class="pico-background-pink-600">
+                  <c-text-icon>
+                    {% trans "Confirm" %}
+                    <c-icons.trash />
+                  </c-text-icon>
+            </button>
+
+            <c-secondary-button 
+                hx-get="{% url 'quote-partial-show' quote.id %}"  
+                data-tooltip="{% trans 'Cancel' %}" 
+                x-on:click="isDeleting = false"
+                hx-target="#quote-{{quote.id}}"
+            >
+                {% trans "Cancel" %}
+                <c-icons.cancel></c-icons.cancel>
+            </c-secondary-button>
+        </section>
     </c-quote-details>
 {% endblock %}

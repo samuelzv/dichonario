@@ -34,3 +34,14 @@
     border: 0;
 }
 
+.quote-delete-section {
+  align-items: center;
+  margin: 31px;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    max-width: 150px;
+  }
+}
+
