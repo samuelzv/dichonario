@@ -5,9 +5,10 @@
        <blockquote>
         {% include 'quotes/partials/quote_show.html' with quote=quote %}
        </blockquote>
-       <footer x-show="!isEditing && !isDeleting">
+       <footer>
             {% if editable == True %}
                 <c-secondary-button 
+                    x-show="!isEditing && !isDeleting"
                     x-on:click="isEditing = true"
                     hx-get="{% url 'quote-partial-edit' quote.id %}"
                     hx-target="#quote-{{quote.id}}"
@@ -18,14 +19,35 @@
                 </c-secondary-button>
 
                 <c-secondary-button 
+                    x-show="!isEditing && !isDeleting"
                     x-on:click="isDeleting = true"
-                    hx-get="{% url 'quote-partial-delete' quote.id %}"
-                    hx-target="#quote-{{quote.id}}"
                     data-tooltip="{% trans 'Delete' %}" 
                 >
                     {% trans "Delete" %}
                     <c-icons.delete></c-icons.delete>
                 </c-secondary-button>
+
+
+                <span x-show="isDeleting == true" class="quote-delete-section">
+                    <p class="pico-color-pumpkin-300">Are you sure?</p>
+                    <button type="button" class="pico-background-pink-600">
+                          <c-text-icon>
+                            {% trans "Delete" %}
+                            <c-icons.trash />
+                          </c-text-icon>
+                    </button>
+
+                    <c-secondary-button 
+                        hx-get="{% url 'quote-partial-show' quote.id %}"  
+                        data-tooltip="{% trans 'Cancel' %}" 
+                        x-on:click="isDeleting = false"
+                        hx-target="#quote-{{quote.id}}"
+                    >
+                        {% trans "Cancel" %}
+                        <c-icons.cancel></c-icons.cancel>
+                    </c-secondary-button>
+                </span>
+
             {% endif %}
         </footer>
     </article>
