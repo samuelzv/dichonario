@@ -295,13 +295,12 @@ def quote_partial_delete(request, pk):
 
 def quote_partial_confirm_delete(request, pk):
     next = request.GET.get("next")
-    quote = quote_by_id(id=pk)
 
     return render(
         request,
         "quotes/partials/quote_confirm_delete.html",
         {
-            "quote": quote,
+            "id": pk,
             "next": next,
         },
     )
@@ -309,13 +308,14 @@ def quote_partial_confirm_delete(request, pk):
 
 def quote_partial_actions_bar(request, pk):
     next = request.GET.get("next")
-    quote = quote_by_id(id=pk)
+    action = request.GET.get("action")
 
     return render(
         request,
         "quotes/partials/quote_actions_bar.html",
         {
-            "quote": quote,
+            "id": pk,
+            "action": action,
             "next": next,
         },
     )

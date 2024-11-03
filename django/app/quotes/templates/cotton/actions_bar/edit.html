@@ -1,0 +1,19 @@
+{% load i18n %}
+<c-secondary-button 
+    hx-post="{% url 'quote-partial-edit' id %}"  
+    data-tooltip="{% trans 'Save' %}" 
+    hx-target="#quote-{{id}}"
+>
+   {% trans "Save" %}
+   <c-icons.save></c-icons.save>
+</c-secondary-button>
+
+<c-secondary-button 
+    hx-swap="innerHTML transition:true"
+    hx-get="{{actions_bar_url}}?next={{next}}"
+    hx-target="closest .quote-actions-bar"
+    data-tooltip="{% trans 'Cancel' %}" 
+>
+    {% trans 'Cancel' %}
+    <c-icons.cancel></c-icons.cancel>
+</c-secondary-button>

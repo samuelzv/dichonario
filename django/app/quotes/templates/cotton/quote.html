@@ -13,7 +13,7 @@
                         class="quote-actions-bar" 
                         id="quote-actions-bar-{{quote.id}}" 
                     >
-                        <c-quote-actions-bar />
+                        <c-actions-bar.factory :id=quote.id />
                     </div>
                {% endwith %}
             {% endif %}

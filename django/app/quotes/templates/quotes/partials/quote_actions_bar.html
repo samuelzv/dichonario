@@ -1,1 +1,8 @@
-<c-quote-actions-bar />
+{% url 'quote-partial-actions-bar' id  as actions_bar_url %}
+{% url 'quote-partial-edit' id  as edit_url %}
+<c-actions-bar.factory 
+  :id=id 
+  :actions_bar_url=actions_bar_url
+  :next=next 
+  :action=action
+/>

@@ -1,0 +1,19 @@
+{% if action == 'delete' %}
+    <c-actions-bar.delete 
+        :actions_bar_url=actions_bar_url
+        :id=id 
+        :next=next 
+    />
+{% elif action == 'edit' %}
+    <c-actions-bar.edit 
+        :actions_bar_url=actions_bar_url
+        :id=id 
+        :next=next 
+    />
+{% else %}
+    <c-actions-bar.default
+        :actions_bar_url=actions_bar_url
+        :id=id 
+        :next=next 
+    />
+{% endif %}
