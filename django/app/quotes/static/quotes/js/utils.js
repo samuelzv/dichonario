@@ -9,3 +9,14 @@ function closeDropdown(event) {
 function submitForm(val) {
   console.log(val.value);
 }
+
+function addTransitionClass(target) {
+  var previous = document.querySelector('.sample-transition');
+  if (previous) {
+    previous.classList.remove('sample-transition');
+  }
+  var element = document.querySelector(target);
+  if (element) {
+    element.classList.add('sample-transition');
+  }
+}

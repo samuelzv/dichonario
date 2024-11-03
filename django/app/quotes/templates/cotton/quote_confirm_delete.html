@@ -17,6 +17,7 @@
 <c-secondary-button 
     hx-get="{% url 'quote-partial-show' quote.id %}"  
     data-tooltip="{% trans 'Cancel' %}" 
+    hx-swap="innerHTML transition:true"
     hx-get="{% url 'quote-partial-actions-bar' quote.id %}?next={{next}}"
     hx-target="closest .quote-actions-bar"
 >

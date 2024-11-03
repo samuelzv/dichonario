@@ -14,6 +14,8 @@
     hx-get="{% url 'quote-partial-confirm-delete'  quote.id %}?next={{next}}"
     hx-swap="innerHTML transition:true"
     hx-target="closest .quote-actions-bar"
+    x-on:click="addTransitionClass('#quote-actions-bar-{{quote.id}}')"
+    hx-trigger="click delay:100ms"
     data-tooltip="{% trans 'Delete' %}" 
 >
     {% trans "Delete" %}
