@@ -1,12 +1,12 @@
 {% load i18n %}
-<c-secondary-button 
+<c-button 
     hx-post="{% url 'quote-partial-edit' id %}"  
     data-tooltip="{% trans 'Save' %}" 
     hx-target="#quote-{{id}}"
 >
    {% trans "Save" %}
    <c-icons.save></c-icons.save>
-</c-secondary-button>
+</c-button>
 
 <c-secondary-button 
     hx-swap="innerHTML transition:true"
