@@ -2,16 +2,16 @@
 <c-button 
     hx-post="{% url 'quote-partial-edit' id %}"  
     data-tooltip="{% trans 'Save' %}" 
-    hx-target="#quote-{{id}}"
+    hx-target="closest article"
 >
    {% trans "Save" %}
    <c-icons.save></c-icons.save>
 </c-button>
 
+    <!-- hx-swap="innerHTML transition:true" -->
 <c-secondary-button 
-    hx-swap="innerHTML transition:true"
-    hx-get="{{actions_bar_url}}?next={{next}}"
-    hx-target="closest .quote-actions-bar"
+    hx-get="{% url 'quote-partial-show' id %}"
+    hx-target="closest article"
     data-tooltip="{% trans 'Cancel' %}" 
 >
     {% trans 'Cancel' %}

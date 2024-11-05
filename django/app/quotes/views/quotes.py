@@ -161,7 +161,7 @@ def get_quotes(request, section: str):
     quote_list_factory = QuoteListFactory().create(section)
     quotes = quote_list_factory.quotes(**filters)
 
-    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=2)
+    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=5)
     ctx = {
         "search": search,
         "section": section,
@@ -270,7 +270,14 @@ def quote_partial_edit(request, pk):
     return render(
         request,
         "quotes/partials/quote_edit.html",
-        {"form": form, "title": gettext("Edit"), "quote": quote, "authors": authors},
+        {
+            "form": form,
+            "title": gettext("Edit"),
+            "quote": quote,
+            "authors": authors,
+            "editable": request.user.is_authenticated
+            and quote.created_by == request.user,
+        },
     )
 
 
@@ -282,6 +289,7 @@ def quote_partial_show(request, pk):
         "quotes/partials/quote_show.html",
         {
             "quote": quote,
+            "editable": True,
         },
     )
 
@@ -310,14 +318,23 @@ def quote_partial_actions_bar(request, pk):
     next = request.GET.get("next")
     action = request.GET.get("action")
 
+    ctx = {
+        "id": pk,
+        "action": action,
+        "next": next,
+    }
+    if action == "edit":
+        ctx["quote"] = quote_by_id(id=pk)
+        ctx["form"] = QuoteForm(instance=ctx["quote"])
+        ctx["authors"] = get_author_list()
+
+    if action == "show":
+        ctx["quote"] = quote_by_id(id=pk)
+
     return render(
         request,
         "quotes/partials/quote_actions_bar.html",
-        {
-            "id": pk,
-            "action": action,
-            "next": next,
-        },
+        context=ctx,
     )
 
 

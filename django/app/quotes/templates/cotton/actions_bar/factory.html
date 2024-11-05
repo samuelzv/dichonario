@@ -10,6 +10,20 @@
         :id=id 
         :next=next 
     />
+
+    <c-quote-edit 
+        :quote=quote
+    />
+{% elif action == 'show' %}
+    <c-actions-bar.default 
+        :actions_bar_url=actions_bar_url
+        :id=id 
+        :next=next 
+    />
+
+    <c-quote-details 
+        :quote=quote
+    />
 {% else %}
     <c-actions-bar.default
         :actions_bar_url=actions_bar_url

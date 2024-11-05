@@ -1,0 +1,58 @@
+{% load i18n %}
+
+<c-quote>
+   <form method="post" action="{% url 'quote-partial-edit' quote.id %}" method="post">
+        <blockquote>
+            <div class="quote quote-edit" id="quote-{{quote.id}}" hx-swap="outerHTML" {{ attrs }}>
+                   {% csrf_token %}
+                   <fieldset>
+                     <div >
+                        <label for="quote_id">{% trans 'Quote' %}</label>
+                        <div>
+                          <textarea cols="50" rows="3" id="quote_id" name="quote" required>{{quote.quote}}</textarea>
+                          {{ form.quote.errors }}
+                        </div>
+                     </div>
+                     <div >
+                          <label for="id_list_author">{% trans "Author" %}</label>
+                          <div>
+                           {% component "datalist" name="author" initial_value=quote.author data=authors external_class=""  attrs:required=True %}
+                           {% endcomponent %}
+                          </div>
+                          {{ form.author.errors }}
+                     </div>
+                     <div class="row">
+                            <div class="col-xs-12 col-md-4">
+                                <fieldset>
+                                  <label>
+                                    <input 
+                                        name="is_private" 
+                                        id="is_private_id" 
+                                        type="checkbox" 
+                                        role="switch" 
+                                        {% if quote.is_private == True %}checked{% endif %}
+                                    />
+                                        {% trans "Private" %}
+                                  </label>
+                                  <label>
+                                </fieldset>
+                            </div>
+                     </div>
+                   </fieldset>
+            </div>
+        </blockquote>
+
+       <footer>
+            {% if editable == True %}
+                <div 
+                    class="quote-actions-bar" 
+                    id="quote-actions-bar-{{quote.id}}" 
+                >
+                <c-actions-bar.edit 
+                    :id=quote.id 
+                />
+                </div>
+            {% endif %}
+        </footer>
+    </form>
+</c-quote>

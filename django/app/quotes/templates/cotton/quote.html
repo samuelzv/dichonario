@@ -1,22 +1,8 @@
+
 {% load i18n %}
 
 <div x-data="{ isShow: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false">
     <article x-bind:class="isShow ? 'non-scaled-quote' : ''" class="quote scaled-quote">
-       <blockquote>
-            <c-quote-details />
-       </blockquote>
-       <footer>
-            {% if editable == True %}
-               {% url view_name as url_view_name %}
-               {% with next=url_view_name|add:'?page='|add:paginated_results.current_page|urlencode %}
-                    <div 
-                        class="quote-actions-bar" 
-                        id="quote-actions-bar-{{quote.id}}" 
-                    >
-                        <c-actions-bar.factory :id=quote.id />
-                    </div>
-               {% endwith %}
-            {% endif %}
-        </footer>
+        {{ slot }}
     </article>
 </div>

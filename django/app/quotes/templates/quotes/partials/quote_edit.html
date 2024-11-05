@@ -3,67 +3,8 @@
 {% load util %}
 {% load i18n %}
 
+
 {% block content %}
-    <div class="quote-edit" id="quote-{{quote.id}}" hx-swap="outerHTML">
-        <form method="post" action="{% url 'quote-partial-edit' quote.id %}" method="post">
-           {% csrf_token %}
-           <fieldset>
-             <div >
-                <label for="quote_id">{% trans 'Quote' %}</label>
-                <div>
-                  <textarea cols="50" rows="3" id="quote_id" name="quote" required>{{quote.quote}}</textarea>
-                  {{ form.quote.errors }}
-                </div>
-             </div>
-             <div >
-                  <label for="id_list_author">{% trans "Author" %}</label>
-                  <div>
-                   {% component "datalist" name="author" initial_value=quote.author data=authors external_class=""  attrs:required=True %}
-                   {% endcomponent %}
-                  </div>
-                  {{ form.author.errors }}
-             </div>
-             <div class="row">
-                    <div class="col-xs-12 col-md-4">
-                        <fieldset>
-                          <label>
-                            <input 
-                                name="is_private" 
-                                id="is_private_id" 
-                                type="checkbox" 
-                                role="switch" 
-                                {% if quote.is_private == True %}checked{% endif %}
-                            />
-                                {% trans "Private" %}
-                          </label>
-                          <label>
-                        </fieldset>
-                    </div>
-                    <div class="col-xs-12 col-md-8 center-xs end-md">
-                        <div class="form-actions">
-                            <c-secondary-button 
-                                hx-post="{% url 'quote-partial-edit' quote.id %}"  
-                                data-tooltip="{% trans 'Save' %}" 
-                                hx-target="#quote-{{quote.id}}"
-                            >
-                               {% trans "Save" %}
-                               <c-icons.save></c-icons.save>
-                            </c-secondary-button>
-
-                            <c-secondary-button 
-                                hx-get="{% url 'quote-partial-show' quote.id %}"  
-                                data-tooltip="{% trans 'Cancel' %}" 
-                                x-on:click="isEditing = false"
-                                hx-target="#quote-{{quote.id}}"
-                            >
-                                {% trans 'Cancel' %}
-                                <c-icons.cancel></c-icons.cancel>
-                            </c-secondary-button>
-                        </div>
-                    </div>
-             </div>
-           </fieldset>
-
-        </form>
-    </div>
+    <c-quote-edit :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" />
 {% endblock %}
+

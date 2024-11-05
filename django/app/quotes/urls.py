@@ -28,6 +28,11 @@ urlpatterns = [
     path("new", quotes.quote_new, name="quote-new"),
     path("quote/<int:pk>/edit-old", quotes.quote_edit_old, name="quote-edit-old"),
     path(
+        "quote/partial/<int:pk>/actions-bar",
+        quotes.quote_partial_actions_bar,
+        name="quote-partial-actions-bar",
+    ),
+    path(
         "quote/partial/<int:pk>/edit",
         quotes.quote_partial_edit,
         name="quote-partial-edit",
@@ -46,11 +51,6 @@ urlpatterns = [
         "quote/partial/<int:pk>/confirm-delete",
         quotes.quote_partial_confirm_delete,
         name="quote-partial-confirm-delete",
-    ),
-    path(
-        "quote/partial/<int:pk>/actions-bar",
-        quotes.quote_partial_actions_bar,
-        name="quote-partial-actions-bar",
     ),
     path(
         "quote/<int:pk>/delete",

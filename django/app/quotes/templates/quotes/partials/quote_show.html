@@ -1,6 +1,5 @@
 {% extends 'quotes/quotes_partials.html' %}
 
 {% block content %}
-    <c-quote-details>
-    </c-quote-details>
+   <c-quote-show :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" />
 {% endblock %}
