@@ -49,3 +49,8 @@
   align-items: baseline;
   gap: 1em;
 }
+
+.quotes-app .pagination {
+  display: flex;
+  justify-content: center;
+}
