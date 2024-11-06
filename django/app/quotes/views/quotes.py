@@ -308,16 +308,11 @@ def quote_partial_delete(request, pk):
 
 
 def quote_partial_confirm_delete(request, pk):
-    next = request.GET.get("next")
+    print("Deleting quote")
+    quote = quote_delete_by_id(id=pk)
+    print("-----------")
 
-    return render(
-        request,
-        "quotes/partials/quote_confirm_delete.html",
-        {
-            "id": pk,
-            "next": next,
-        },
-    )
+    return redirect("quote-main-mine")
 
 
 def quote_partial_actions_bar(request, pk):
@@ -404,8 +399,7 @@ class QuoteDeleteView(UserPassesTestMixin, DeleteView):
         return self.get_object().created_by == self.request.user
 
     def get_success_url(self) -> str:
-        next = self.request.GET.get("next")
-        return next if next else reverse("quote-list")
+        return reverse("quote-main-mine")
 
 
 def exit(request):
