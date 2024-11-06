@@ -5,7 +5,7 @@
     type="button" 
     id="quote-delete-confirm-{{id}}"
     class="pico-background-pink-600"
-    hx-get="{% url 'quote-partial-delete' id %}?next={{next}}"
+    hx-get="{% url 'quote-partial-delete' id %}"
     hx-target="#main-content"
 >
       <c-text-icon>
@@ -15,11 +15,11 @@
 </button>
 
 <c-secondary-button 
+    hx-get="{% url 'quote-partial-show' id %}"
+    hx-target="closest .quote"
+    hx-swap="outerHTML transition:true"
     data-tooltip="{% trans 'Cancel' %}" 
-    hx-swap="innerHTML transition:true"
-    hx-get="{{actions_bar_url}}?next={{next}}"
-    hx-target="closest .quote-actions-bar"
 >
-    {% trans "Cancel" %}
+    {% trans 'Cancel' %}
     <c-icons.cancel></c-icons.cancel>
 </c-secondary-button>

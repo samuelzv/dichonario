@@ -1,0 +1,35 @@
+{% load i18n %}
+
+<c-quote>
+   <blockquote>
+        <div id="quote-{{quote.id}}" 
+             class="quote-details" 
+        >
+            <section>
+              <div class="row start-xs center-md middle-xs" >
+                <div class="col-xs-4 col-sm-3">
+                    <c-author-image />
+                </div>
+                <div class="col-xs-8 col-sm-9">
+                    <p>"{{quote.quote}}"</p>
+                    <footer>
+                        <cite> - {{quote.author.name}}</cite>
+                    </footer>
+                </div>
+              </div>
+            </section>
+        </div>
+   </blockquote>
+   <footer>
+        {% if editable == True %}
+            <div 
+                class="quote-actions-bar" 
+                id="quote-actions-bar-{{quote.id}}" 
+            >
+                <c-actions-bar.delete 
+                    :id=quote.id 
+                />
+            </div>
+        {% endif %}
+    </footer>
+</c-quote>

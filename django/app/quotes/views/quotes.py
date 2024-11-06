@@ -295,10 +295,16 @@ def quote_partial_show(request, pk):
 
 
 def quote_partial_delete(request, pk):
-    next = request.GET.get("next")
-    quote = quote_delete_by_id(id=pk)
+    quote = quote_by_id(id=pk)
 
-    return HttpResponseRedirect(next)
+    return render(
+        request,
+        "quotes/partials/quote_delete.html",
+        {
+            "quote": quote,
+            "editable": True,
+        },
+    )
 
 
 def quote_partial_confirm_delete(request, pk):
