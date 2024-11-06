@@ -1,8 +1,8 @@
 
 {% load i18n %}
 
-<div x-data="{ isShow: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false">
-    <article x-bind:class="isShow ? 'non-scaled-quote' : ''" class="quote scaled-quote">
+<div x-data="{ isShow: false }" x-intersect="isShow = true" x-intersect:leave="isShow = false" class="quote">
+    <article x-bind:class="isShow ? 'non-scaled-quote' : ''" class="scaled-quote">
         {{ slot }}
     </article>
 </div>
