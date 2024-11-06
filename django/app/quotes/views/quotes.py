@@ -36,55 +36,55 @@ from ..services import quote_create, quote_update, author_create
 from ..forms import RegistrationForm
 from django.contrib.auth import login
 
-from django_svelte.views import SvelteTemplateView
+# from django_svelte.views import SvelteTemplateView
 
 
-class QuotesBaseSvelteTemplateView(SvelteTemplateView):
-    template_name = "quotes/svelte_component.html"
+# class QuotesBaseSvelteTemplateView(SvelteTemplateView):
+#     template_name = "quotes/svelte_component.html"
+#
+#     def get_svelte_props(self, **kwargs):
+#         return kwargs
 
-    def get_svelte_props(self, **kwargs):
-        return kwargs
 
-
-class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
-    def get_svelte_props(self, **kwargs):
-        set_session_action(self.request)
-        filters = {"user": self.request.user, "search": self.request.session["search"]}
-        action = self.request.session["action"]
-        quote_list_factory = QuoteListFactory().create(action)
-
-        quote_list = quote_list_factory.quotes(**filters).values(
-            "id",
-            "quote",
-            "author__name",
-            "author__image",
-            "author__image_sm",
-            "author__image_md",
-            "author__image_lg",
-            "created_by",
-        )
-        (quotes, pagination) = paginate_results(
-            quote_list, int(self.request.GET.get("page", 1)), 15
-        )
-
-        for q in quotes:
-            q["is_owner"] = q["created_by"] == self.request.user.id
-
-        kwargs.update(
-            {
-                "command_buttons": get_command_buttons(),
-                "i18n": get_i18n_quotes_list(),
-                "quotes": quotes,
-                "search": self.request.GET.get("search", ""),
-                "selected_command": action,
-                "pagination": pagination,
-                "quote_list_url": reverse("quote-list"),
-                "quote_new_url": reverse("quote-new"),
-                "language_code": self.request.LANGUAGE_CODE,
-            }
-        )
-
-        return kwargs
+# class QuoteListSvelteTemplateView(QuotesBaseSvelteTemplateView):
+#     def get_svelte_props(self, **kwargs):
+#         set_session_action(self.request)
+#         filters = {"user": self.request.user, "search": self.request.session["search"]}
+#         action = self.request.session["action"]
+#         quote_list_factory = QuoteListFactory().create(action)
+#
+#         quote_list = quote_list_factory.quotes(**filters).values(
+#             "id",
+#             "quote",
+#             "author__name",
+#             "author__image",
+#             "author__image_sm",
+#             "author__image_md",
+#             "author__image_lg",
+#             "created_by",
+#         )
+#         (quotes, pagination) = paginate_results(
+#             quote_list, int(self.request.GET.get("page", 1)), 15
+#         )
+#
+#         for q in quotes:
+#             q["is_owner"] = q["created_by"] == self.request.user.id
+#
+#         kwargs.update(
+#             {
+#                 "command_buttons": get_command_buttons(),
+#                 "i18n": get_i18n_quotes_list(),
+#                 "quotes": quotes,
+#                 "search": self.request.GET.get("search", ""),
+#                 "selected_command": action,
+#                 "pagination": pagination,
+#                 "quote_list_url": reverse("quote-list"),
+#                 "quote_new_url": reverse("quote-new"),
+#                 "language_code": self.request.LANGUAGE_CODE,
+#             }
+#         )
+#
+#         return kwargs
 
 
 def signup(request):
@@ -101,8 +101,8 @@ def signup(request):
     return render(request, "registration/signup.html", {"form": form})
 
 
-def index(request):
-    return render(request, "quotes/index.html")
+# def index(request):
+# return render(request, "quotes/index.html")
 
 
 def home(request):
@@ -119,29 +119,29 @@ def home(request):
     )
 
 
-@login_required
-def quote_list(request):
-    quotes = []
-    set_session_action(request)
-
-    if request.session["action"] == "mine":
-        quotes = quote_list_created_by(
-            user=request.user, search=request.session["search"]
-        )
-    else:
-        quotes = quote_list_public(request.session["search"])
-
-    return render(
-        request,
-        "quotes/quote_list.html",
-        {
-            "quotes": quotes,
-            "command_buttons": command_buttons,
-            "selected_command": request.session["action"],
-            "page": request.session["page"],
-            "search": request.session["search"],
-        },
-    )
+# @login_required
+# def quote_list(request):
+#     quotes = []
+#     set_session_action(request)
+#
+#     if request.session["action"] == "mine":
+#         quotes = quote_list_created_by(
+#             user=request.user, search=request.session["search"]
+#         )
+#     else:
+#         quotes = quote_list_public(request.session["search"])
+#
+#     return render(
+#         request,
+#         "quotes/quote_list.html",
+#         {
+#             "quotes": quotes,
+#             "command_buttons": command_buttons,
+#             "selected_command": request.session["action"],
+#             "page": request.session["page"],
+#             "search": request.session["search"],
+#         },
+#     )
 
 
 def quote_public(request):
@@ -289,7 +289,8 @@ def quote_partial_show(request, pk):
         "quotes/partials/quote_show.html",
         {
             "quote": quote,
-            "editable": True,
+            "editable": request.user.is_authenticated
+            and quote.created_by == request.user,
         },
     )
 
@@ -302,104 +303,103 @@ def quote_partial_delete(request, pk):
         "quotes/partials/quote_delete.html",
         {
             "quote": quote,
-            "editable": True,
+            "editable": request.user.is_authenticated
+            and quote.created_by == request.user,
         },
     )
 
 
 def quote_partial_confirm_delete(request, pk):
-    print("Deleting quote")
     quote = quote_delete_by_id(id=pk)
-    print("-----------")
 
     return redirect("quote-main-mine")
 
 
-def quote_partial_actions_bar(request, pk):
-    next = request.GET.get("next")
-    action = request.GET.get("action")
-
-    ctx = {
-        "id": pk,
-        "action": action,
-        "next": next,
-    }
-    if action == "edit":
-        ctx["quote"] = quote_by_id(id=pk)
-        ctx["form"] = QuoteForm(instance=ctx["quote"])
-        ctx["authors"] = get_author_list()
-
-    if action == "show":
-        ctx["quote"] = quote_by_id(id=pk)
-
-    return render(
-        request,
-        "quotes/partials/quote_actions_bar.html",
-        context=ctx,
-    )
-
-
-def quote_edit_old(request, pk):
-    quote = quote_by_id(id=pk)
-    next = request.GET.get("next")
-    author = None
-
-    if request.method == "POST":
-        author_id = request.POST.get("author")
-        if not author_id:
-            # theres no author, so try to  create a new one
-            author = author_create(
-                name=request.POST.get("author_text"), created_by=request.user
-            )
-            form = QuoteForm(
-                {
-                    "quote": request.POST.get("quote"),
-                    "author": author.id,
-                    "is_private": request.POST.get("is_private"),
-                },
-                instance=quote,
-            )
-        else:
-            author = author_by_id(id=author_id)
-            form = QuoteForm(request.POST)
-
-        if form.is_valid():
-            quote_update(
-                id=pk,
-                quote=form.cleaned_data["quote"],
-                author=form.cleaned_data["author"],
-                is_private=form.cleaned_data["is_private"],
-            )
-
-            return HttpResponseRedirect(next)
-    else:
-        form = QuoteForm(instance=quote)
-
-    authors = get_author_list()
-    return render(
-        request,
-        "quotes/quote_edit.html",
-        {
-            "form": form,
-            "title": gettext("Edit"),
-            "quote": quote,
-            "authors": authors,
-            "success_url": next,
-            "command_buttons": command_buttons,
-            "selected_command": "edit",
-        },
-    )
+# def quote_partial_actions_bar(request, pk):
+# next = request.GET.get("next")
+# action = request.GET.get("action")
+#
+# ctx = {
+# "id": pk,
+# "action": action,
+# "next": next,
+# }
+# if action == "edit":
+# ctx["quote"] = quote_by_id(id=pk)
+# ctx["form"] = QuoteForm(instance=ctx["quote"])
+# ctx["authors"] = get_author_list()
+#
+# if action == "show":
+# ctx["quote"] = quote_by_id(id=pk)
+#
+# return render(
+# request,
+# "quotes/partials/quote_actions_bar.html",
+# context=ctx,
+# )
 
 
-@method_decorator(login_required, name="dispatch")
-class QuoteDeleteView(UserPassesTestMixin, DeleteView):
-    model = Quote
+# def quote_edit_old(request, pk):
+#     quote = quote_by_id(id=pk)
+#     next = request.GET.get("next")
+#     author = None
+#
+#     if request.method == "POST":
+#         author_id = request.POST.get("author")
+#         if not author_id:
+#             # theres no author, so try to  create a new one
+#             author = author_create(
+#                 name=request.POST.get("author_text"), created_by=request.user
+#             )
+#             form = QuoteForm(
+#                 {
+#                     "quote": request.POST.get("quote"),
+#                     "author": author.id,
+#                     "is_private": request.POST.get("is_private"),
+#                 },
+#                 instance=quote,
+#             )
+#         else:
+#             author = author_by_id(id=author_id)
+#             form = QuoteForm(request.POST)
+#
+#         if form.is_valid():
+#             quote_update(
+#                 id=pk,
+#                 quote=form.cleaned_data["quote"],
+#                 author=form.cleaned_data["author"],
+#                 is_private=form.cleaned_data["is_private"],
+#             )
+#
+#             return HttpResponseRedirect(next)
+#     else:
+#         form = QuoteForm(instance=quote)
+#
+#     authors = get_author_list()
+#     return render(
+#         request,
+#         "quotes/quote_edit.html",
+#         {
+#             "form": form,
+#             "title": gettext("Edit"),
+#             "quote": quote,
+#             "authors": authors,
+#             "success_url": next,
+#             "command_buttons": command_buttons,
+#             "selected_command": "edit",
+#         },
+#     )
 
-    def test_func(self):
-        return self.get_object().created_by == self.request.user
 
-    def get_success_url(self) -> str:
-        return reverse("quote-main-mine")
+# @method_decorator(login_required, name="dispatch")
+# class QuoteDeleteView(UserPassesTestMixin, DeleteView):
+#     model = Quote
+#
+#     def test_func(self):
+#         return self.get_object().created_by == self.request.user
+#
+#     def get_success_url(self) -> str:
+#         return reverse("quote-main-mine")
 
 
 def exit(request):
