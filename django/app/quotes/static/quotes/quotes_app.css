@@ -26,9 +26,7 @@
   gap: 7px;
 }
 
-.primary-button {
-  min-width: 175px;
-}
+.primary-button {}
 
 .secondary-button {
 }

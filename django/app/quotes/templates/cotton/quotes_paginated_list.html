@@ -2,14 +2,15 @@
 {% load i18n %}
 
 {% url view_name as base_url %}
-<div id="paginated-content" class="container quote-list full-height " >
+<div id="paginated-content" class="quote-list full-height " >
     <form id="quote_list_form" action="{{base_url}}" class="full-height">
         {% for quote in paginated_results.list_items %}
             <c-quote-show :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" />
         {% endfor %}
     </form>
 
-    <!-- pagination controls -->
+    <!-- pagination controls 2 -->
+    {% comment %}
     {% if paginated_results.total_records > 0 %}
         {% get_previous_page_link base_url paginated_results search as previous_page_link %}
         {% get_next_page_link base_url paginated_results search as next_page_link %}
@@ -30,4 +31,5 @@
             </button>
         </div>
     {% endif %}
+    {% endcomment %}
 </div>
