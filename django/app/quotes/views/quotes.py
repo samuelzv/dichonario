@@ -161,7 +161,7 @@ def get_quotes(request, section: str):
     quote_list_factory = QuoteListFactory().create(section)
     quotes = quote_list_factory.quotes(**filters)
 
-    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=10)
+    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=3)
     ctx = {
         "search": search,
         "section": section,

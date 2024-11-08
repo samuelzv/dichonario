@@ -6,30 +6,15 @@
     <form id="quote_list_form" action="{{base_url}}" class="full-height">
         {% for quote in paginated_results.list_items %}
             <c-quote-show :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" />
+            {% if forloop.last %}
+                <div 
+                    hx-trigger="revealed"
+                    hx-get="{{base_url}}?page={{ paginated_results.current_page|add:1 }}"
+                    hx-swap="afterend"
+                >
+                 <c-icons.bars />
+                </div>
+            {% endif %}
         {% endfor %}
     </form>
-
-    <!-- pagination controls 2 -->
-    {% comment %}
-    {% if paginated_results.total_records > 0 %}
-        {% get_previous_page_link base_url paginated_results search as previous_page_link %}
-        {% get_next_page_link base_url paginated_results search as next_page_link %}
-        <div class="pagination">
-            <button 
-                type="button" 
-                hx-target="#main-content"
-                hx-get="{{previous_page_link}}" 
-                title="{% trans 'Go to previous page' %}" class="outline secondary" {% if paginated_results.has_previous == False %}disabled{% endif %}>
-                <
-            </button>
-            <button type="button" 
-                hx-target="#main-content"
-                hx-get="{{next_page_link}}" 
-                title="{% trans 'Go to next page' %}" 
-                class="outline secondary" {% if paginated_results.has_next == False %}disabled{% endif %}>
-            >
-            </button>
-        </div>
-    {% endif %}
-    {% endcomment %}
 </div>
