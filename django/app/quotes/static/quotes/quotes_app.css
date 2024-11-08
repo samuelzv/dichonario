@@ -52,3 +52,9 @@
   display: flex;
   justify-content: center;
 }
+
+.quotes-app .bar-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

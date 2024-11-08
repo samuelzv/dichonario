@@ -155,22 +155,28 @@ def quote_mine(request):
 
 def get_quotes(request, section: str):
     search = request.GET.get("search", "")
-    page_number = request.GET.get("page", "1")
+    current_page = int(request.GET.get("page", "1"))
 
     filters = {"user": request.user, "search": search}
     quote_list_factory = QuoteListFactory().create(section)
     quotes = quote_list_factory.quotes(**filters)
 
-    paginated = Paginated(queryset=quotes, current_page=page_number, page_size=3)
+    paginated = Paginated(queryset=quotes, current_page=current_page, page_size=3)
+    paginated_results = paginated.paginate()
+
     ctx = {
         "search": search,
         "section": section,
-        "paginated_results": paginated.paginate(),
+        "paginated_results": paginated_results,
+        "current_page": current_page,
         "view_name": "quote-main-%s" % section,
     }
 
     if "HX-Request" in request.headers:
-        return render(request, "quotes/partials/quote_list.html", context=ctx)
+        if request.GET.get("chunk", ""):
+            return render(request, "quotes/partials/quote_list_chunk.html", context=ctx)
+        else:
+            return render(request, "quotes/partials/quote_list.html", context=ctx)
 
     return render(request, "quotes/quote_main_list.html", context=ctx)
 
