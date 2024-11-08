@@ -65,6 +65,7 @@
         </div>
 
         <div class="col-xs-4 end-md">
+              {% if request.user.is_authenticated %}
               <button 
                 hx-get="{% url 'quote-new' %}"
                 hx-push-url="true"
@@ -76,6 +77,20 @@
                   <c-icons.new  />
                 </c-text-icon>
               </button>
+              {% else %}
+                <a 
+                  href="{% url 'login' %}?next={% url 'quote-new' %}"
+                >
+                  <button 
+                    class="primary-button outline secondary"
+                  >
+                    <c-text-icon>
+                      {% trans "New" %}
+                      <c-icons.new  />
+                    </c-text-icon>
+                  </button>
+                </a>
+              {% endif %}
         </div>
       </div>
       
