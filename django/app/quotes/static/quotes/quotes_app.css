@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  overflow-x: hidden;
 }
 
 .quotes-app .full-height,
@@ -57,4 +58,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 100px;
 }
