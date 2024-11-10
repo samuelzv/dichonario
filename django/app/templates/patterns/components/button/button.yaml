@@ -1,9 +1,0 @@
-name: Button
-context:
-  model:
-    type: outline
-    title: Hello World
-    tooltip: This is a tooltip
-    color: red 
-    is_submit: False
-    util_classes: w-16 text-xs

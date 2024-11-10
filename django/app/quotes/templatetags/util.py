@@ -1,12 +1,7 @@
 from django import template
 from django.urls import reverse
 from django.utils.translation import gettext, gettext_lazy
-from components.button.model import ButtonModel, ButtonType
 import ast
-
-# from quotes.domain.quote_session import QuoteSession
-# from components.buttongroup.model import Button
-from components.card.model import CardModel
 
 register = template.Library()
 
@@ -46,36 +41,8 @@ def get_type_writer_dic(text: str, index: int) -> dict:
 
 
 @register.simple_tag
-def map_quote_to_card(quote) -> CardModel:
-    return {
-        "id": quote.id,
-        "header_text": "",
-        "main_text": quote.quote,
-    }
-
-
-@register.simple_tag
 def get_app_name() -> str:
     return "Dichonario"
-
-
-@register.simple_tag
-def get_button_config(
-    type: ButtonType,
-    title: str,
-    tooltip: str,
-    color: str,
-    is_submit: bool,
-    util_classes: str,
-) -> ButtonModel:
-    return {
-        "type": type,
-        "title": gettext_lazy(title),
-        "tooltip": gettext_lazy(tooltip),
-        "color": color,
-        "is_submit": is_submit or False,
-        "util_classes": util_classes,
-    }
 
 
 @register.simple_tag(takes_context=True)

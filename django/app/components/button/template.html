@@ -1,8 +1,0 @@
-{% if model.type == 'default' %}
-<button type="submit" {% if model.tooltip %} title="{{model.tooltip}}" {% endif %} class="{{model.util_classes}}">{{model.title}}</button>
-{% endif %}
-
-
-{% if model.type == 'outline' %}
-<button {%if model.is_submit == True %}type="submit"{%else%}type="button"{% endif %}  {% if model.tooltip %} title="{{model.tooltip}}" {% endif %} class="{{model.util_classes}}">{{model.title}}</button>
-{% endif %}

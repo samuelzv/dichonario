@@ -1,7 +1,0 @@
-/* In a file called [project root]/components/calendar/style.css */
-.calendar-component {
-  width: 200px;
-}
-.calendar-component span {
-  font-weight: bold;
-}
