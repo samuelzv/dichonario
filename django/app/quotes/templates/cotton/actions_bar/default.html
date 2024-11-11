@@ -1,19 +1,11 @@
 {% load i18n %}
 
-<c-secondary-button 
-    hx-get="{% url 'toggle-favorite'  id %}"
-    hx-swap="outerHTML transition:true"
-    hx-target="this"
-    hx-trigger="click"
-    data-tooltip="{% trans 'Add to Favorites' %}" 
+<c-favorite
+    :id=id,
+    :is_favorite=is_favorite
 >
-    {% trans "Add to Favorites" %}
-    <c-favorite
-        :is_favorite=is_favorite
-    >
-    </c-favorite>
-</c-secondary-button>
 
+</c-favorite>
 <c-secondary-button 
     id="quote-edit-button-{{id}}"
     hx-get="{% url 'quote-partial-edit'  id %}"

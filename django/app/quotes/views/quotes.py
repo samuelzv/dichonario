@@ -179,7 +179,7 @@ def quote_partial_toggle_favorite(request, pk):
         request,
         "quotes/partials/favorite.html",
         {
-            "quote_id": pk,
+            "id": pk,
             "is_favorite": is_favorite,
         },
     )
