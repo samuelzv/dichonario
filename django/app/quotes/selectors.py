@@ -1,8 +1,21 @@
 from typing import Iterable
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from .models import Quote, Author, Language
+from .models import Favorite, Quote, Author, Language
 from django.db.models import Count
+
+
+def get_favorite_quote_from_user(*, quote: Quote, created_by: User):
+    favorite = None
+    try:
+        favorite = Favorite.objects.get(
+            quote=quote,
+            created_by=created_by,
+        )
+    except Favorite.DoesNotExist:
+        print("Favorite does not exist")
+
+    return favorite
 
 
 def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:

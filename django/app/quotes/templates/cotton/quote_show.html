@@ -26,11 +26,10 @@
                 class="quote-actions-bar" 
                 id="quote-actions-bar-{{quote.id}}" 
             >
-                <c-favorite 
-                    :is_favorite=is_favorite 
-                />
+
                 <c-actions-bar.default 
                     :id=quote.id 
+                    :is_favorite=is_favorite
                 />
             </div>
         {% endif %}

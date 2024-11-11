@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from .models import Quote, Author, Language
+from .models import Favorite, Quote, Author, Language
 
 
 def quote_create(
@@ -41,3 +41,9 @@ def author_create(*, name: str, created_by: User) -> Author:
     author = Author.objects.create(name=name, created_by=created_by)
 
     return author
+
+
+def favorite_create(*, quote: Quote, created_by: User) -> Favorite:
+    favorite = Favorite.objects.create(quote=quote, created_by=created_by)
+
+    return favorite

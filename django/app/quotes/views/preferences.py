@@ -5,11 +5,12 @@ from django.http import JsonResponse
 
 
 def theme(request):
-    theme = request.POST.get("theme", 'dark')
+    theme = request.POST.get("theme", "dark")
 
     response = HttpResponse(
-        JsonResponse({'theme': theme}), 
-        content_type='application/json')
+        JsonResponse({"theme": theme}), content_type="application/json"
+    )
+
     response.set_cookie("theme", theme)
 
     return response

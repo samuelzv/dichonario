@@ -5,6 +5,9 @@
 
 {% for quote in paginated_results.list_items %}
     {% get_is_favorite quote as is_favorite %}
+    <div>
+        isFavorite: {{is_favorite}}
+    </div>
     <c-quote-show 
         :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" 
         :is_favorite=is_favorite
