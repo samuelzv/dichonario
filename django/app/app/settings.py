@@ -16,7 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CUSTOM_WELCOME_ID = 23
+CUSTOM_WELCOME_ID = 2
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -42,6 +42,8 @@ THIRD_PARTY_APPS = [
     "pattern_library",
     "django_svelte",
     "django_cotton",
+    "rest_framework",
+    "corsheaders",
     # 'django_cotton.apps.SimpleAppConfig',
 ]
 
@@ -225,3 +227,8 @@ PATTERN_LIBRARY = {
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
     "BASE_TEMPLATE_NAMES": ["patterns/base_page.html"],
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]

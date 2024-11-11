@@ -1,8 +1,14 @@
 {% load paginator %}
 {% load i18n %}
+{% load util %}
+
 
 {% for quote in paginated_results.list_items %}
-    <c-quote-show :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" />
+    {% get_is_favorite quote as is_favorite %}
+    <c-quote-show 
+        :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" 
+        :is_favorite=is_favorite
+    />
     {% if forloop.last and paginated_results.has_next == True %}
         <div 
             hx-trigger="revealed delay:.5s"

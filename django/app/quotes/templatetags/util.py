@@ -1,6 +1,9 @@
 from django import template
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext, gettext_lazy
+from quotes.models import Quote
+from django.core.exceptions import ObjectDoesNotExist
 import ast
 
 register = template.Library()
@@ -14,6 +17,22 @@ def get_url_from_button(button):
 @register.simple_tag
 def create_dict(str_dict):
     return ast.literal_eval(str_dict)
+
+
+@register.simple_tag(takes_context=True)
+def get_is_favorite(context, quote: Quote) -> bool:
+    try:
+        if context["request"].user.is_authenticated:
+            print("quote is: ", quote.quote)
+            print("quote id: ", quote.id)
+            print("user is: ", context["request"].user.id)
+            if quote.favorites.get(id=context["request"].user.id):
+                return True
+    except ObjectDoesNotExist as e:
+        print("Object does not exist")
+        print(e)
+
+    return False
 
 
 @register.simple_tag

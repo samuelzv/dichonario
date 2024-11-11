@@ -60,3 +60,12 @@
   align-items: center;
   margin-bottom: 100px;
 }
+
+.quotes-app .is-favorite {
+  border: 1px solid red;
+  color: yellow;
+}
+
+.quotes-app .favorite {
+  cursor: pointer;
+}

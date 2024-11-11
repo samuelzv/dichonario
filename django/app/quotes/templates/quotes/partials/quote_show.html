@@ -1,5 +1,10 @@
 {% extends 'quotes/quotes_partials.html' %}
+{% load util %}
+
 
 {% block content %}
-   <c-quote-show :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" />
+   {% get_is_favorite quote as is_favorite %}
+   <c-quote-show 
+      :is_favorite = is_favorite
+      :editable="{% if request.user.is_authenticated and quote.created_by == request.user %}True{%else%}False{% endif %}" />
 {% endblock %}

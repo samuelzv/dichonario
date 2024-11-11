@@ -290,14 +290,19 @@ def quote_partial_edit(request, pk):
 def quote_partial_show(request, pk):
     quote = quote_by_id(id=pk)
 
+    ctx = {
+        "quote": quote,
+        "editable": request.user.is_authenticated and quote.created_by == request.user,
+    }
+    # "is_favorite": Favorite.objects.filter(quote=quote, created_by=request.user).exists()
+
+    # if ctx["editable"]:
+    # ctx["is_favorite"] = quote.favorites.get(created_by=request.user)
+
     return render(
         request,
         "quotes/partials/quote_show.html",
-        {
-            "quote": quote,
-            "editable": request.user.is_authenticated
-            and quote.created_by == request.user,
-        },
+        context=ctx,
     )
 
 

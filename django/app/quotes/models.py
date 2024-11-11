@@ -33,10 +33,10 @@ class Language(BaseModel):
 class Author(BaseModel):
     name = models.CharField(max_length=200, unique=True)
     authorized = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='images', null=True, blank=True)
-    image_sm = models.ImageField(upload_to='images', null=True, blank=True)
-    image_md = models.ImageField(upload_to='images', null=True, blank=True)
-    image_lg = models.ImageField(upload_to='images', null=True, blank=True)
+    image = models.ImageField(upload_to="images", null=True, blank=True)
+    image_sm = models.ImageField(upload_to="images", null=True, blank=True)
+    image_md = models.ImageField(upload_to="images", null=True, blank=True)
+    image_lg = models.ImageField(upload_to="images", null=True, blank=True)
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True
     )
@@ -70,6 +70,28 @@ class Quote(BaseModel):
         Author, on_delete=models.SET_NULL, null=True, related_name="quotes"
     )
 
+    favorite = models.ForeignKey(
+        "Favorite",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="quotes",
+    )
+
     language = models.ForeignKey(
         Language, on_delete=models.SET_NULL, null=True, related_name="quotes"
+    )
+
+
+class Favorite(BaseModel):
+    quote = models.ForeignKey(
+        Quote,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="favorites",
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
     )
