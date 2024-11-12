@@ -1,8 +1,5 @@
 
 <c-favorite 
-  id="favorite-quote-{{id}}"
-  hx-get="{% url 'toggle-favorite' id %}"
-  hx-target="favorite-quote-{{id}}"
-  hx-swap="outerHTML"
+  :id=id
   :is_favorite=is_favorite 
 />

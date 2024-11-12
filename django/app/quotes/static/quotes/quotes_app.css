@@ -31,6 +31,10 @@
 
 .secondary-button {
 }
+.no-border-button {
+  border: 0;
+  padding: 0;
+}
 
 .quote-delete-section {
   display: flex;
@@ -62,7 +66,7 @@
 }
 
 .quotes-app .is-favorite {
-  color: yellow;
+  color: #ffac33;
 }
 
 .quotes-app .favorite {

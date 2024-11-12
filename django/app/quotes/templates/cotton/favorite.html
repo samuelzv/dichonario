@@ -1,31 +1,24 @@
 {% load i18n %}
 
-<h1>
-    id: {{ id }}
-</h1>
 {% if is_favorite %}
-    <c-secondary-button 
-        class="favorite is-favorite"
+    <c-no-border-button 
         hx-get="{% url 'toggle-favorite' id %}"
         hx-swap="outerHTML transition:true"
         hx-target="this"
         hx-trigger="click"
         data-tooltip="{% trans 'Remove from Favorites' %}" 
     >
-        {% trans "Remove from Favorites" %}
-        <c-icons.star />
-    </c-secondary-button>
+        <c-icons.favorite-on class="favorite is-favorite" />
+    </c-no-border-button>
 
 {% else %}
-    <c-secondary-button 
-        class="favorite"
+    <c-no-border-button 
         hx-get="{% url 'toggle-favorite' id %}"
         hx-swap="outerHTML transition:true"
         hx-target="this"
         hx-trigger="click"
         data-tooltip="{% trans 'Add to Favorites' %}" 
     >
-        {% trans "Add to Favorites" %}
-        <c-icons.star />
-    </c-secondary-button>
+        <c-icons.favorite-off class="favorite" />
+    </c-no-border-button>
 {% endif %}
