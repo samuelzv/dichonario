@@ -22,6 +22,9 @@ def create_dict(str_dict):
 
 @register.simple_tag(takes_context=True)
 def get_is_favorite(context, quote: Quote) -> bool:
+    if not context["request"].user.is_authenticated:
+        return False
+
     favorite = get_favorite_quote_from_user(
         quote=quote,
         created_by=context["request"].user,
