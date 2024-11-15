@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Union
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import Favorite, Quote, Author, Language
@@ -53,13 +53,15 @@ def author_by_id(*, id: int) -> Author:
     return found
 
 
-def quote_by_id(*, id: int) -> Quote:
-    found = Quote.objects.get(id=id)
+def quote_by_id(*, id: int) -> Union[Quote, None]:
+    quote = None
 
-    if found is None:
-        raise ValidationError("Invalid quote id")
+    try:
+        quote = Quote.objects.get(id=id)
+    except Quote.DoesNotExist:
+        print("Quote does not exist")
 
-    return found
+    return quote
 
 
 def quote_delete_by_id(*, id: int) -> Quote:

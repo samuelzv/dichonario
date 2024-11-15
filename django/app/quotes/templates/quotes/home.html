@@ -10,7 +10,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/home.css' %}">
 
     <div class='container home'>
-        <c-quote-show></c-quote-show>
+        {% if quote is not None %}
+            <c-quote-show></c-quote-show>
+        {% endif %}
         <div>
             <a href="{% url 'quote-main-public' %}">
                 <button type="button">
