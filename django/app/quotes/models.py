@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import Q
 
+from pgvector.django import VectorField
+
 
 class BaseModel(models.Model):
     id = models.AutoField(primary_key=True)
@@ -62,6 +64,7 @@ class Quote(BaseModel):
     authorized = models.BooleanField(default=False)
     is_private = models.BooleanField(default=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    embedding = VectorField(dimensions=1536)
 
     def __str__(self):
         return str(self.quote)

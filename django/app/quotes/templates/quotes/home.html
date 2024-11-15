@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'quotes/home.css' %}">
 
     <div class='container home'>
-        {% if quote is not None %}
+        {% if quote %}
             <c-quote-show></c-quote-show>
         {% endif %}
         <div>

@@ -42,8 +42,7 @@ THIRD_PARTY_APPS = [
     "pattern_library",
     "django_svelte",
     "django_cotton",
-    "rest_framework",
-    "corsheaders",
+    # "corsheaders",
     # 'django_cotton.apps.SimpleAppConfig',
 ]
 
@@ -76,11 +75,13 @@ STATICFILES_DIRS = [
 ]
 
 # good
-DJANGO_SVELTE_VITE_MANIFEST_PATH = (
-    BASE_DIR.parent / "svelte" / "dist" / ".vite" / "manifest.json"
-)
+# DJANGO_SVELTE_VITE_MANIFEST_PATH = (
+# BASE_DIR.parent / "svelte" / "dist" / ".vite" / "manifest.json"
+# )
 # because python manage.py shell was failing
-# DJANGO_SVELTE_VITE_MANIFEST_PATH = BASE_DIR.parent /  ".." / "svelte" / "dist" / ".vite" / "manifest.json"
+DJANGO_SVELTE_VITE_MANIFEST_PATH = (
+    BASE_DIR.parent / ".." / "svelte" / "dist" / ".vite" / "manifest.json"
+)
 
 
 MIDDLEWARE = [

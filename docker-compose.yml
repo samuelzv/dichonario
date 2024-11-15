@@ -27,10 +27,16 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:13-alpine
+    image: pgvector/pgvector:pg17
+    volumes:
+      - vectordb-postgres-data:/var/lib/postgresql/vectordb-data
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
     ports:
       - 5432:5432
+
+volumes:
+  vectordb-postgres-data:
+  static-data:
