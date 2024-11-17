@@ -16,6 +16,7 @@ EXPOSE 8000 3000
 
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
+    apk add --update --no-cache rust cargo && \
     apk add --update --no-cache gettext-dev && \
     apk add --update --no-cache npm && \
     apk add --update --no-cache postgresql-client && \

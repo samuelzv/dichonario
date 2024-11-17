@@ -1,0 +1,22 @@
+[
+  {
+    "model": "quotes.language",
+    "pk": 1,
+    "fields": {
+      "code": "en",
+      "name": "English",
+      "created_at": "2019-08-01T00:00:00Z",
+      "updated_at": "2019-08-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "quotes.language",
+    "pk": 2,
+    "fields": {
+      "code": "es",
+      "name": "Spanish",
+      "created_at": "2019-08-01T00:00:00Z",
+      "updated_at": "2019-08-01T00:00:00Z"
+    }
+  }
+]

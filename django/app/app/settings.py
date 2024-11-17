@@ -24,6 +24,7 @@ CUSTOM_WELCOME_ID = 2
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-qgvq$-x@k0im)=va9m)lc0p8bt0p96li*zh)1&5gtv8g=)^vbx'
 SECRET_KEY = os.environ.get("SECRET_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get("DEBUG", 0)))

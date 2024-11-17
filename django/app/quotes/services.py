@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import Favorite, Quote, Author, Language
+from .domain import embedding
 
 
 def quote_create(
@@ -16,6 +17,7 @@ def quote_create(
         author=author,
         language=language,
         is_private=is_private,
+        embedding=embedding.get_embeddeing(quote),
         created_by=created_by,
     )
 

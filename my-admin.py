@@ -14,6 +14,7 @@ def main():
     print("8. Update Web App - Build app")
     print("9. Update Web App - Upp app")
     print("10. Reinstall requirements")
+    print("11. Load fixtures")
 
     option = input("Select your option: ")
     result = None
@@ -144,6 +145,22 @@ def main():
                     "/bin/sh",
                     "-c",
                     '"python -m pip install -r requirements/base"',
+                ]
+            )
+        )
+    elif option == "11":
+        print(
+            " ".join(
+                [
+                    "docker",
+                    "exec",
+                    "-it",
+                    "-u",
+                    "root",
+                    "dichonario-app-1",
+                    "/bin/sh",
+                    "-c",
+                    '"python -m pip loaddata language"',
                 ]
             )
         )
