@@ -12,7 +12,7 @@
     {% if forloop.last and paginated_results.has_next == True %}
         <div 
             hx-trigger="revealed delay:.5s"
-            hx-get="{{base_url}}?chunk=true&page={{current_page|add:1 }}"
+            hx-get="{{base_url}}?chunk=true&page={{current_page|add:1 }}&search={{search}}"
             hx-swap="outerHTML"
             class="bar-loader"
         >

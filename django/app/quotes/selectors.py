@@ -37,11 +37,14 @@ def quote_list_public(search: str) -> Iterable[Quote]:
 
     if search:
         embedding = get_embedding(search)
-        results = list(Quote.objects.order_by(L2Distance("embedding", embedding)))
+        # Author.objects.annotate(num_quotes=Count("quotes"))
+        results = Quote.objects.annotate(
+            distance=L2Distance("embedding", embedding)
+        ).order_by("distance")
     else:
-        results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
+        results = Quote.objects.filter(**filter_dict).order_by("-created_at")
 
-    return results
+    return list(results)
 
 
 def author_by_id(*, id: int) -> Author:
