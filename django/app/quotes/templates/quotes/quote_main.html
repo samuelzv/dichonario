@@ -14,7 +14,7 @@
 
     <div x-data="{ selected: '{{section}}', selected_title: '{{selected_title}}' }">
       <div class="row">
-        <div class="col-xs-8">
+        <div class="col-xs-6">
           <details class="dropdown">
             <summary role="button" x-text="selected_title">
             </summary>
@@ -64,33 +64,38 @@
           </details>
         </div>
 
-        <div class="col-xs-4 end-md">
+        <div class="col-xs-6 end-md">
               {% if request.user.is_authenticated %}
-              <button 
-                hx-get="{% url 'quote-new' %}"
-                hx-push-url="true"
-                hx-target="#main-content"
-                class="primary-button outline secondary"
-              >
-                <c-text-icon>
-                  {% trans "New" %}
-                  <c-icons.new  />
-                </c-text-icon>
-              </button>
+                <c-secondary-button 
+                  hx-get="{% url 'quote-new' %}"
+                  hx-push-url="true"
+                  hx-target="#main-content"
+                >
+                  <c-text-icon>
+                    {% trans "New" %}
+                    <c-icons.new  />
+                  </c-text-icon>
+                </c-secondary-button>
               {% else %}
                 <a 
                   href="{% url 'login' %}?next={% url 'quote-new' %}"
                 >
-                  <button 
-                    class="primary-button outline secondary"
+                  <c-secondary-button 
                   >
                     <c-text-icon>
                       {% trans "New" %}
                       <c-icons.new  />
                     </c-text-icon>
-                  </button>
+                  </c-secondary-button>
                 </a>
               {% endif %}
+
+                <c-secondary-button>
+                  <c-text-icon>
+                    {% trans "Search" %}
+                    <c-icons.search  />
+                  </c-text-icon>
+                </c-secondary-button>
         </div>
       </div>
       

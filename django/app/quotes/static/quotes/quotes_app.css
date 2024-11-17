@@ -30,6 +30,8 @@
 .primary-button {}
 
 .secondary-button {
+  border: 0;
+  padding: 0;
 }
 .no-border-button {
   border: 0;
