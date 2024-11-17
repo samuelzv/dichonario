@@ -8,7 +8,7 @@ openai_client = OpenAI(
 )
 
 
-def get_embeddeing(text: str):
+def get_embedding(text: str):
     text = text.replace("\n", " ")
     return (
         openai_client.embeddings.create(

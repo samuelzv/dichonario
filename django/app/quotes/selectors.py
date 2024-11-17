@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import Favorite, Quote, Author, Language
 from django.db.models import Count
+from .domain.embedding import get_embedding
+from pgvector.django import L2Distance
 
 
 def get_favorite_quote_from_user(*, quote: Quote, created_by: User):
@@ -25,21 +27,19 @@ def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:
         filter_dict |= {"quote__icontains": search}
 
     results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
-    print("Results:", results)
-    print("Length:", len(results))
 
     return results
 
 
 def quote_list_public(search: str) -> Iterable[Quote]:
     filter_dict = {"is_private": False}
+    results = []
 
     if search:
-        filter_dict |= {"quote__icontains": search}
-
-    results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
-    print("Results:", results)
-    print("Length:", len(results))
+        embedding = get_embedding(search)
+        results = list(Quote.objects.order_by(L2Distance("embedding", embedding)))
+    else:
+        results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
 
     return results
 

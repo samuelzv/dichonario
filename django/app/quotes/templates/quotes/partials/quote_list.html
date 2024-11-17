@@ -2,6 +2,12 @@
 {% url view_name as base_url %}
 <div id="paginated-content" class="quote-list full-height " >
     <form id="quote_list_form" action="{{base_url}}" class="full-height">
+    <input type="hidden" id="search" name="search" value="{{search}}"  />
+     {% if search %}
+        <div>
+          <small>Results for: <ins>"{{search}}"</ins> <a href="javascript:clearAndSubmitForm()">Clear</a></small>
+        </div>
+     {% endif %}
       <c-quotes-paginated-list 
         :base_url=base_url 
         :paginated_results=paginated_results 

@@ -6,10 +6,6 @@ function closeDropdown(event) {
   event.target.closest("details").removeAttribute("open");
 }
 
-function submitForm(val) {
-  console.log(val.value);
-}
-
 function addTransitionClass(target) {
   var previous = document.querySelector('.sample-transition');
   if (previous) {
@@ -20,3 +16,21 @@ function addTransitionClass(target) {
     element.classList.add('sample-transition');
   }
 }
+
+function submitForm() {
+  document.getElementById("search").value = document.getElementById("search_modal_field").value;
+  var form = document.getElementById("quote_list_form");
+  if (form) {
+    form.submit();
+  }
+}
+
+function clearAndSubmitForm() {
+  document.getElementById("search").value = "";
+  var form = document.getElementById("quote_list_form");
+  if (form) {
+    form.submit();
+  }
+}
+
+

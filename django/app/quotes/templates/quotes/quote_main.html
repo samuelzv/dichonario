@@ -90,7 +90,11 @@
                 </a>
               {% endif %}
 
-                <c-secondary-button>
+                <c-secondary-button 
+                  id="search-link" 
+                  data-target="search-modal"
+                  onclick="toggleModal(event)"
+                >
                   <c-text-icon>
                     {% trans "Search" %}
                     <c-icons.search  />
@@ -106,4 +110,31 @@
       {% endblock %}
     </div>
 
+ <!-- Search modal -->
+    <dialog id="search-modal">
+      <article>
+        <header>
+          <button aria-label="Close" rel="prev"  data-target="search-modal" onclick="toggleModal(event)"></button>
+          <p>
+          </p>
+        </header>
+        <p>
+          Drop some text to search for 
+        </p>
+        <input type="search" id="search_modal_field" placeholder="Search" aria-label="Search" value="{{search}}" />
+        <footer>
+            <button
+              role="button"
+              class="secondary"
+              data-target="search-modal"
+              onclick="toggleModal(event)"
+            >
+              Cancel</button
+            ><button autofocus data-target="search-modal" onclick="submitForm();">
+              Confirm
+            </button>
+        </footer>
+      </article>
+    </dialog>
 {% endblock %}
+

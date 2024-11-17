@@ -17,7 +17,7 @@ def quote_create(
         author=author,
         language=language,
         is_private=is_private,
-        embedding=embedding.get_embeddeing(quote),
+        embedding=embedding.get_embedding(quote),
         created_by=created_by,
     )
 
