@@ -13,7 +13,7 @@
    {% get_text_by_section section as selected_title %}
 
     <div x-data="{ selected: '{{section}}', selected_title: '{{selected_title}}' }">
-      <div class="row">
+      <div class="row middle-xs">
         <div class="col-xs-6">
           <details class="dropdown">
             <summary role="button" x-text="selected_title">
@@ -64,7 +64,7 @@
           </details>
         </div>
 
-        <div class="col-xs-6 end-md">
+        <div class="col-xs-6 end-xs">
               {% if request.user.is_authenticated %}
                 <c-secondary-button 
                   hx-get="{% url 'quote-new' %}"

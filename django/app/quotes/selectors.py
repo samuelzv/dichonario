@@ -22,13 +22,21 @@ def get_favorite_quote_from_user(*, quote: Quote, created_by: User):
 
 def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:
     filter_dict = {"created_by": user}
+    results = []
 
     if search:
-        filter_dict |= {"quote__icontains": search}
+        embedding = get_embedding(search)
+        results = (
+            Quote.objects.annotate(
+                distance=L2Distance("embedding", embedding),
+            )
+            .filter(**filter_dict)
+            .order_by("distance")
+        )
+    else:
+        results = Quote.objects.filter(**filter_dict).order_by("-created_at")
 
-    results = list(Quote.objects.filter(**filter_dict).order_by("-created_at"))
-
-    return results
+    return list(results)
 
 
 def quote_list_public(search: str) -> Iterable[Quote]:
@@ -37,10 +45,13 @@ def quote_list_public(search: str) -> Iterable[Quote]:
 
     if search:
         embedding = get_embedding(search)
-        # Author.objects.annotate(num_quotes=Count("quotes"))
-        results = Quote.objects.annotate(
-            distance=L2Distance("embedding", embedding)
-        ).order_by("distance")
+        results = (
+            Quote.objects.annotate(
+                distance=L2Distance("embedding", embedding),
+            )
+            .filter(**filter_dict)
+            .order_by("distance")
+        )
     else:
         results = Quote.objects.filter(**filter_dict).order_by("-created_at")
 

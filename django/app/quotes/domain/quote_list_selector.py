@@ -22,7 +22,8 @@ class CreatedByStrategy(Strategy):
 
     def get_quotes(self, **params):
         return quote_list_created_by(
-            user=params.get("user"), search=params.get("search")
+            user=params.get("user"),
+            search=params.get("search"),
         )
 
 
