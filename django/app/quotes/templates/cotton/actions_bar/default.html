@@ -1,34 +1,37 @@
 {% load i18n %}
+<div class="actionbar-default">
+    <c-favorite
+        :id=id,
+        :is_favorite=is_favorite
+    >
+    </c-favorite>
 
-<c-favorite
-    :id=id,
-    :is_favorite=is_favorite
->
-</c-favorite>
+    <div>
+        <c-secondary-button 
+            id="quote-edit-button-{{id}}"
+            hx-get="{% url 'quote-partial-edit'  id %}"
+            hx-swap="outerHTML transition:true"
+            hx-target="closest .quote"
+            x-on:click="addTransitionClass('#quote-actions-bar-{{id}}')"
+            hx-trigger="click delay:100ms"
+            data-tooltip="{% trans 'Edit' %}" 
+        >
+            {% trans "Edit" %}
+            <c-icons.edit></c-icons.edit>
+        </c-secondary-button>
 
-<c-secondary-button 
-    id="quote-edit-button-{{id}}"
-    hx-get="{% url 'quote-partial-edit'  id %}"
-    hx-swap="outerHTML transition:true"
-    hx-target="closest .quote"
-    x-on:click="addTransitionClass('#quote-actions-bar-{{id}}')"
-    hx-trigger="click delay:100ms"
-    data-tooltip="{% trans 'Edit' %}" 
->
-    {% trans "Edit" %}
-    <c-icons.edit></c-icons.edit>
-</c-secondary-button>
-
-<c-secondary-button 
-    id="quote-delete-button-{{id}}"
-    hx-get="{% url 'quote-partial-delete'  id %}"
-    hx-swap="outerHTML transition:true"
-    hx-target="closest .quote"
-    x-on:click="addTransitionClass('#quote-actions-bar-{{id}}')"
-    hx-trigger="click delay:100ms"
-    data-tooltip="{% trans 'Delete' %}" 
->
-    {% trans "Delete" %}
-    <c-icons.delete></c-icons.delete>
-</c-secondary-button>
+        <c-secondary-button 
+            id="quote-delete-button-{{id}}"
+            hx-get="{% url 'quote-partial-delete'  id %}"
+            hx-swap="outerHTML transition:true"
+            hx-target="closest .quote"
+            x-on:click="addTransitionClass('#quote-actions-bar-{{id}}')"
+            hx-trigger="click delay:100ms"
+            data-tooltip="{% trans 'Delete' %}" 
+        >
+            {% trans "Delete" %}
+            <c-icons.delete></c-icons.delete>
+        </c-secondary-button>
+    </div>
+</div>
 

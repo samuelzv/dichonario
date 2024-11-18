@@ -8,8 +8,6 @@
 {% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'quotes/quote_list.css' %}">
-
    {% get_text_by_section section as selected_title %}
 
     <div x-data="{ selected: '{{section}}', selected_title: '{{selected_title}}' }">

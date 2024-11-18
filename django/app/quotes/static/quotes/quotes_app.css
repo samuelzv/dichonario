@@ -53,6 +53,14 @@
   display: flex;
   align-items: baseline;
   gap: 1em;
+  width: 100%;
+}
+
+.quotes-app .quote-actions-bar .actionbar-default {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .quotes-app .pagination {
@@ -74,3 +82,11 @@
 .quotes-app .favorite {
   cursor: pointer;
 }
+
+.quotes-app .quote-list .quote blockquote + footer {
+    display: flex;
+    flex: 1;
+}
+
+
+

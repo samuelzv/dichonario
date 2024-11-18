@@ -30,6 +30,7 @@ def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:
             Quote.objects.annotate(
                 distance=L2Distance("embedding", embedding),
             )
+            .filter(distance__lt=0.7)
             .filter(**filter_dict)
             .order_by("distance")
         )
@@ -49,6 +50,7 @@ def quote_list_public(search: str) -> Iterable[Quote]:
             Quote.objects.annotate(
                 distance=L2Distance("embedding", embedding),
             )
+            .filter(distance__lt=0.7)
             .filter(**filter_dict)
             .order_by("distance")
         )
