@@ -24,30 +24,20 @@ def get_favorite_quote_from_user(*, quote: Quote, created_by: User):
 
 def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:
     filter_dict = {"created_by": user}
-    results = []
 
-    if search:
-        results = get_quote_query(filter_dict, search)
-    else:
-        results = Quote.objects.filter(**filter_dict).order_by("-created_at")
-
-    return list(results)
+    return get_quote_query(filter_dict, search)
 
 
 def quote_list_public(search: str) -> Iterable[Quote]:
     filter_dict = {"is_private": False}
-    results = []
 
-    if search:
-        results = get_quote_query(filter_dict, search)
-    else:
-        results = Quote.objects.filter(**filter_dict).order_by("-created_at")
-
-    return list(results)
+    return get_quote_query(filter_dict, search)
 
 
 def get_quote_query(filter_dict, search):
-    if settings.CUSTOM_SEARCH_MODE == "SIMILARITY":
+    results = []
+
+    if settings.CUSTOM_SEARCH_MODE == "SIMILARITY" and search:
         embedding = get_embedding(search)
         results = (
             Quote.objects.annotate(
@@ -57,16 +47,17 @@ def get_quote_query(filter_dict, search):
             .filter(**filter_dict)
             .order_by("distance")
         )
-        return list(results)
-    elif settings.CUSTOM_SEARCH_MODE == "FTS":
+    elif settings.CUSTOM_SEARCH_MODE == "FTS" and search:
         results = Quote.objects.annotate(
             search=SearchVector("quote", "author__name", config="english")
         ).filter(
             search=search,
+            **filter_dict,
         )
-        return list(results)
+    else:
+        results = Quote.objects.filter(**filter_dict).order_by("-created_at")
 
-    return []
+    return list(results)
 
 
 def author_by_id(*, id: int) -> Author:
