@@ -32,6 +32,7 @@ services:
     image: pgvector/pgvector:pg17
     volumes:
       - vectordb-postgres-data:/var/lib/postgresql/vectordb-data
+      - ./docker/init-db:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}

@@ -160,7 +160,7 @@ def main():
                     "dichonario-app-1",
                     "/bin/sh",
                     "-c",
-                    '"python -m pip loaddata language"',
+                    '"python manage.py loaddata language"',
                 ]
             )
         )
