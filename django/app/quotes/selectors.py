@@ -5,6 +5,8 @@ from .models import Favorite, Quote, Author, Language
 from django.db.models import Count
 from .domain.embedding import get_embedding
 from pgvector.django import L2Distance
+from django.conf import settings
+from django.contrib.postgres.search import SearchVector
 
 
 def get_favorite_quote_from_user(*, quote: Quote, created_by: User):
@@ -25,15 +27,7 @@ def quote_list_created_by(*, user: User, search: str) -> Iterable[Quote]:
     results = []
 
     if search:
-        embedding = get_embedding(search)
-        results = (
-            Quote.objects.annotate(
-                distance=L2Distance("embedding", embedding),
-            )
-            .filter(distance__lt=0.7)
-            .filter(**filter_dict)
-            .order_by("distance")
-        )
+        results = get_quote_query(filter_dict, search)
     else:
         results = Quote.objects.filter(**filter_dict).order_by("-created_at")
 
@@ -45,6 +39,15 @@ def quote_list_public(search: str) -> Iterable[Quote]:
     results = []
 
     if search:
+        results = get_quote_query(filter_dict, search)
+    else:
+        results = Quote.objects.filter(**filter_dict).order_by("-created_at")
+
+    return list(results)
+
+
+def get_quote_query(filter_dict, search):
+    if settings.CUSTOM_SEARCH_MODE == "SIMILARITY":
         embedding = get_embedding(search)
         results = (
             Quote.objects.annotate(
@@ -54,10 +57,16 @@ def quote_list_public(search: str) -> Iterable[Quote]:
             .filter(**filter_dict)
             .order_by("distance")
         )
-    else:
-        results = Quote.objects.filter(**filter_dict).order_by("-created_at")
+        return list(results)
+    elif settings.CUSTOM_SEARCH_MODE == "FTS":
+        results = Quote.objects.annotate(
+            search=SearchVector("quote", "author__name", config="english")
+        ).filter(
+            search=search,
+        )
+        return list(results)
 
-    return list(results)
+    return []
 
 
 def author_by_id(*, id: int) -> Author:
